@@ -11,7 +11,8 @@
 
 > ⚠️ **mulerun 接手开发须知**：本文档是**详细设计文档**，不是开发执行手册。
 > 接手开发请先按顺序读：[INDEX.md](INDEX.md) → [roadmap-v2.md §四 实施进度表](roadmap-v2.md) → [DEV_SOP.md](DEV_SOP.md) → [RULES.md §八](../RULES.md)。
-> §十一/§十二/§十三 为占位设计，**Phase 3/4 开发前必须由人类补完数值**——mulerun 不要自己补占位数值。
+> §十一/§十二 为占位设计，**Phase 3/4 开发前必须由人类补完数值**——mulerun 不要自己补占位数值。
+> §十三 已定稿（2026-05-06），8 项待补完清单全部完成，4.5 可直接开发。
 
 ### 开发规则
 
@@ -1160,7 +1161,7 @@ function castRitual(id) {
 ## 十三、6 神系统（Phase B/C 中期决策层）
 
 > Phase 4（v0.19）落地。神祇为宗教页签的中期决策层，独立于教团/秘仪分叉——两条路玩家均可选同一个神。
-> 状态：占位设计，数值/教派/UI 待 Phase 4 开发前验证。
+> 状态：**已定稿**，8 项待补完清单全部完成，可进入 4.5 开发。
 
 ### 解锁条件
 
@@ -1175,27 +1176,297 @@ function castRitual(id) {
 - 每神 2-3 教派（内部细分，影响 buff 偏向）
 - 改宗冷却：每次改宗后 5 季
 
-### 6 神列表（占位）
+### 6 神列表（定稿）
 
-| # | 神名（占位） | 主题 | 被动加成方向 | 专属仪式方向 | 教派数 |
-|---|-------------|------|------------|------------|--------|
-| 1 | 山神 | 大地/建筑 | 建筑造价减免、基础资源产出 | 地脉强化、石化护盾 | 2 |
-| 2 | 月狐 | 灵性/符咒 | 符咒产出、灵术效果 | 月光沐浴、命丝编织 | 3 |
-| 3 | 篝火神 | 温暖/幸福 | 幸福加成、采集效率 | 篝火盛宴、暖意传递 | 2 |
-| 4 | 雾中无名 | 神秘/学识 | 研究速度、卷轴产出 | 迷雾启示、知识窃取 | 2 |
-| 5 | 祖灵集合 | 传承/人口 | 人口上限、授业效率 | 祖灵庇佑、血脉传承 | 2 |
-| 6 | 第六神（待定） | 商贸/外交 | 商队概率、铜钱产出 | 财神祝福、通商护佑 | 3 |
+| # | 神名 | ID | 主题 | 被动加成 | 专属仪式 | 教派数 |
+|---|------|-----|------|---------|---------|--------|
+| 1 | 山神 | `mountainGod` | 大地/建筑 | 建筑造价 -8%、石材/砖块产出 +10% | 地脉强化、石化护盾 | 2 |
+| 2 | 月狐 | `moonFox` | 灵性/符咒 | 符咒产出 +12%、灵术效果 +8% | 月光沐浴、命丝编织 | 3 |
+| 3 | 篝火神 | `bonfireGod` | 温暖/幸福 | 幸福 +0.08（固定值）、采集效率 +10% | 篝火盛宴、暖意传递 | 2 |
+| 4 | 雾中无名 | `namelessFog` | 神秘/学识 | 研究速度 +15%、卷轴配方产出 +10% | 迷雾启示、知识窃取 | 2 |
+| 5 | 祖灵集合 | `ancestorSpirit` | 传承/人口 | 狐狸上限 +5（固定值）、职业效率 +8% | 祖灵庇佑、血脉传承 | 2 |
+| 6 | 金尾商君 | `goldTailMerchant` | 商贸/外交 | 商队概率 +12%、铜钱产出 +15% | 财神祝福、通商护佑 | 3 |
 
-### Phase 4 开发前待补完
+> 被动加成为选定主神后即时生效的永久增益（直到改宗）。数值参考猫国太阳教团升级（+10%~15% 量级），保持在不改变资源链平衡的范围内。
 
-- [ ] 每位神的被动加成具体数值（参考：猫国 Order of the Sun / Scholasticism / Malkuth 量级）
-- [ ] 每位神的 2 个专属仪式：消耗（虔诚/圣油/通用资源）、效果、冷却
-- [ ] 每位神的教派细分：每教派 1 个额外被动（互斥选择）
-- [ ] 与教团/秘仪分叉的协同：是否某些神对教团/秘仪有额外加成？
-- [ ] 与通达副线的交互：第六神（商贸/外交）与通达声誉系统的联动？
-- [ ] UI 设计：神祇选择面板、教派选择面板、改宗确认弹窗
-- [ ] 数据结构：`G.deity`（当前主神）、`G.sect`（当前教派）、`G.deityCD`（改宗冷却）
-- [ ] 改宗虔诚归零是否影响 gracePct 计算（neutral：归零后重新累积即可）
+---
+
+### #1 每位神的被动加成具体数值
+
+> 设计原则：每神 2 条被动，一条偏产出乘数（%），一条偏固定值或造价修正。数值在 +5%~15% 区间，与 graceCap 50%→80% 叠加后不会破坏曲线。
+
+| 神 | 被动 A（效果键 → 值） | 被动 B（效果键 → 值） |
+|----|----------------------|----------------------|
+| 山神 | `_bldCostM: -0.08`（全建筑造价 -8%） | `_stoneM: 0.10, _brickM: 0.10`（石材/砖块产出 +10%） |
+| 月狐 | `_charmM: 0.12`（符咒产出 +12%） | `_spellBoost: 0.08`（灵术效果 +8%，灵修路专属，工业路改为 `_hapFlat: 0.03`） |
+| 篝火神 | `_hapFlat: 0.08`（幸福固定 +0.08） | `_gatherM: 0.10`（采集类职业效率 +10%：猎人/农夫） |
+| 雾中无名 | `_loreM: 0.15`（学识产出 +15%） | `_scrollCraftM: 0.10`（卷轴配方产出 +10%） |
+| 祖灵集合 | `_maxFoxFlat: 5`（狐狸上限 +5） | `_jobEffM: 0.08`（全职业效率 +8%） |
+| 金尾商君 | `_caravanProb: 0.12`（商队到达概率 +12%） | `_coinM: 0.15`（铜钱产出 +15%） |
+
+> 注：月狐被动 B 按主线自动适配——灵修路给 `_spellBoost`，工业路给 `_hapFlat`。引擎用 `G.mainLine` 判断。
+
+---
+
+### #2 每位神的 2 个专属仪式
+
+> 设计原则：1 个小仪式（消耗虔诚，短冷却），1 个大仪式（消耗圣油 + 通用资源，长冷却）。冷却与共通仪式（祈福/净化）独立计时。
+
+| 神 | 仪式 1（小） | ID | 消耗 | 效果 | 冷却 |
+|----|------------|-----|------|------|------|
+| 山神 | 地脉强化 | `earthPulse` | 虔诚 ×25 | 本季建筑造价额外 -15%（叠加被动） | 2 季 |
+| 月狐 | 月光沐浴 | `moonBath` | 虔诚 ×20 | 本季符咒/灵感产出 +25% | 2 季 |
+| 篝火神 | 篝火盛宴 | `bonfireFeast` | 虔诚 ×20 | 本季幸福 +0.15（固定值） | 2 季 |
+| 雾中无名 | 迷雾启示 | `fogReveal` | 虔诚 ×30 | 本季学识 +25%、下 1 个研究费用 -10% | 3 季 |
+| 祖灵集合 | 祖灵庇佑 | `ancestorShield` | 虔诚 ×25 | 本季不安 -20（固定值）+ 污染 -10 | 2 季 |
+| 金尾商君 | 财神祝福 | `fortuneBless` | 虔诚 ×20 | 本季铜钱产出 +30% | 2 季 |
+
+| 神 | 仪式 2（大） | ID | 消耗 | 效果 | 冷却 |
+|----|------------|-----|------|------|------|
+| 山神 | 石化护盾 | `petrifyShield` | 圣油 ×5 + 石材 ×200 | 3 季内污染产出 -50% | 5 季 |
+| 月狐 | 命丝编织 | `fateWeave` | 圣油 ×4 + 符咒 ×30 | 下次占卜可从 4 签中选（而非 3） | 5 季（至下次占卜消耗） |
+| 篝火神 | 暖意传递 | `warmthSpread` | 圣油 ×4 + 浆果 ×300 | 3 季内全资源产出 +8% | 5 季 |
+| 雾中无名 | 知识窃取 | `knowledgeSteal` | 圣油 ×6 + 卷轴 ×15 | 立即获得当前最贵未完成研究 15% 进度 | 6 季 |
+| 祖灵集合 | 血脉传承 | `bloodLegacy` | 圣油 ×5 + 古币 ×20 | 3 季内职业效率 +20% | 5 季 |
+| 金尾商君 | 通商护佑 | `tradeBlessing` | 圣油 ×4 + 铜钱 ×100 | 3 季内商队概率 +25%、远行奖励 +15% | 5 季 |
+
+> 持续效果存储在 `G._deityRitualBuff = { id, remain, effects }`，每季末 `remain--`，归 0 清除。
+
+---
+
+### #3 每位神的教派细分
+
+> 设计原则：每神 2-3 个教派，选定后额外获得 1 条被动。教派可改换（同神内），代价：虔诚 ×30，无冷却。教派选择独立于改宗——改宗后新神教派需重新选择。
+
+| 神 | 教派 A | ID | 额外被动 | 教派 B | ID | 额外被动 |
+|----|--------|-----|---------|--------|-----|---------|
+| 山神 | 磐石派 | `rockSect` | `_bldHpM: 0.10`（建筑耐久 +10%，即建筑效果衰减更慢） | 沃土派 | `soilSect` | `_baseProdM: 0.05`（基础资源产出 +5%：木/石/矿） |
+| 篝火神 | 焰心派 | `flameSect` | `_hapDecayReduce: 0.15`（幸福衰减速度 -15%） | 暖风派 | `warmSect` | `_foodM: 0.08`（食物产出 +8%） |
+| 雾中无名 | 窥秘派 | `peekSect` | `_researchDiscount: 0.05`（研究费用 -5%） | 忘我派 | `voidSect` | `_scrollM: 0.10`（卷轴产出 +10%） |
+| 祖灵集合 | 守望派 | `watchSect` | `_maxFoxFlat: 2`（狐狸上限额外 +2） | 师承派 | `teachSect` | `_expGainM: 0.10`（职业经验获取 +10%） |
+
+| 神 | 教派 A | ID | 额外被动 | 教派 B | ID | 额外被动 | 教派 C | ID | 额外被动 |
+|----|--------|-----|---------|--------|-----|---------|--------|-----|---------|
+| 月狐 | 弦月派 | `crescentSect` | `_charmM: 0.05`（符咒额外 +5%） | 满月派 | `fullMoonSect` | `_spellBoost: 0.05`（灵术额外 +5%） | 蚀月派 | `eclipseSect` | `_pietyM: 0.08`（虔诚产出 +8%） |
+| 金尾商君 | 锦囊派 | `purseSect` | `_coinM: 0.08`（铜钱额外 +8%） | 舶来派 | `importSect` | `_caravanReward: 0.10`（商队奖励 +10%） | 质库派 | `pawnSect` | `_tradeDiscount: 0.08`（交易消耗 -8%） |
+
+---
+
+### #4 与教团/秘仪分叉的协同（裁决）
+
+> **裁决：不设教团/秘仪专属神。** 6 神对两条路玩家完全对称开放，无额外隐性加成。
+>
+> 理由：(1) 教团/秘仪已各自有深度子系统（教令 vs 飞升），再给特定神加分叉加成会增加组合爆炸复杂度；(2) 月狐被动 B 已按主线适配（灵修=灵术效果 / 工业=幸福），这是唯一的主线相关差异，属于被动效果适配而非教团/秘仪加成。
+>
+> 未来扩展空间：Phase 5/6 可考虑在特定神 + 特定分叉组合下解锁额外成就或风味事件（纯叙事，不影响数值）。
+
+---
+
+### #5 与通达副线的交互（裁决）
+
+> **裁决：金尾商君（第六神）与通达声誉系统联动。**
+>
+> 联动规则（Phase 4 实施）：
+> - 选定金尾商君时，通达副线的声誉获取速度 +10%（`_repGainM: 0.10`）
+> - 金尾商君教派「舶来派」额外：邦交深度升级费用 -5%（`_allyUpgDiscount: 0.05`）
+> - 其余 5 神与通达副线无直接数值联动
+>
+> 引擎集成：在 `calcDiplomacy()` 或等效函数中检查 `G.deity === 'goldTailMerchant'`，叠加声誉乘数。教派效果在教派被动表中已列出，通过通用效果键处理。
+
+---
+
+### #6 UI 设计
+
+> 宗教页签新增「神祇」子区（位于仪式区下方）。
+
+**神祇选择面板**（初次选神 / 改宗后重选）：
+
+```
+┌─────────────────────────────────────────────────┐
+│  ◈ 选择主神                                      │
+│                                                   │
+│  [山神]   [月狐]   [篝火神]                        │
+│  [雾中无名] [祖灵集合] [金尾商君]                    │
+│                                                   │
+│  ─── 山神 ───                                     │
+│  主题：大地/建筑                                    │
+│  被动：建筑造价 -8% · 石材/砖块 +10%                │
+│  仪式：地脉强化 · 石化护盾                           │
+│  教派：磐石派 / 沃土派                               │
+│                                                   │
+│  [ 选定此神 ]                                      │
+└─────────────────────────────────────────────────┘
+```
+
+- 6 个图标按钮排 2 行 × 3 列
+- 悬停/点击显示该神详情（被动数值、仪式摘要、教派列表）
+- 当前已选神高亮边框 + 「当前」标签
+
+**教派选择面板**（选定主神后出现）：
+
+```
+┌─────────────────────────────────────────────────┐
+│  ◈ 山神 · 教派                                    │
+│                                                   │
+│  ● 磐石派：建筑耐久 +10%                           │
+│  ○ 沃土派：基础资源 +5%                             │
+│                                                   │
+│  [ 确认教派 ]    改换代价：虔诚 ×30                  │
+└─────────────────────────────────────────────────┘
+```
+
+- 单选按钮组
+- 当前教派标记「当前」
+- 改换教派仅消耗虔诚，无冷却
+
+**改宗确认弹窗**：
+
+```
+┌─────────────────────────────────────────────────┐
+│  ⚠ 改宗确认                                       │
+│                                                   │
+│  当前：山神（磐石派）→ 目标：月狐                     │
+│                                                   │
+│  代价：                                            │
+│    · 卷轴 ×80（当前：125 ✓）                        │
+│    · 古币 ×30（当前：42 ✓）                         │
+│    · 虔诚归零（当前：380 → 0）                       │
+│    · 改宗冷却 5 季                                  │
+│                                                   │
+│  ⚠ 教派选择将重置，需在新神下重新选择。                │
+│  ⚠ 神恩加成将因虔诚归零而暂时降至 0%。                │
+│                                                   │
+│  [ 取消 ]              [ 确认改宗 ]                 │
+└─────────────────────────────────────────────────┘
+```
+
+- 双重确认：点击「确认改宗」后弹出二次确认「此操作不可撤销，确定？」
+- 资源不足项标红 ✗
+- 改宗冷却期间「改宗」按钮灰显 + 倒计时文字
+
+---
+
+### #7 数据结构（定稿）
+
+```javascript
+// === 存档字段（G 对象） ===
+G.deity       = null;    // string|null — 当前主神 ID（'mountainGod'|'moonFox'|'bonfireGod'|'namelessFog'|'ancestorSpirit'|'goldTailMerchant'|null）
+G.sect        = null;    // string|null — 当前教派 ID（'rockSect'|'soilSect'|...|null）
+G.deityCD     = 0;       // number — 改宗冷却剩余季数（0=可改宗）
+G._deityRitualCD = {};   // object — 神专属仪式冷却 { earthPulse: 0, petrifyShield: 0, ... }
+G._deityRitualBuff = null; // object|null — 当前活跃大仪式 buff { id: string, remain: number, effects: object }
+
+// === 常量定义（data.js） ===
+const DEITY_DATA = {
+  mountainGod: {
+    n: '山神', theme: '大地/建筑',
+    passive: { _bldCostM: -0.08, _stoneM: 0.10, _brickM: 0.10 },
+    rituals: ['earthPulse', 'petrifyShield'],
+    sects: ['rockSect', 'soilSect'],
+  },
+  moonFox: {
+    n: '月狐', theme: '灵性/符咒',
+    passive: { _charmM: 0.12 },
+    passiveByLine: { M: { _spellBoost: 0.08 }, I: { _hapFlat: 0.03 } },
+    rituals: ['moonBath', 'fateWeave'],
+    sects: ['crescentSect', 'fullMoonSect', 'eclipseSect'],
+  },
+  bonfireGod: {
+    n: '篝火神', theme: '温暖/幸福',
+    passive: { _hapFlat: 0.08, _gatherM: 0.10 },
+    rituals: ['bonfireFeast', 'warmthSpread'],
+    sects: ['flameSect', 'warmSect'],
+  },
+  namelessFog: {
+    n: '雾中无名', theme: '神秘/学识',
+    passive: { _loreM: 0.15, _scrollCraftM: 0.10 },
+    rituals: ['fogReveal', 'knowledgeSteal'],
+    sects: ['peekSect', 'voidSect'],
+  },
+  ancestorSpirit: {
+    n: '祖灵集合', theme: '传承/人口',
+    passive: { _maxFoxFlat: 5, _jobEffM: 0.08 },
+    rituals: ['ancestorShield', 'bloodLegacy'],
+    sects: ['watchSect', 'teachSect'],
+  },
+  goldTailMerchant: {
+    n: '金尾商君', theme: '商贸/外交',
+    passive: { _caravanProb: 0.12, _coinM: 0.15 },
+    rituals: ['fortuneBless', 'tradeBlessing'],
+    sects: ['purseSect', 'importSect', 'pawnSect'],
+  },
+};
+
+const DEITY_RITUAL_DATA = {
+  // 小仪式（虔诚消耗）
+  earthPulse:     { n: '地脉强化', deity: 'mountainGod', cost: [{ r:'piety', a:25 }], dur: 0, e: { _bldCostM: -0.15 }, cd: 2 },
+  moonBath:       { n: '月光沐浴', deity: 'moonFox',     cost: [{ r:'piety', a:20 }], dur: 0, e: { _charmM: 0.25 },    cd: 2 },
+  bonfireFeast:   { n: '篝火盛宴', deity: 'bonfireGod',  cost: [{ r:'piety', a:20 }], dur: 0, e: { _hapFlat: 0.15 },   cd: 2 },
+  fogReveal:      { n: '迷雾启示', deity: 'namelessFog',  cost: [{ r:'piety', a:30 }], dur: 0, e: { _loreM: 0.25, _researchDiscount: 0.10 }, cd: 3 },
+  ancestorShield: { n: '祖灵庇佑', deity: 'ancestorSpirit', cost: [{ r:'piety', a:25 }], dur: 0, e: { _unrestReduce: 20, _pollReduce: 10 }, cd: 2 },
+  fortuneBless:   { n: '财神祝福', deity: 'goldTailMerchant', cost: [{ r:'piety', a:20 }], dur: 0, e: { _coinM: 0.30 }, cd: 2 },
+
+  // 大仪式（圣油 + 通用资源消耗，持续效果）
+  petrifyShield:  { n: '石化护盾', deity: 'mountainGod', cost: [{ r:'holyOil', a:5 }, { r:'stone', a:200 }], dur: 3, e: { _pollProdM: -0.50 }, cd: 5 },
+  fateWeave:      { n: '命丝编织', deity: 'moonFox',     cost: [{ r:'holyOil', a:4 }, { r:'charm', a:30 }],  dur: -1, e: { _divDrawCount: 4 }, cd: 5 },
+  warmthSpread:   { n: '暖意传递', deity: 'bonfireGod',  cost: [{ r:'holyOil', a:4 }, { r:'berry', a:300 }], dur: 3, e: { _allProdM: 0.08 }, cd: 5 },
+  knowledgeSteal: { n: '知识窃取', deity: 'namelessFog',  cost: [{ r:'holyOil', a:6 }, { r:'scroll', a:15 }], dur: 0, e: { _researchProgress: 0.15 }, cd: 6 },
+  bloodLegacy:    { n: '血脉传承', deity: 'ancestorSpirit', cost: [{ r:'holyOil', a:5 }, { r:'ancientCoin', a:20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
+  tradeBlessing:  { n: '通商护佑', deity: 'goldTailMerchant', cost: [{ r:'holyOil', a:4 }, { r:'coin', a:100 }], dur: 3, e: { _caravanProb: 0.25, _expRewardM: 0.15 }, cd: 5 },
+};
+
+const SECT_DATA = {
+  rockSect:      { n: '磐石派', deity: 'mountainGod', passive: { _bldHpM: 0.10 } },
+  soilSect:      { n: '沃土派', deity: 'mountainGod', passive: { _baseProdM: 0.05 } },
+  crescentSect:  { n: '弦月派', deity: 'moonFox',     passive: { _charmM: 0.05 } },
+  fullMoonSect:  { n: '满月派', deity: 'moonFox',     passive: { _spellBoost: 0.05 } },
+  eclipseSect:   { n: '蚀月派', deity: 'moonFox',     passive: { _pietyM: 0.08 } },
+  flameSect:     { n: '焰心派', deity: 'bonfireGod',  passive: { _hapDecayReduce: 0.15 } },
+  warmSect:      { n: '暖风派', deity: 'bonfireGod',  passive: { _foodM: 0.08 } },
+  peekSect:      { n: '窥秘派', deity: 'namelessFog',  passive: { _researchDiscount: 0.05 } },
+  voidSect:      { n: '忘我派', deity: 'namelessFog',  passive: { _scrollM: 0.10 } },
+  watchSect:     { n: '守望派', deity: 'ancestorSpirit', passive: { _maxFoxFlat: 2 } },
+  teachSect:     { n: '师承派', deity: 'ancestorSpirit', passive: { _expGainM: 0.10 } },
+  purseSect:     { n: '锦囊派', deity: 'goldTailMerchant', passive: { _coinM: 0.08 } },
+  importSect:    { n: '舶来派', deity: 'goldTailMerchant', passive: { _caravanReward: 0.10 } },
+  pawnSect:      { n: '质库派', deity: 'goldTailMerchant', passive: { _tradeDiscount: 0.08 } },
+};
+
+// === migrate() 补丁 ===
+// if (G.deity === undefined) G.deity = null;
+// if (G.sect === undefined) G.sect = null;
+// if (G.deityCD === undefined) G.deityCD = 0;
+// if (!G._deityRitualCD) G._deityRitualCD = {};
+// if (!G._deityRitualBuff) G._deityRitualBuff = null;
+```
+
+---
+
+### #8 改宗虔诚归零对 gracePct 的影响（裁决）
+
+> **裁决：中性方案——归零后重新累积，无额外惩罚。**
+>
+> 行为：
+> 1. 改宗时 `G.res.piety.val = 0`
+> 2. `graceBonus` 公式依赖 `piety` 存量，归零后 `graceBonus = 0%`
+> 3. 虔诚通过建筑/职业正常产出重新累积，神恩自然恢复
+> 4. 不引入"信仰创伤"或"虔诚负债"机制——改宗的代价已通过资源消耗（卷轴 ×80 + 古币 ×30）和冷却（5 季）体现
+> 5. `graceCap` 不受改宗影响（由升级决定，不随虔诚归零降低）
+>
+> 引擎影响：无需修改 `calcR()` 中的 graceBonus 计算逻辑。`graceBonus = min(graceCap, (sqrt(1 + piety/100) - 1) × 50%)` 中 piety=0 自然返回 0%。
+
+---
+
+### Phase 4 开发前待补完（已完成）
+
+- [x] 每位神的被动加成具体数值（参考：猫国 Order of the Sun / Scholasticism / Malkuth 量级）→ 见 #1
+- [x] 每位神的 2 个专属仪式：消耗（虔诚/圣油/通用资源）、效果、冷却 → 见 #2
+- [x] 每位神的教派细分：每教派 1 个额外被动（互斥选择）→ 见 #3
+- [x] 与教团/秘仪分叉的协同：是否某些神对教团/秘仪有额外加成？→ 见 #4（裁决：不设专属加成）
+- [x] 与通达副线的交互：第六神（商贸/外交）与通达声誉系统的联动？→ 见 #5（裁决：金尾商君声誉 +10%）
+- [x] UI 设计：神祇选择面板、教派选择面板、改宗确认弹窗 → 见 #6
+- [x] 数据结构：`G.deity`（当前主神）、`G.sect`（当前教派）、`G.deityCD`（改宗冷却）→ 见 #7
+- [x] 改宗虔诚归零是否影响 gracePct 计算（neutral：归零后重新累积即可）→ 见 #8（裁决：中性方案）
 
 ---
 
