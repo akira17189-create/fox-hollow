@@ -619,12 +619,70 @@ function resBreakdown(k) {
 }
 
 // ===== 渲染：Tab栏 =====
+// 计算页签内"可点项数"——只算资源足且前置满足的可立即操作项
+function tabActionableCount(tabId) {
+  var n = 0;
+  if (tabId === 'b' || tabId === 'v' || tabId === 'f') {
+    // 这些 tab 的建筑：t === tabId
+    for (var bid in BD) {
+      var bd = BD[bid];
+      if (bd.t !== tabId) continue;
+      if (anyBranchLocked(bd)) continue;
+      if (!chk(bd.uq)) continue;
+      if (canB(bid)) n++;
+    }
+  } else if (tabId === 'c') {
+    // 工坊：CD 可见且可制
+    for (var cid in CD) {
+      var cd = CD[cid];
+      if (anyBranchLocked(cd)) continue;
+      if (!chk(cd.uq)) continue;
+      if (canC(cid)) n++;
+    }
+  } else if (tabId === 'r') {
+    // 研究：未完成 + on + 资源足
+    for (var rid in UD) {
+      if (G.upg[rid].done || !G.upg[rid].on) continue;
+      if (anyBranchLocked(UD[rid])) continue;
+      if (canU(rid)) n++;
+    }
+  } else if (tabId === 'w') {
+    // 山外：远行可派 + 商队可买
+    for (var did in EXD) {
+      var dd = EXD[did];
+      if (dd.wip) continue;
+      if (!chk(dd.uq)) continue;
+      if (isProdLocked('exp', did)) continue;
+      if (typeof canSendExp === 'function' && canSendExp(did) && (G.job.scout?.c || 0) > 0) n++;
+    }
+    if (G.caravan) {
+      var cv = CVD[G.caravan.id];
+      for (var si = 0; si < cv.sell.length; si++) {
+        if (typeof canBuyFromCaravan === 'function' && canBuyFromCaravan(si)) n++;
+      }
+    }
+  } else if (tabId === 'k') {
+    // 典制：习俗可激活
+    if (typeof CUSTD !== 'undefined') {
+      for (var ci = 0; ci < CUSTD.length; ci++) {
+        var c = CUSTD[ci];
+        if (typeof isCustomVisible === 'function' && !isCustomVisible(c)) continue;
+        if (G.customs && G.customs[c.id]) continue;
+        if (typeof canActivateCustom === 'function' && canActivateCustom(c.id)) n++;
+      }
+    }
+  }
+  return n;
+}
+
 function rTabs() {
   document.getElementById('tabs').innerHTML = TABS.filter(function(t) {
     return !t.uq || chk(t.uq);
   }).map(function(t) {
+    var n = tabActionableCount(t.id);
+    var badge = n > 0 ? '<span class="tab-badge">' + n + '</span>' : '';
     return '<div class="tab' + (t.id === curTab ? ' on' : '') +
-      '" onclick="curTab=\'' + t.id + '\';rTabs();rTC()">' + t.n + '</div>';
+      '" onclick="curTab=\'' + t.id + '\';rTabs();rTC()">' + t.n + badge + '</div>';
   }).join('');
 }
 
@@ -840,28 +898,46 @@ function rRes() {
     return;
   }
   var panel = document.getElementById('res-list');
-  var h = '', lc = '';
+  // 资源分类默认展开/折叠（基础默认展开，其他默认折叠）
+  var DEFAULT_EXPANDED_CATS = { '基础': true };
+  function isCatCollapsed(cat) {
+    var k = 'resCat_' + cat;
+    if (k in collapsed) return collapsed[k];
+    return !DEFAULT_EXPANDED_CATS[cat];
+  }
+  // 先按分类分组
+  var catOrder = [], catItems = {};
   for (var k in RD) {
     var d = RD[k], s = G.res[k];
     if (!s.on) continue;
     if (isProdLocked('res', k)) continue;
-    if (d.c !== lc) { lc = d.c; h += '<div class="res-cat">' + d.c + '</div>'; }
-    var rr = '';
-    var realRate = s.r * 0.5;
-    if (Math.abs(realRate) > 0.0005) rr = '<span class="rr ' + (realRate >= 0 ? 'pos' : 'neg') + '">' +
-      (realRate >= 0 ? '+' : '') + fmt(realRate) + '/s</span>';
-
-    // resource hover panel
-    var sec = { tip: pickTip('res_' + k, d.tip) };
-    var bd = resBreakdown(k);
-    if (bd.length) sec.effects = bd;
-    var rnCls = 'rn' + (k === 'remnant' ? ' rn-remnant' : '');
-    var nameHtml = hpWrap('<span class="' + rnCls + '">' + d.n + '</span>', sec, { cls: 'hp-wrap-res' });
-
-    var rvCls = 'rv' + (k === 'remnant' ? ' rv-remnant' : '');
-    h += '<div class="res-row">' + nameHtml +
-      '<span class="' + rvCls + '">' + fmt(s.v) +
-      (s.mx > 0 ? '/' + fmt(s.mx) : '') + rr + '</span></div>';
+    if (!catItems[d.c]) { catOrder.push(d.c); catItems[d.c] = []; }
+    catItems[d.c].push(k);
+  }
+  var h = '';
+  for (var ci = 0; ci < catOrder.length; ci++) {
+    var cat = catOrder[ci];
+    var isColl = isCatCollapsed(cat);
+    h += '<div class="res-cat collapse-toggle" onclick="toggleCollapse(\'resCat_' + cat + '\')">'
+      + (isColl ? '▶︎ ' : '▼︎ ') + cat + ' <span style="color:#aaa;font-size:11px;">(' + catItems[cat].length + ')</span></div>';
+    if (isColl) continue;
+    for (var ki = 0; ki < catItems[cat].length; ki++) {
+      var k = catItems[cat][ki];
+      var d = RD[k], s = G.res[k];
+      var rr = '';
+      var realRate = s.r * 0.5;
+      if (Math.abs(realRate) > 0.0005) rr = '<span class="rr ' + (realRate >= 0 ? 'pos' : 'neg') + '">' +
+        (realRate >= 0 ? '+' : '') + fmt(realRate) + '/s</span>';
+      var sec = { tip: pickTip('res_' + k, d.tip) };
+      var bd = resBreakdown(k);
+      if (bd.length) sec.effects = bd;
+      var rnCls = 'rn' + (k === 'remnant' ? ' rn-remnant' : '');
+      var nameHtml = hpWrap('<span class="' + rnCls + '">' + d.n + '</span>', sec, { cls: 'hp-wrap-res' });
+      var rvCls = 'rv' + (k === 'remnant' ? ' rv-remnant' : '');
+      h += '<div class="res-row">' + nameHtml +
+        '<span class="' + rvCls + '">' + fmt(s.v) +
+        (s.mx > 0 ? '/' + fmt(s.mx) : '') + rr + '</span></div>';
+    }
   }
   document.getElementById('res-list').innerHTML = toggle + h;
   document.getElementById('fox-info').innerHTML =
@@ -877,6 +953,9 @@ function renderBldRow(id) {
   if (isProdLocked('bld', id)) return '';
   if (G.bld[id].c === 0 && (anyBranchLocked(d) || (d.uq && !chk(d.uq)))) return '';
   var ok = canB(id);
+  // 过滤栏
+  if (bldFilter === 'buildable' && !ok) return '';
+  if (bldFilter === 'built' && G.bld[id].c <= 0) return '';
   var costs = d.p.map(function(p, i) {
     var need = bp(id, i), have = G.res[p.r].v;
     return (have < need ? '<span class="short">' : '') +
@@ -935,9 +1014,25 @@ function renderBldRow(id) {
   return h;
 }
 
+var bldFilter = 'all';  // 'all' | 'buildable' | 'built'
+function setBldFilter(f) { bldFilter = f; rTC(); }
+
 function renderBldList(tab) {
   var groups = (tab === 'v') ? BLD_GROUPS_V : BLD_GROUPS;
   var h = '';
+  // 过滤栏
+  var chipDef = [
+    { k: 'all', n: '全部' },
+    { k: 'buildable', n: '可建造' },
+    { k: 'built', n: '已建' },
+  ];
+  h += '<div class="bld-filter">';
+  for (var ci = 0; ci < chipDef.length; ci++) {
+    var c = chipDef[ci];
+    var on = bldFilter === c.k;
+    h += '<span class="bld-chip' + (on ? ' on' : '') + '" onclick="setBldFilter(\'' + c.k + '\')">' + c.n + '</span>';
+  }
+  h += '</div>';
   // 分组渲染
   for (var gi = 0; gi < groups.length; gi++) {
     var grp = groups[gi];
