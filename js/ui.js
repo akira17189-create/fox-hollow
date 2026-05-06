@@ -6,7 +6,7 @@
 // ===== 发布版裁剪（dev/prod 双模式） =====
 // 本地 localhost / 127.0.0.1 = dev 模式，所有内容可见（开发测试用）
 // 其他域名（GitHub Pages / mule pages 等）= prod 模式，按 PROD_LOCKED 列表过滤
-// 这是临时机制——在 mulerun 完成 Phase 1 重构、内容补全前，发布版只展示到驿道/云岭/染丝
+// 这是临时机制——在 mulerun 完成 Phase 1 重构、内容补全前，发布版只展示到驿道/云岭/彩络
 const IS_DEV = window.location.hostname === 'localhost'
             || window.location.hostname === '127.0.0.1';
 const PROD_LOCKED = {
@@ -120,7 +120,7 @@ function bldEffects(e) {
     else if (k === 'allM') r.push('全资源产量 +' + (v * 100 | 0) + '%');
     // v0.14 文化建筑专属字段
     else if (k === 'customAllM') r.push('全村产出 +' + (v * 100).toFixed(1) + '%/座 ×已激活习俗数');
-    else if (k === 'craftCultureMul') r.push('染丝/果酒/墨锭产能 +' + (v * 100 | 0) + '%/座');
+    else if (k === 'craftCultureMul') r.push('彩络/醴浆/墨锭产能 +' + (v * 100 | 0) + '%/座');
     // 能量系统
     else if (k === 'energyP') r.push('能量产出 +' + v);
     else if (k === 'energyC') r.push('能量消耗 -' + v);
@@ -1177,7 +1177,7 @@ function rTC() {
     var hapHtml = hpWrap('<b>' + (G.happy * 100 | 0) + '%</b>', hapSec);
 
     h += '<div class="village-hdr">闲置：<b>' + Math.max(0, G.freeFox) +
-      '</b> / 总计 ' + G.foxes + ' &nbsp; 满意度：' + hapHtml + '</div>';
+      '</b> / 在村 ' + (G.foxes - (G.foxAway || 0)) + ' &nbsp; 满意度：' + hapHtml + '</div>';
     // v0.16 §四 1.2 治理建筑（议事堂/政堂）+ 后续 t:'v' 建筑
     h += renderBldList('v');
     var any = 0;
@@ -1520,6 +1520,7 @@ function rTC() {
       }
       for (var did in EXD) {
         var dd = EXD[did];
+        if (dd.wip) continue;  // 叙事未写完的目的地暂不开放
         if (!chk(dd.uq)) continue;
         if (isProdLocked('exp', did)) continue;
         var canSend = canSendExp(did);
@@ -1552,15 +1553,28 @@ function rTC() {
           h += '<span class="exp-fox-btns" style="color:#aaa;font-size:11px;">尚未训练斥候</span>';
           h += '<button class="bld-btn" disabled>派遣</button>';
         } else {
-          var maxSend = Math.min(3, scoutAvail);
           var selVal = _expFoxSel[did] || 1;
+          if (selVal > scoutAvail) selVal = scoutAvail;
           h += '<span class="exp-fox-btns">';
+          // 1/2/3 固定按钮（最多 3 个），超过 scoutAvail 的禁用
           for (var fi = 1; fi <= 3; fi++) {
             var isSel = fi === selVal;
-            var dis = fi > maxSend;
+            var dis = fi > scoutAvail;
             h += '<button class="exp-fox-btn' + (isSel ? ' sel' : '') + '"' +
               (dis ? ' disabled' : ' onclick="_expFoxSel[\'' + did + '\']=' + fi + ';rTC()"') +
               '>' + fi + '只</button>';
+          }
+          // 全部按钮（≥4 时显示）
+          if (scoutAvail >= 4) {
+            var allSel = selVal === scoutAvail;
+            h += '<button class="exp-fox-btn' + (allSel ? ' sel' : '') + '"' +
+              ' onclick="_expFoxSel[\'' + did + '\']=' + scoutAvail + ';rTC()"' +
+              '>全部 ' + scoutAvail + '</button>';
+          }
+          // 速度提示
+          var speedMul = Math.max(0.5, 1 - (selVal - 1) * 0.10);
+          if (selVal > 1) {
+            h += '<span style="font-size:11px;color:#666;margin-left:4px;">×' + (speedMul * 100 | 0) + '% 时间</span>';
           }
           h += '</span>';
           h += '<button class="bld-btn" onclick="sendExpedition(\'' + did + '\', _expFoxSel[\'' + did + '\'] || 1)" ' +
@@ -1578,7 +1592,8 @@ function rTC() {
       h += '<div class="cv-name">' + cv.n + ' <span style="color:#888;font-size:11px;">（停留至本季结束）</span></div>';
       for (var si = 0; si < cv.sell.length; si++) {
         var item = cv.sell[si];
-        var bought = G.caravan.bought[si];
+        var boughtRaw = G.caravan.bought[si];
+        var boughtCount = (typeof boughtRaw === 'number') ? boughtRaw : (boughtRaw ? 10 : 0);
         var canBuyNow = canBuyFromCaravan(si);
         var costStr = item.cost.map(function(p) {
           var have = G.res[p.r].v;
@@ -1587,10 +1602,10 @@ function rTC() {
         }).join(', ');
         var giveStr = item.give.map(function(p) { return RD[p.r].n + ' ×' + p.a; }).join(', ');
         h += '<div class="cv-item">';
-        h += '<span class="cv-item-name">购买 ' + giveStr + '</span>';
+        h += '<span class="cv-item-name">购买 ' + giveStr + ' <span style="color:#888;font-size:11px;">(' + boughtCount + '/10)</span></span>';
         h += '<span class="bld-cost">' + costStr + '</span>';
-        if (bought) {
-          h += '<span class="cv-bought">已购</span>';
+        if (boughtCount >= 10) {
+          h += '<span class="cv-bought">已购满</span>';
         } else {
           h += '<button class="bld-btn" onclick="buyFromCaravan(' + si + ')" ' + (canBuyNow ? '' : 'disabled') + '>购买</button>';
         }
@@ -1772,8 +1787,10 @@ function rTC() {
       h += '<div class="govern-divider"></div>';
       h += renderPolityTab();
     }
+  }
 
-    // §五 2.9 成就面板
+  // ===== §十一 成就页签 =====
+  else if (curTab === 'a') {
     h += renderAchievements();
   }
 
@@ -2040,30 +2057,28 @@ function rTC() {
   document.getElementById('tc').innerHTML = toggle + h;
 }
 
-// ===== §五 2.9 成就面板渲染 =====
+// ===== §五 2.9 + §十一 成就页签渲染 =====
+// 单卡显示：已解锁=完整 + 加重；未解锁=完整名称+描述+灰色
+// 分支过滤：仅当对方路线已选时隐藏冲突项；未选路时全部展示
 function renderAchievements() {
   var ach = G.achievements || {};
-  var chosenBr = G.policies && G.policies.branch;
+  var chosenBr = G.mainLine === 'industry' ? 'I' : (G.mainLine === 'mystic' ? 'M' : null);
   var total = 0, done = 0;
   for (var id in ACHIEVEMENT_DATA) {
     var ad = ACHIEVEMENT_DATA[id];
-    // 分支过滤：仅显示当前路线或无路线限制的成就
     if (ad.br && chosenBr && ad.br !== chosenBr) continue;
-    if (ad.br && !chosenBr) continue;
     total++;
     if (ach[id]) done++;
   }
-  var h = '<div class="govern-divider"></div>';
-  h += '<div style="margin-bottom:8px;font-weight:bold;color:#555;">成就（' + done + ' / ' + total + '）</div>';
+  var h = '<div style="margin-bottom:8px;font-weight:bold;color:#555;">成就 · ' + done + ' / ' + total + '</div>';
   h += '<div class="ach-grid">';
   for (var id in ACHIEVEMENT_DATA) {
     var ad = ACHIEVEMENT_DATA[id];
     if (ad.br && chosenBr && ad.br !== chosenBr) continue;
-    if (ad.br && !chosenBr) continue;
     var unlocked = !!ach[id];
     h += '<div class="ach-card' + (unlocked ? ' ach-done' : '') + '">';
-    h += '<div class="ach-name">' + (unlocked ? ad.n : '???') + '</div>';
-    h += '<div class="ach-desc">' + (unlocked ? ad.d : '未解锁') + '</div>';
+    h += '<div class="ach-name">' + ad.n + '</div>';
+    h += '<div class="ach-desc">' + ad.d + '</div>';
     h += '</div>';
   }
   h += '</div>';
@@ -2082,10 +2097,10 @@ function renderRitePanel() {
     h += '<div class="rite-intro">';
     h += '<div class="rite-intro-title">节令系统已解锁</div>';
     h += '<div class="rite-intro-body">';
-    h += '<p>百艺通觉参透之后，每季可借染丝、果酒、墨锭三件文化品换得季节加成：</p>';
+    h += '<p>百艺通觉参透之后，每季可借彩络、醴浆、墨锭三件文化品换得季节加成：</p>';
     h += '<ul class="rite-intro-list">';
-    h += '<li><b>染丝</b> ×1 → 全职业产出 +5%</li>';
-    h += '<li><b>果酒</b> ×1 → 野莓产量 +8%</li>';
+    h += '<li><b>彩络</b> ×1 → 全职业产出 +5%</li>';
+    h += '<li><b>醴浆</b> ×1 → 野莓产量 +8%</li>';
     h += '<li><b>墨锭</b> ×1 → 学识产出 +10%</li>';
     h += '<li>三选 → <b>三全礼</b>：满意度 +5% + 全产出 +3%</li>';
     h += '</ul>';
@@ -2536,10 +2551,10 @@ function showConvertDeityModal() {
   document.getElementById('modal-title').textContent = '改宗 — 选择新主神';
   var h = '<div style="line-height:1.7;margin-bottom:10px;color:#555;">当前主神：<strong>' + curD.n + '</strong>。改宗代价：卷轴 ×80 + 古币 ×30 + 虔诚归零 + 5 季冷却。</div>';
   var scrollOk = (G.res.scroll?.v || 0) >= 80;
-  var coinOk = (G.res.ancientCoin?.v || 0) >= 30;
+  var coinOk = (G.res.ancCoin?.v || 0) >= 30;
   h += '<div style="font-size:12px;margin-bottom:8px;">'
     + '<span' + (scrollOk ? '' : ' class="short"') + '>卷轴: ' + fmt(G.res.scroll?.v || 0) + '/80</span>'
-    + ' · <span' + (coinOk ? '' : ' class="short"') + '>古币: ' + fmt(G.res.ancientCoin?.v || 0) + '/30</span>'
+    + ' · <span' + (coinOk ? '' : ' class="short"') + '>古币: ' + fmt(G.res.ancCoin?.v || 0) + '/30</span>'
     + ' · 虔诚: ' + fmt(G.res.piety?.v || 0) + ' → 0'
     + '</div>';
   for (var did in DEITY_DATA) {

@@ -1411,7 +1411,7 @@ const DEITY_RITUAL_DATA = {
   lunarWeave:      { n: '命丝编织', deity: 'moonFox',     cost: [{ r:'holyOil', a:4 }, { r:'charm', a:30 }],  dur: -1, e: { _divDrawCount: 4 }, cd: 5 },
   warmthSpread:   { n: '暖意传递', deity: 'bonfireGod',  cost: [{ r:'holyOil', a:4 }, { r:'berry', a:300 }], dur: 3, e: { _allProdM: 0.08 }, cd: 5 },
   knowledgeSteal: { n: '知识窃取', deity: 'namelessFog',  cost: [{ r:'holyOil', a:6 }, { r:'scroll', a:15 }], dur: 0, e: { _researchProgress: 0.15 }, cd: 6 },
-  bloodLegacy:    { n: '血脉传承', deity: 'ancestorSpirit', cost: [{ r:'holyOil', a:5 }, { r:'ancientCoin', a:20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
+  bloodLegacy:    { n: '血脉传承', deity: 'ancestorSpirit', cost: [{ r:'holyOil', a:5 }, { r:'ancCoin', a:20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
   tradeBlessing:  { n: '通商护佑', deity: 'goldTailMerchant', cost: [{ r:'holyOil', a:4 }, { r:'coin', a:100 }], dur: 3, e: { _caravanProb: 0.25, _expRewardM: 0.15 }, cd: 5 },
 };
 

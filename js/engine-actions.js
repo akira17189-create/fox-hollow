@@ -990,9 +990,9 @@ function convertDeity(newDeityId) {
   if (G.deityCD > 0) { log('改宗冷却中，剩余 ' + G.deityCD + ' 季。', 'warn'); return; }
   // 费用：卷轴 ×80 + 古币 ×30
   if ((G.res.scroll?.v || 0) < 80) { log('卷轴不足。', 'warn'); return; }
-  if ((G.res.ancientCoin?.v || 0) < 30) { log('古币不足。', 'warn'); return; }
+  if ((G.res.ancCoin?.v || 0) < 30) { log('古币不足。', 'warn'); return; }
   G.res.scroll.v -= 80;
-  G.res.ancientCoin.v -= 30;
+  G.res.ancCoin.v -= 30;
   G.res.piety.v = 0;
   var oldName = DEITY_DATA[G.deity]?.n || '无';
   G.deity = newDeityId;
@@ -1266,10 +1266,17 @@ function craftPerm(craftId) {
 function canDeepenAlliance(tribe) {
   if (!G._alliance || !ALLIANCE_TRIBES[tribe]) return false;
   var curDepth = G._alliance[tribe] || 0;
-  if (curDepth >= 2) return false; // Phase B 限制深度 1-2
   var nextDepth = curDepth + 1;
   var depthDef = ALLIANCE_DEPTH[nextDepth];
   if (!depthDef) return false;
+  // Phase B 限深 1-2；Phase C（deepAlliancePrelude 已研）解锁 3+ 但受会盟台数量限制
+  if (nextDepth >= 3) {
+    if (!G.upg.deepAlliancePrelude?.done) return false;
+    var deep3PlusCount = 0;
+    for (var t in G._alliance) if (G._alliance[t] >= 3) deep3PlusCount++;
+    var platformCount = G.bld.alliancePlatform?.c || 0;
+    if (deep3PlusCount >= platformCount) return false;
+  }
   // 好感检查
   var favor = G._allianceFavor[tribe] || 0;
   if (favor < depthDef.favor) return false;
@@ -1286,7 +1293,6 @@ function canDeepenAlliance(tribe) {
     if (rk === 'charter' && nextDepth === 2) need = Math.ceil(need * (1 - costReduce));
     if (!G.res[rk] || G.res[rk].v < need) return false;
   }
-  // 深度 3+ 需要会盟台数量检查（Phase B 不涉及）
   return true;
 }
 

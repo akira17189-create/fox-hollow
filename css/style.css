@@ -110,7 +110,7 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .bld-detail{font-size:12px;color:#999;margin-top:1px;display:none;}
 .bld-detail.show{display:block;}
 .bld-cost{font-size:12px;color:#888;margin-left:auto;}
-.bld-cost .short{color:#b00;}
+.bld-cost .short, .cr-cost .short, .exp-row .short, .cv-item .short{color:#b00;}
 
 /* JOB ROWS */
 .job-row{display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid #f0f0f0;font-size:13px;flex-wrap:nowrap;}

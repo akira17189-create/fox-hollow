@@ -257,6 +257,12 @@ function chk(q) {
   // v0.19 §七 4.3 职业数量前置（job 字段）
   if (q.job) for (const [k, n] of Object.entries(q.job))
     if ((G.job[k]?.c || 0) < n) return false;
+  // v0.18 §六 3.6 邦交深度前置（任一族达到该深度）— branch-diplomat.md DP4
+  if (q.allianceDepth !== undefined) {
+    var anyAt = false;
+    if (G._alliance) for (var _ad in G._alliance) if (G._alliance[_ad] >= q.allianceDepth) { anyAt = true; break; }
+    if (!anyAt) return false;
+  }
   return true;
 }
 
@@ -1059,6 +1065,10 @@ function calcR() {
       }
       // v0.14 习俗：共狩日 - 猎手兽皮 +15%
       if (id === 'hunter' && resKey === 'leather' && G.customs && G.customs.shareHunt) val *= 1.15;
+      // 月话课：学者产出 +10%（永久）
+      if (id === 'scholar' && G.customs && G.customs.moonClass) val *= 1.1;
+      // 猎人 spice 副产：仅在 spice 已解锁时生效
+      if (id === 'hunter' && resKey === 'spice' && (!G.res.spice || !G.res.spice.on)) continue;
       r[resKey] = (r[resKey] || 0) + val * s.c * trainBonus * happyMul * polityJobMul * jobUpgdMul * shapeFoxMul;
     }
     // 天赋额外产出
@@ -1072,7 +1082,7 @@ function calcR() {
     }
   }
 
-  // v0.15 染丝节令：本季全职业产出 +5%（仿祖灵段，独立加项）
+  // v0.15 彩络节令：本季全职业产出 +5%（仿祖灵段，独立加项）
   if (G.seasonRites.dye) {
     for (const [id, s] of Object.entries(G.job)) {
       if (!s.c) continue;
@@ -1329,8 +1339,8 @@ function calcR() {
     var reputeCap = G._reputeCap || 0.40;
     var reputeBonus = Math.min(reputeCap, (Math.sqrt(1 + rn / 100) - 1) * 0.40);
     if (reputeBonus > 0) {
-      // 通达副线资源：仅正向产出
-      var dipRes = ['credential'];
+      // 通达副线资源：仅正向产出（branch-diplomat.md 全部声誉受益资源）
+      var dipRes = ['credential', 'charter', 'exotic', 'allianceSeal', 'commonPact'];
       for (const k of dipRes) if (r[k] && r[k] > 0) r[k] *= (1 + reputeBonus);
     }
     G._reputeBonus = reputeBonus;
@@ -1353,7 +1363,7 @@ function calcR() {
     if (eff_otter >= 1) {
       var shallow = Math.min(eff_otter, 2);
       if (r.wood > 0) r.wood *= (1 + shallow * 0.04);
-      if (r.hide > 0) r.hide *= (1 + shallow * 0.04);
+      if (r.leather > 0) r.leather *= (1 + shallow * 0.04);
     }
     // 白鹤：浅层 学识+5%/级+符咒+3%/级, 深层 研究速度(handled in researchCostMul)
     if (al.crane >= 1) {
@@ -1364,7 +1374,7 @@ function calcR() {
     // 旧墟遗民：浅层 古币+8%/级+远行奖励+3%/级
     if (al.ruinfolk >= 1) {
       var shallow = Math.min(al.ruinfolk, 2);
-      if (r.ancientCoin > 0) r.ancientCoin *= (1 + shallow * 0.08);
+      if (r.ancCoin > 0) r.ancCoin *= (1 + shallow * 0.08);
     }
     // 山猫：浅层 竞拍减免(UI), 深层 全局+3%/级+商队来访+5%/级
     // 雪鸮：浅层 符咒+5%/级
@@ -1730,7 +1740,7 @@ function calcR() {
         acRate = canReserve ? Math.min(acRate, fullAcRate * 0.25) : 0;
       }
 
-      // v0.14 艺工坊 + 百艺通觉对染丝/果酒/墨锭的加成（craft 速率乘数）
+      // v0.14 艺工坊 + 百艺通觉对彩络/醴浆/墨锭的加成（craft 速率乘数）
       var craftMul = 1;
       // v0.18 §六 3.4 占卜年签：锻造签工艺加成
       var _divCraft = getDivinationEffects();
@@ -1834,7 +1844,7 @@ function calcR() {
     for (var _sr in G.upgd) {
       if (G.upgd[_sr].done && UPGD[_sr]?.e?._smelterRate) smRate *= (1 + UPGD[_sr].e._smelterRate);
     }
-    // 季节加成：染丝节令 +5%、祖灵 +50%（与其他职业保持一致）
+    // 季节加成：彩络节令 +5%、祖灵 +50%（与其他职业保持一致）
     if (G.seasonRites.dye) smRate *= 1.05;
     if (G.spiritSeason === G.season) smRate *= 1.5;
     // 进阶升级：炼钢配方修正（产出乘数 outMul + 原料减免 inpM）
@@ -1861,27 +1871,6 @@ function calcR() {
       r.iron = (r.iron || 0) - 5 * smIronMul * smRate;
       r.coal = (r.coal || 0) - 8 * smCoalMul * smRate;
       r.steel = (r.steel || 0) + 1 * smOutMul * smRate;
-    }
-  }
-
-  // 织丝人自动织丝：每人每60tick消耗灵能×5+符咒×3产出命丝×1（连续速率化）
-  if (G.job.silkWeaver && G.job.silkWeaver.c > 0) {
-    var swC = G.job.silkWeaver.c;
-    var swTrain = 1 + (G.train.silkWeaver || 0) * 0.1 + policyTrainFlat;
-    var swRate = (TPD / 60) * swC * swTrain * G.happy * polityJobMul;
-    if (G.seasonRites.dye) swRate *= 1.05;
-    if (G.spiritSeason === G.season) swRate *= 1.5;
-    var swOutMul = 1;
-    // 进阶升级：织丝配方修正（预留，当前无对应升级）
-    var swCraftM = _craftM.fateSilk;
-    if (swCraftM && swCraftM.outMul) swOutMul += swCraftM.outMul;
-    var swSpiritMul = swCraftM && swCraftM.inpM && swCraftM.inpM.spirit ? Math.max(0, 1 + swCraftM.inpM.spirit) : 1;
-    var swCharmMul = swCraftM && swCraftM.inpM && swCraftM.inpM.charm ? Math.max(0, 1 + swCraftM.inpM.charm) : 1;
-    if (G.res.spirit.v >= 5 && G.res.charm.v >= 3
-        && (G.res.fateSilk.mx <= 0 || G.res.fateSilk.v < G.res.fateSilk.mx)) {
-      r.spirit = (r.spirit || 0) - 5 * swSpiritMul * swRate;
-      r.charm = (r.charm || 0) - 3 * swCharmMul * swRate;
-      r.fateSilk = (r.fateSilk || 0) + 1 * swOutMul * swRate;
     }
   }
 
@@ -1957,6 +1946,7 @@ function calcMx() {
     if (k === 'berry' && G.bldSpec.warehouse === 'B') mx = Math.floor(mx * SPEC_BD.warehouse.B.berryMxMul);
     // v0.14 习俗：铭石礼 学识上限 +50（一次性，永久）
     if (k === 'lore' && G.customs && G.customs.nameStone) mx += 50;
+    if (k === 'lore' && G.customs && G.customs.moonClass) mx += 30;
     // v0.14 习俗：谷雨宴 寒冬野莓上限 +30%
     if (k === 'berry' && G.season === 3 && G.customs && G.customs.rainFeast) mx = Math.floor(mx * 1.3);
     // v0.19 §七 4.3 永久虔诚上限加成（圣水配方）
@@ -2145,7 +2135,7 @@ function getDivinationEffects() {
 
 // ===== v0.15.1 建筑维持钩子（季节切换时调用）=====
 function buildingMaintenanceHook(silent) {
-  // 月歌台：每年春季(season===0)扣果酒，1 果酒/座/年
+  // 月歌台：每年春季(season===0)扣醴浆，1 醴浆/座/年
   if (G.season === 0 && G.bld.moonStage && G.bld.moonStage.c > 0) {
     var need = G.bld.moonStage.c;
     if (G.res.wine && G.res.wine.v >= need) {
@@ -2153,10 +2143,10 @@ function buildingMaintenanceHook(silent) {
       G.moonStageActive = true;
     } else {
       G.moonStageActive = false;
-      if (!silent) log('月歌台的果酒用完了，歌声渐渐安静下来……符咒产出降至 1/4。', 'warn');
+      if (!silent) log('月歌台的醴浆用完了，歌声渐渐安静下来……符咒产出降至 1/4。', 'warn');
     }
   }
-  // 艺工坊：每季扣染丝，1 染丝/座/季
+  // 艺工坊：每季扣彩络，1 彩络/座/季
   if (G.bld.artistry && G.bld.artistry.c > 0) {
     var need = G.bld.artistry.c;
     if (G.res.dye && G.res.dye.v >= need) {
@@ -2164,7 +2154,7 @@ function buildingMaintenanceHook(silent) {
       G.artistryActive = true;
     } else {
       G.artistryActive = false;
-      if (!silent) log('艺工坊的染丝不足，作坊减产……文化配方加成减半。', 'warn');
+      if (!silent) log('艺工坊的彩络不足，作坊减产……文化配方加成减半。', 'warn');
     }
   }
 }
@@ -2225,7 +2215,7 @@ function customSeasonHook(silent) {
       if (G.res.dye.v >= 5) G.res.dye.v -= 5;
       else {
         G.res.dye.v = 0;
-        if (!silent) log('染丝不足，新衣节缩减了规模。', 'warn');
+        if (!silent) log('彩络不足，新衣节缩减了规模。', 'warn');
       }
     }
     if (G.customs.shareHunt && G.res.leather) {
@@ -2433,8 +2423,8 @@ function simulateOffline(seconds) {
       if (rec.applied?.all) trinityCount++;
     }
     var parts = [];
-    if (consumed.dye > 0) parts.push('染丝 -' + consumed.dye);
-    if (consumed.wine > 0) parts.push('果酒 -' + consumed.wine);
+    if (consumed.dye > 0) parts.push('彩络 -' + consumed.dye);
+    if (consumed.wine > 0) parts.push('醴浆 -' + consumed.wine);
     if (consumed.ink > 0) parts.push('墨锭 -' + consumed.ink);
     if (parts.length) {
       var rmsg = '离开期间 ' + seasonsCount + ' 季节令均按上次设置应用（' + parts.join('，') + '）';
@@ -2516,11 +2506,12 @@ function checkAchievements() {
 
 // ===== 主循环 =====
 function tick() {
-  // 检测后台切回：如果距上次 tick 超过 5 秒，补算中间的时间
+  // 检测后台切回 / 浏览器节流：如果距上次 tick 超过 1.5 秒（>7 个正常 tick），补算
+  // 浏览器隐藏标签时通常将 setInterval 节流到 ≤1Hz，导致游戏内时间停滞
   var now = Date.now();
   var gap = (now - lastRealTime) / 1000;
   lastRealTime = now;
-  if (gap > 5) {
+  if (gap > 1.5) {
     simulateOffline(gap - TMS / 1000);
     rAll();
     return;

@@ -1,5 +1,67 @@
 # 小狐大世界 - 变更日志
 
+## 2026-05-06
+
+### 修复 - 资源 ID 拼写错误（roadmap-v2 §十五 E59）
+
+> 6 处功能因引用了不存在的资源 ID 而静默失效。修正后无任何残留 `ancientCoin` / `r.hide`。
+
+**修复列表**
+- 异珍阁 `exoticVault` 建造费：`coin` × 8 → `ancCoin` × 8（与 branch-diplomat.md §403 对齐）
+- 研究 `envoyBasic`（使节礼法）费用：`ancientCoin` × 5 → `ancCoin` × 5
+- 研究 `credentialLore`（信物制度）费用：`ancientCoin` × 8 → `ancCoin` × 8
+- 仪式 `bloodLegacy`（血脉传承）费用：`ancientCoin` × 20 → `ancCoin` × 20
+- 改宗 `convertDeity` 检查 / 扣费 / UI 显示：`G.res.ancientCoin` → `G.res.ancCoin`
+- 河獭联盟（otter）浅层加成：`r.hide` → `r.leather`
+- 旧墟联盟（ruinfolk）浅层加成：`r.ancientCoin` → `r.ancCoin`
+
+**文档同步**
+- `branch-divine.md` §1414 同步修正 1 处 `ancientCoin`
+
+### 调整 - branch 文档与代码对齐（roadmap-v2 §十五 E60）
+
+> 对齐 branch-industry / branch-mystic / branch-divine-doctrine / branch-diplomat 设计表与代码实现。"doc 胜" 默认策略（各文档自带权威性声明）。
+
+**工业 (branch-industry.md)**
+- 精炼师（refiner）`titanP: .002` → `.004`（doc：寒钛 +0.002/s，与 deepMiner/driller/engineer 数值约定一致）
+- 净林（cleanForest）前置：增加 `b: { refinery: 1 }`（doc 要求精炼厂×1）
+- 升级 #51 钛锻锤（titanHammer）`craftM` 配方：`forgeAlloy` → `gear`（与 #23 蒸汽锻锤"炼钢/铸齿轮/压钢板"对齐）
+- 升级 #65 钛合金仓（titanAlloyStore）效果类型：`bldM.titanVault.prodM` → `bldMxM.titanVault`（存储建筑 prodM 不生效，应使用 mxM）
+
+**灵修 (branch-mystic.md)**
+- 聚灵阵（leyArray）建造费：`bead 5 + stone 30 + charm 20` → `sigil 3 + stone 50 + bead 5`
+- 感应者（spiritSenser）`spiritP: .06` → `.02`（doc 自标"过时"已知）
+- 织丝人（silkWeaver）机制：自动合成型（消耗灵能/符咒生成命丝）→ 标准产出型 `fateSilkP: .015`（doc 自标"过时"已知）；engine.js 删除 silkWeaver 自动合成代码块（约 19 行）
+- 新增 A 阶段配方 `drawChartBasic`（编灵图基础）：`spiritInk×3 + scroll×5 → spiritChart×1`，前置 `chartDraw` 研究
+- ⚠️ 跳过：`inscription` 研究费用（doc 设计表 `lore 300, spiritInk 5` 含循环依赖：spiritInk 由 inscription 解锁），保留代码 `lore 500, spirit 8, fateSilk 3`
+- ⚠️ 跳过：C 阶段第 5 配方 "锻镜灵"（doc 配方输出 `mirrorSpirit`，但该资源在 doc 自身的步骤 21 中标为 D 阶段资源；保留代码 `forgeMirror`），待 doc 内部修正后再做
+
+**神启 (branch-divine.md / branch-divine-doctrine.md)**
+- `mysteryHall`（秘仪殿）补 `gnosisP: .005`（doc：需秘仪师；建筑被动产出）
+- 升级 #9 `oilRefine`（圣油精炼）前置：`u: { graceLore: 1 }` → `b: { oilPress: 2 }`
+- 替换 8 个教团升级 ID/效果至 doc 规格：
+  - #20 `crusadePrep` → `holyIronForge`（圣铁铸 +50%）
+  - #24 `sacredIndustry` → `pressEfficiency`（圣油坊加成翻倍）
+  - #25 `holyIronStore` → `ironSmithFocus`（圣工匠 jobM +40%）
+  - #26 `holyFlameStore` → `faithSteel`（钢产出 +15%）
+  - #27 `oilPressRefine` → `kilnSurge`（圣火窑 prodM +30%）
+  - #28 `tribunalCalm` → `altarSurge`（祭坛 prodM +30%）
+  - #29 `forgeMastery` → `priestSchool`（祭司 jobM +20%）
+  - #30 保留 `holyGraceB` ID（doc 的 `graceCapB` 与秘仪 `graceCapB` 撞名），cost 按 doc 调整
+- ⚠️ 跳过：秘仪师 ID `mysticAdept` → `mystic`（doc 名与 `mainLine === 'mystic'` 字符串歧义；保留 `mysticAdept`）
+- ⚠️ 跳过：圣火锻 / 圣铁铸 配方 ID `holyFlameCraft` / `holyIronCraft`（doc 用 `holyFlame` / `holyIron` 与资源 ID 撞名，按 E52 先例保留 Craft 后缀）
+
+**通达 (branch-diplomat.md)**
+- 声誉系统受益资源：`['credential']` → `['credential', 'charter', 'exotic', 'allianceSeal', 'commonPact']`
+- 会盟台（alliancePlatform）实现深度限制：`canDeepenAlliance` 中加入"深度 ≥ 3 时受会盟台数量限制 + 需 deepAlliancePrelude 研究"逻辑
+- 三个邦交冥思升级（depthPrepII / depthPrepIII / maintenanceEase）前置改为"任一族达到深度 N"：新增通用 `chk()` 字段 `q.allianceDepth`
+- 升级 #24 `diplomatDeepen` 效果：`_diplomatDecay: 0.05`（未读取）→ `_jobCapBonus: { diplomat: 1 }`（待 per-job 上限引擎实现）
+
+**已发现的文档内部不一致**（待 doc 修订）
+- M1 inscription 设计表 `灵墨 5` 与 spiritInkU 解锁顺序矛盾
+- M6 锻镜灵 配方在 C 阶段表但镜灵在 D 阶段资源表
+- D2/D3 doc 的 `mystic` / `holyFlame` / `holyIron` ID 设计与代码命名空间冲突
+
 ## 2026-05-03
 
 ### v0.18.0 - 工业 B 激活（阶段三 3.1 完成）

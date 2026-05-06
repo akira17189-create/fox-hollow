@@ -24,7 +24,8 @@ function canSendExp(destId) {
 
 function sendExpedition(destId, foxCount) {
   var d = EXD[destId];
-  foxCount = Math.min(foxCount || 1, Math.min(3, G.job.scout?.c || 0));
+  // 取消 3 只上限：能送多少就送多少（受 scout 数量限制）
+  foxCount = Math.min(foxCount || 1, G.job.scout?.c || 0);
   if (foxCount <= 0) return;
   if (!canSendExp(destId)) return;
   // 扣资源
@@ -36,6 +37,9 @@ function sendExpedition(destId, foxCount) {
   // 计算实际路程 tick
   var cb = G.choiceBuffs || {};
   var timeMul = expTimeMul();
+  // 多斥候速度加成：1 - (n-1)*0.10，下限 0.5（每多 1 只 -10%，6 只封顶 50%）
+  var speedMul = Math.max(0.5, 1 - (foxCount - 1) * 0.10);
+  timeMul *= speedMul;
   // 一次性目的地时间乘数
   if (cb.nextSendTimeMul && cb.nextSendTimeMul[destId]) {
     timeMul *= cb.nextSendTimeMul[destId];
@@ -419,7 +423,9 @@ function canBuyFromCaravan(itemIdx) {
   if (!G.caravan) return false;
   var cv = CVD[G.caravan.id];
   if (!cv) return false;
-  if (G.caravan.bought[itemIdx]) return false;
+  // 每槽最多买 10 次
+  var boughtCount = (typeof G.caravan.bought[itemIdx] === 'number') ? G.caravan.bought[itemIdx] : (G.caravan.bought[itemIdx] ? 10 : 0);
+  if (boughtCount >= 10) return false;
   var item = cv.sell[itemIdx];
   if (!item) return false;
   var mul = caravanCostMul();
@@ -441,7 +447,7 @@ function buyFromCaravan(itemIdx) {
     if (!G.res[g.r].on) G.res[g.r].on = true;
     if (G.res[g.r].mx > 0) G.res[g.r].v = Math.min(G.res[g.r].v, G.res[g.r].mx);
   }
-  G.caravan.bought[itemIdx] = true;
+  G.caravan.bought[itemIdx] = ((typeof G.caravan.bought[itemIdx] === 'number') ? G.caravan.bought[itemIdx] : 0) + 1;
   // v0.19 §七 4.4 邦交好感：商队交互+好感
   if (G._allianceFavor && G.upg.allianceInit?.done) {
     var cvTribeMap = { wildcat: 'lynx', otter: 'otter', crane: 'crane', ruinfolk: 'ruinfolk' };

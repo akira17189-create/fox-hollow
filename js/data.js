@@ -61,8 +61,8 @@ const RD = {
   ancCoin: { n: '古币', c: '贸易', mx: 0, lock: 1, tip: ['它见过一座城的最后一夜。'] },
 
   // v0.14 文化中间品（占位名）
-  dye:  { n: '染丝', c: '加工', mx: 0, lock: 1, tip: ['颜色是偷来的，花还不知道。'] },
-  wine: { n: '果酒', c: '加工', mx: 0, lock: 1, tip: ['时间对野莓做的事，说出来不太体面。'] },
+  dye:  { n: '彩络', c: '加工', mx: 0, lock: 1, tip: ['颜色是偷来的，花还不知道。'] },
+  wine: { n: '醴浆', c: '加工', mx: 0, lock: 1, tip: ['时间对野莓做的事，说出来不太体面。'] },
   ink:  { n: '墨锭', c: '加工', mx: 0, lock: 1, tip: ['除了黑什么都不会。'] },
 
   // v0.16 政体资源
@@ -186,8 +186,22 @@ const BD = {
   berryPatch: {
     n: '莓果园', t: 'b', d: '每座持续产出野莓。',
     p: [{ r: 'berry', b: 8, k: 1.12 }],
-    e: { berryP: .3 },
+    e: { berryP: .5 },
     tip: ['把野的变成家的，把弯腰的变成等着的。']
+  },
+  berryGrove: {
+    n: '野莓林', t: 'b', d: '丛林化的莓果园，与树林共生，产出大幅提升。',
+    p: [{ r: 'plank', b: 30, k: 1.13 }, { r: 'brick', b: 15, k: 1.13 }, { r: 'wood', b: 80, k: 1.13 }],
+    e: { berryP: 2.0, berryMx: 500 },
+    uq: { u: { calendar: 1 }, b: { berryPatch: 5 } },
+    tip: ['一片懂事的林子，自己生莓子，也自己看着蜂。']
+  },
+  berryValley: {
+    n: '野莓谷', t: 'b', d: '把整道山谷开成莓园——只有几座，但能撑起后期口粮。',
+    p: [{ r: 'plank', b: 80, k: 1.15 }, { r: 'brick', b: 40, k: 1.15 }, { r: 'ancCoin', b: 3, k: 1.15 }],
+    e: { berryP: 6.0, berryMx: 2000 },
+    uq: { u: { engraving: 1 }, b: { berryGrove: 2, storyTree: 1 } },
+    tip: ['整片山的甜度都被收编了。']
   },
   hutch: {
     n: '狐狸窝', t: 'b', d: '容纳更多狐狸定居。',
@@ -198,13 +212,13 @@ const BD = {
   lumberYard: {
     n: '伐木场', t: 'b', d: '提高圆木产出效率。',
     p: [{ r: 'berry', b: 60, k: 1.12 }, { r: 'wood', b: 8, k: 1.12 }],
-    e: { woodP: .06 },
+    e: { woodP: .12 },
     tip: ['跟整座山林谈判，一次只带走一棵。']
   },
   quarry: {
     n: '采石坑', t: 'b', d: '提高碎石产出效率。',
     p: [{ r: 'berry', b: 80, k: 1.12 }, { r: 'wood', b: 10, k: 1.12 }],
-    e: { stoneP: .04 },
+    e: { stoneP: .08 },
     tip: ['往下挖，挖到大地开始心疼的地方。']
   },
 
@@ -243,7 +257,7 @@ const BD = {
   market: {
     n: '集市摊', t: 'b', d: '交换物资赚取铜钱。',
     p: [{ r: 'wood', b: 50, k: 1.12 }, { r: 'stone', b: 20, k: 1.12 }, { r: 'leather', b: 5, k: 1.12 }],
-    e: { coinMx: 50, coinP: .004 },
+    e: { coinMx: 50, coinP: .008 },
     uq: { b: { tannery: 1 } },
     ur: ['coin'],
     tip: ['你多的正好是我缺的——交易的全部哲学。']
@@ -278,9 +292,9 @@ const BD = {
     tip: ['存东西是一种对明天的想象。','凉凉的，暗暗的，什么都不会坏。']
   },
   tradePost: {
-    n: '商驿', t: 'b', d: '远方的商队开始在此歇脚。',
+    n: '商驿', t: 'b', d: '远方的商队开始在此歇脚——空闲时也搜罗些香草丝帛。',
     p: [{ r: 'coin', b: 15, k: 1.12 }, { r: 'brick', b: 4, k: 1.12 }, { r: 'leather', b: 3, k: 1.12 }],
-    e: { allM: .02, coinMx: 30 },
+    e: { allM: .02, coinMx: 30, spiceP: .003, silkP: .002, spiceMx: 10, silkMx: 8 },
     uq: { b: { market: 2 } },
     tip: ['驼铃一响，所有狐狸的耳朵都竖起来了。','路过的狐狸把包裹往地上一摊，就算开张了。']
   },
@@ -304,21 +318,21 @@ const BD = {
   storyTree: {
     n: '树荫堂', t: 'b', d: '老树下围聚听故事的地方，村庄记忆的载体。',
     p: [{ r: 'wood', b: 50, k: 1.12 }, { r: 'stone', b: 30, k: 1.12 }, { r: 'ancCoin', b: 5, k: 1.12 }],
-    e: { hapB: .02, scrollP: .005, scrollMx: 20, dyeMx: 5, wineMx: 5, inkMx: 3 },
+    e: { hapB: .02, scrollP: .005, scrollMx: 20, dyeMx: 5 },
     uq: { b: { shrine: 2 }, u: { folkLore: 1 } },
     tip: ['树是一把撑开的耳朵。']
   },
   moonStage: {
     n: '月歌台', t: 'b', d: '月夜歌咏的高台，灵狐传说在此流传。',
     p: [{ r: 'plank', b: 20, k: 1.12 }, { r: 'brick', b: 10, k: 1.12 }, { r: 'wood', b: 30, k: 1.12 }],
-    e: { charmP: .003 },
+    e: { charmP: .003, wineMx: 5 },
     uq: { b: { storyTree: 1 }, u: { calendar: 1 } },
     tip: ['今夜的歌属于月亮。']
   },
   memorial: {
-    n: '刻名碑', t: 'b', d: '刻满前狐名字的纪念碑，习俗激活越多越生光。',
+    n: '刻名碑', t: 'b', d: '刻满前狐名字的纪念碑，习俗激活越多越生光；同时镌刻新事，每座产出少量卷轴。',
     p: [{ r: 'stone', b: 50, k: 1.12 }, { r: 'iron', b: 5, k: 1.12 }],
-    e: { customAllM: .002, scrollP: .001 },
+    e: { customAllM: .002, scrollP: .04, inkMx: 3 },
     uq: { b: { storyTree: 1 }, u: { engraving: 1 } },
     tip: ['名字刻进去，就和山一样长寿了。']
   },
@@ -337,7 +351,7 @@ const BD = {
     tip: ['一只狐狸清嗓子，所有耳朵同时转向。']
   },
   ancestor: {
-    n: '祖龛', t: 'b', d: '专司祭祖的小祠堂，符咒比灵狐祠更纯，但不收香火不养满意度。',
+    n: '祖龛', t: 'b', d: '专司祭祖的小祠堂。',
     p: [{ r: 'stone', b: 30, k: 1.12 }, { r: 'iron', b: 3, k: 1.12 }, { r: 'charm', b: 8, k: 1.12 }],
     e: { charmP: .016 },
     uq: { b: { shrine: 3 }, u: { ancestry: 1 } },
@@ -459,7 +473,7 @@ const BD = {
     n: '净林', t: 'b', d: '种下经过筛选的树苗，让森林替你吸走浓烟。', br: 'I',
     p: [{ r: 'titan', b: 5, k: 1.12 }, { r: 'alloy', b: 3, k: 1.12 }, { r: 'draft', b: 2, k: 1.12 }],
     e: { pollutionP: -.05 },
-    uq: { u: { refining: 1 } },
+    uq: { u: { refining: 1 }, b: { refinery: 1 } },
   },
   titanVault: {
     n: '钛库', t: 'b', d: '寒钛需要特殊存储——普通仓库装不住这种脾气古怪的金属。', br: 'I',
@@ -493,7 +507,7 @@ const BD = {
   },
   leyArray: {
     n: '聚灵阵', t: 'b', d: '石阵共振灵脉深处的节律，为灵修建筑提供持续的灵脉供给。', br: 'M',
-    p: [{ r: 'bead', b: 5, k: 1.15 }, { r: 'stone', b: 30, k: 1.15 }, { r: 'charm', b: 20, k: 1.15 }],
+    p: [{ r: 'sigil', b: 3, k: 1.15 }, { r: 'stone', b: 50, k: 1.15 }, { r: 'bead', b: 5, k: 1.15 }],
     e: { leylineP: 1, unrestP: .005 },
     uq: { u: { leylineLore: 1 }, b: { spiritWell: 1 } },
     tip: ['阵中石头排成的图案，和天上某组星星一模一样——这不是巧合。']
@@ -624,7 +638,7 @@ const BD = {
   mysteryHall: {
     n: '秘仪殿', d: '秘知不在书中——在殿中独坐之人的沉默里。',
     p: [{ r: 'charm', b: 40, k: 1.15 }, { r: 'holyOil', b: 3, k: 1.15 }, { r: 'scroll', b: 20, k: 1.15 }],
-    e: { gnosisMx: 40 },
+    e: { gnosisP: .005, gnosisMx: 40 },
     uq: { u: { mysteryInit: 1 } }, sb: 'D', br: 'M', t: 'f',
   },
   sacredGrove: {
@@ -675,7 +689,7 @@ const BD = {
   },
   exoticVault: {
     n: '异珍阁', d: '存放来自远方的稀奇物件。', t: 'w',
-    p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'credential', b: 4, k: 1.12 }, { r: 'coin', b: 8, k: 1.12 }],
+    p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'credential', b: 4, k: 1.12 }, { r: 'ancCoin', b: 8, k: 1.12 }],
     e: { exoticMx: 20 },
     uq: { u: { exoticLore: 1 } }, sb: 'T',
   },
@@ -693,14 +707,14 @@ const BD = {
   },
 };
 const JD = {
-  gatherer:   { n: '采集者', d: '采集野莓',   e: { berryP: 1 },     on: 1, tip: ['走走走，去看看山谷今天给我们留了什么。'] },
-  woodcutter: { n: '伐木工', d: '砍伐圆木',   e: { woodP: .12 },    uq: { b: { lumberYard: 1 } }, tip: ['听得懂树倒的方向，就不会被砸到。'] },
-  miner:      { n: '矿工',   d: '开采碎石',   e: { stoneP: .08 },   uq: { b: { quarry: 1 } }, tip: ['挖石头的狐狸不抬头看天，天塌了有石头顶着。'] },
+  gatherer:   { n: '采集者', d: '采集野莓',   desc: '野莓 +0.5/s；授业可提升野莓产出', e: { berryP: 1 },     on: 1, tip: ['走走走，去看看山谷今天给我们留了什么。'] },
+  woodcutter: { n: '伐木工', d: '砍伐圆木',   desc: '圆木 +0.12/s；授业可提升圆木产出', e: { woodP: .24 },    uq: { b: { lumberYard: 1 } }, tip: ['听得懂树倒的方向，就不会被砸到。'] },
+  miner:      { n: '矿工',   d: '开采碎石',   desc: '碎石 +0.08/s；授业可提升碎石产出', e: { stoneP: .16 },   uq: { b: { quarry: 1 } }, tip: ['挖石头的狐狸不抬头看天，天塌了有石头顶着。'] },
 
-  hunter:     { n: '猎手',   d: '捕猎兽皮',   e: { leatherP: .03 }, uq: { b: { tannery: 1 } }, tip: ['天没亮就进林子，轻着脚走，竖着耳朵听。'] },
-  scholar:    { n: '学者',   d: '积累学识',   e: { loreP: .08, scrollP: .005, charmP: .002 },    uq: { b: { library: 1 } }, tip: ['用爪子翻书不太方便，但慢有慢的好处——每一页都记得牢。', '尾巴尖蘸了墨，写出来的字比手写的还好看。'] },
-  smith:      { n: '铁匠',   d: '锻造铁器',   e: { ironP: .02 },    uq: { b: { smithy: 1 } }, tip: ['锤子落下去是蛮力，提起来才是手艺。'] },
-  merchant:   { n: '商贩',   d: '赚取铜钱',   e: { coinP: .01 },    uq: { b: { market: 1 } }, tip: ['三寸不烂之舌，换来三尺不烂之布。', '把东边的故事卖给西边，赚一点路费。'] },
+  hunter:     { n: '猎手',   d: '捕猎兽皮',   desc: '兽皮 +0.015/s；香草解锁后副产 +0.0025/s；授业可提升兽皮产出', e: { leatherP: .03, spiceP: .005 }, uq: { b: { tannery: 1 } }, tip: ['天没亮就进林子，轻着脚走，竖着耳朵听。'] },
+  scholar:    { n: '学者',   d: '积累学识',   desc: '学识 +0.04/s、卷轴 +0.0025/s、符咒 +0.001/s；授业可提升学识产出', e: { loreP: .08, scrollP: .005, charmP: .002 },    uq: { b: { library: 1 } }, tip: ['用爪子翻书不太方便，但慢有慢的好处——每一页都记得牢。', '尾巴尖蘸了墨，写出来的字比手写的还好看。'] },
+  smith:      { n: '铁匠',   d: '锻造铁器',   desc: '矿铁 +0.01/s；授业可提升矿铁产出', e: { ironP: .02 },    uq: { b: { smithy: 1 } }, tip: ['锤子落下去是蛮力，提起来才是手艺。'] },
+  merchant:   { n: '商贩',   d: '赚取铜钱',   desc: '铜钱 +0.01/s；授业可提升铜钱产出', e: { coinP: .02 },    uq: { b: { market: 1 } }, tip: ['三寸不烂之舌，换来三尺不烂之布。', '把东边的故事卖给西边，赚一点路费。'] },
   scout:      { n: '斥候',   d: '远行探路',   desc: '出征远行队伍来源；授业可提升远行奖励', e: {}, uq: { b: { trailroad: 1 } }, tip: ['比风先到，比影子更轻，回来的时候揣着一兜子情报。'] },
 
   // ===== 工业分支 A阶段职业 =====
@@ -713,11 +727,11 @@ const JD = {
   engineer:   { n: '工程师', d: '设计与优化',  desc: '每人使所有配方产出+3%（加法叠入）；被动产出蓝本 +0.001/s', e: { draftP: .002 }, br: 'I', uq: { u: { assemblyLine: 1 }, b: { factory: 2 } }, tip: ['图纸上的线条看着简单，背后是三十次失败。', '让机器替狐狸干活——这才是真正的偷懒艺术。'] },
 
   // ===== 工业分支 C阶段职业 =====
-  refiner:    { n: '精炼师', d: '精炼寒钛', desc: '全局被动：寒钛产出+0.002/s（需至少2座煅烧炉存在）', e: { titanP: .002 }, br: 'I', uq: { b: { calcFurnace: 2 } } },
+  refiner:    { n: '精炼师', d: '精炼寒钛', desc: '全局被动：寒钛产出+0.002/s（需至少2座煅烧炉存在）', e: { titanP: .004 }, br: 'I', uq: { b: { calcFurnace: 2 } } },
 
   // ===== 灵修分支 A阶段职业 =====
-  spiritSenser: { n: '感应者', d: '引导灵流', e: { spiritP: .06 }, br: 'M', uq: { b: { spiritWell: 1 } }, tip: ['闭着眼比睁着眼看得清——至少灵流是这样的。', '它们说灵流有方向，但每只狐狸感应到的方向都不一样。'] },
-  silkWeaver:      { n: '织丝人', d: '织命丝',   desc: '每60tick自动消耗灵能×5+符咒×3织出命丝×1；授业可提升织丝频率', e: {}, br: 'M', uq: { b: { spiritTower: 2 } }, tip: ['命丝不是纺出来的，是哄出来的——你得让灵能相信自己想变成线。', '织到一半断了也别慌，命丝自己会找到另一头。'] },
+  spiritSenser: { n: '感应者', d: '引导灵流', e: { spiritP: .02 }, br: 'M', uq: { b: { spiritWell: 1 } }, tip: ['闭着眼比睁着眼看得清——至少灵流是这样的。', '它们说灵流有方向，但每只狐狸感应到的方向都不一样。'] },
+  silkWeaver:      { n: '织丝人', d: '织命丝',   desc: '命丝产出 +0.0075/s（需灵塔×2）', e: { fateSilkP: .015 }, br: 'M', uq: { b: { spiritTower: 2 } }, tip: ['命丝不是纺出来的，是哄出来的——你得让灵能相信自己想变成线。', '织到一半断了也别慌，命丝自己会找到另一头。'] },
   // ===== 灵修分支 B阶段职业 =====
   resonancer:      { n: '共鸣师', d: '感应共振',  e: { resonanceP: .01 }, br: 'M', uq: { b: { resonTower: 2 } }, tip: ['两颗灵珠靠近时会嗡嗡响——共鸣师的耳朵比灵珠还灵。'] },
   sageOracle:      { n: '悟者',   d: '凝聚悟片',  e: { insightP: .008 }, br: 'M', uq: { b: { oracleHall: 2 } }, tip: ['想到一个字之前，它先想到了你。'] },
@@ -826,14 +840,14 @@ const UD = {
 
   // ===== v0.14 文化研究（占位名） =====
   folkLore: {
-    n: '树下初闻', d: '解锁树荫堂、染丝工艺与三个入门习俗。',
+    n: '树下初闻', d: '解锁树荫堂、彩络工艺与三个入门习俗。',
     p: [{ r: 'lore', a: 80 }],
     e: { hapB: .03 },
     uq: { b: { shrine: 1 } },
     tip: ['有只幼狐的后爪，不自觉地抠进了土里。']
   },
   calendar: {
-    n: '月令新酿', d: '解锁月歌台、果酒、枯风口，与中期 2 习俗。',
+    n: '月令新酿', d: '解锁月歌台、醴浆、枯风口，与中期 2 习俗。',
     p: [{ r: 'lore', a: 100 }, { r: 'scroll', a: 5 }],
     e: { hapB: .02, berryM: .05 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
@@ -847,7 +861,7 @@ const UD = {
     tip: ['大火流兮草虫鸣，繁霜降兮草木零。']
   },
   artistryLore: {
-    n: '百艺通觉', d: '解锁艺工坊；染丝/果酒/墨锭总产 +20%。',
+    n: '百艺通觉', d: '解锁艺工坊；彩络/醴浆/墨锭总产 +20%。',
     p: [{ r: 'lore', a: 150 }, { r: 'dye', a: 5 }],
     e: {},
     uq: { u: { engraving: 1 } },
@@ -1345,13 +1359,13 @@ const UD = {
   // ===== 通达副线 Phase A：初交（3 项研究） =====
   envoyBasic: {
     n: '使节礼法', d: '远客来访不再只是做买卖，而是一门学问。解锁使馆与声誉资源。',
-    p: [{ r: 'lore', a: 350 }, { r: 'ancientCoin', a: 5 }],
+    p: [{ r: 'lore', a: 350 }, { r: 'ancCoin', a: 5 }],
     e: { renownU: 1 },
     uq: { u: { beyondValley: 1 }, b: { tradePost: 2 } }, sb: 'T',
   },
   credentialLore: {
     n: '信物制度', d: '持信为凭，远方始知你的名字。解锁迎宾堂、信驿与信物资源。',
-    p: [{ r: 'lore', a: 450 }, { r: 'renown', a: 20 }, { r: 'ancientCoin', a: 8 }],
+    p: [{ r: 'lore', a: 450 }, { r: 'renown', a: 20 }, { r: 'ancCoin', a: 8 }],
     e: { credentialU: 1 },
     uq: { u: { envoyBasic: 1 }, b: { embassy: 2 } }, sb: 'T',
   },
@@ -1405,15 +1419,15 @@ const CD = {
     tip: ['锯开一根圆木，就像翻开一本年轮写的日记。']
   },
   brick: {
-    n: '烧制砖块', d: '碎石+圆木 → 砖块',
-    inp: [{ r: 'stone', a: 30 }, { r: 'wood', a: 5 }],
+    n: '烧制砖块', d: '碎石 → 砖块',
+    inp: [{ r: 'stone', a: 30 }],
     out: [{ r: 'brick', a: 1 }],
     uq: { u: { masonry: 1 } },
     tip: ['泥巴觉得自己这辈子就这样了，然后来了一把火。']
   },
   scroll: {
-    n: '抄录卷轴', d: '学识+兽皮 → 卷轴',
-    inp: [{ r: 'lore', a: 20 }, { r: 'leather', a: 1 }],
+    n: '抄录卷轴', d: '学识 → 卷轴',
+    inp: [{ r: 'lore', a: 20 }],
     out: [{ r: 'scroll', a: 1 }],
     uq: { b: { library: 1 } },
     tip: ['脑子里的东西写下来，才算真的存在过。']
@@ -1473,14 +1487,14 @@ const CD = {
 
   // ===== v0.14 文化工艺（占位名） =====
   dye: {
-    n: '染丝', d: '丝帛+香草 → 染丝',
+    n: '染彩络', d: '丝帛+香草 → 彩络',
     inp: [{ r: 'silk', a: 1 }, { r: 'spice', a: 1 }],
     out: [{ r: 'dye', a: 1 }],
-    uq: { u: { folkLore: 1 } },
+    uq: { u: { folkLore: 1, engraving: 1 } },
     tip: ['一锅热水，几朵花的葬礼，一匹布的新生。']
   },
   wine: {
-    n: '酿果酒', d: '野莓 → 果酒',
+    n: '酿醴浆', d: '野莓 → 醴浆',
     inp: [{ r: 'berry', a: 30 }],
     out: [{ r: 'wine', a: 1 }],
     uq: { u: { calendar: 1 } },
@@ -1572,6 +1586,13 @@ const CD = {
     uq: { u: { inscription: 1 } },
     br: 'M',
     tip: ['刻下的线条比文字早，意义比语言深。']
+  },
+  drawChartBasic: {
+    n: '编灵图（基础）', d: '灵墨+卷轴 → 灵图',
+    inp: [{ r: 'spiritInk', a: 3 }, { r: 'scroll', a: 5 }],
+    out: [{ r: 'spiritChart', a: 1 }],
+    uq: { u: { chartDraw: 1 } },
+    br: 'M',
   },
   // ===== 灵修分支 B阶段配方 =====
   resonance: {
@@ -2084,7 +2105,7 @@ const UPGD = {
   titanHammer: {
     n: '钛制锻锤', d: '所有金属配方产出+40%', br: 'I',
     p: [{ r: 'titan', a: 12 }, { r: 'alloy', a: 2 }],
-    e: { craftM: { steel: { outMul: 0.4 }, plate: { outMul: 0.4 }, forgeAlloy: { outMul: 0.4 } } },
+    e: { craftM: { steel: { outMul: 0.4 }, gear: { outMul: 0.4 }, plate: { outMul: 0.4 } } },
     uq: { u: { refining: 1 } },
   },
   titanDrill: {
@@ -2170,7 +2191,7 @@ const UPGD = {
   titanAlloyStore: {
     n: '钛合金仓', d: '钛库存储效果+50%', br: 'I',
     p: [{ r: 'titan', a: 25 }, { r: 'alloy', a: 5 }, { r: 'pillar', a: 3 }],
-    e: { bldM: { titanVault: { prodM: 0.5 } } },
+    e: { bldMxM: { titanVault: 0.5 } },
     uq: { b: { titanVault: 2 } },
   },
   // 消耗减免类 #66-69
@@ -2849,7 +2870,7 @@ const UPGD = {
     n: '圣油精炼', d: '炼圣油配方产出 +50%。',
     p: [{ r: 'holyOil', a: 5 }, { r: 'piety', a: 60 }],
     e: { craftM: { holyOilCraft: { outMul: 0.5 } } },
-    uq: { u: { graceLore: 1 } }, sb: 'D',
+    uq: { b: { oilPress: 2 } }, sb: 'D',
   },
   graceAscend: {
     n: '恩典升华', d: '神恩上限 +5%（55%→60%）。',
@@ -2913,11 +2934,11 @@ const UPGD = {
     e: { _holyFlameAllM: 0.3 },
     uq: { b: { holyKiln: 4 } }, sb: 'D', br: 'I',
   },
-  crusadePrep: {
-    n: '圣战备战', d: '圣战令效果 +10%。',
-    p: [{ r: 'holyFlame', a: 25 }, { r: 'piety', a: 200 }],
-    e: { _crusadeBonus: 0.1 },
-    uq: { u: { judgmentLore: 1 } }, sb: 'D', br: 'I',
+  holyIronForge: {
+    n: '圣铁强化', d: '圣铁铸配方产出 +50%。',
+    p: [{ r: 'holyIron', a: 8 }, { r: 'holyFlame', a: 10 }],
+    e: { craftM: { holyIronCraft: { outMul: 0.5 } } },
+    uq: { u: { holyIronLore: 1 } }, sb: 'D', br: 'I',
   },
   massConversion: {
     n: '大规模皈依', d: '狂信者上限 +3。',
@@ -2937,45 +2958,45 @@ const UPGD = {
     e: { _edictSlotBonus: 1 },
     uq: { b: { edictHall: 3 } }, sb: 'D', br: 'I',
   },
-  sacredIndustry: {
-    n: '神圣工业', d: '工业配方产出 +10%。',
-    p: [{ r: 'piety', a: 250 }, { r: 'holyFlame', a: 20 }],
-    e: { _sacredIndustryM: 0.1 },
-    uq: { u: { judgmentLore: 1 } }, sb: 'D', br: 'I',
-  },
-  holyIronStore: {
-    n: '圣铁仓扩', d: '圣铁上限 +50。',
-    p: [{ r: 'holyIron', a: 8 }, { r: 'brick', a: 60 }],
-    e: { _flatMx: { holyIron: 50 } },
-    uq: { b: { holyIronVault: 2 } }, sb: 'D', br: 'I',
-  },
-  holyFlameStore: {
-    n: '圣火仓扩', d: '圣火上限 +40。',
-    p: [{ r: 'holyFlame', a: 12 }, { r: 'brick', a: 40 }],
-    e: { _flatMx: { holyFlame: 40 } },
-    uq: { b: { holyKiln: 3 } }, sb: 'D', br: 'I',
-  },
-  oilPressRefine: {
-    n: '圣油坊精修', d: '圣油坊加成翻倍（5%→10%）。',
-    p: [{ r: 'holyOil', a: 8 }, { r: 'piety', a: 80 }],
+  pressEfficiency: {
+    n: '圣油坊精进', d: '圣油坊加成翻倍（5%→10%/座）。',
+    p: [{ r: 'holyOil', a: 10 }, { r: 'piety', a: 80 }],
     e: { _oilCraftBonusUp: 0.05 },
     uq: { b: { oilPress: 3 } }, sb: 'D', br: 'I',
   },
-  tribunalCalm: {
-    n: '审判安宁', d: '审判庭满意度加成翻倍。',
-    p: [{ r: 'holyFlame', a: 10 }, { r: 'piety', a: 100 }],
-    e: { _tribunalHapUp: 0.01 },
-    uq: { b: { tribunalHall: 3 } }, sb: 'D', br: 'I',
+  ironSmithFocus: {
+    n: '圣工匠专注', d: '圣工匠 jobM +40%。',
+    p: [{ r: 'holyIron', a: 5 }, { r: 'piety', a: 100 }],
+    e: { jobM: { holySmith: 0.4 } },
+    uq: { job: { holySmith: 3 } }, sb: 'D', br: 'I',
   },
-  forgeMastery: {
-    n: '圣工宗师', d: '圣工坊每座额外虔诚 +0.01。',
-    p: [{ r: 'holyFlame', a: 15 }, { r: 'steel', a: 30 }],
-    e: { _forgeExtraPiety: 0.01 },
-    uq: { b: { holyForge: 5 } }, sb: 'D', br: 'I',
+  faithSteel: {
+    n: '信钢', d: '钢产出 +15%（全局）。',
+    p: [{ r: 'holyIron', a: 8 }, { r: 'holyFlame', a: 12 }],
+    e: { craftM: { steel: { outMul: 0.15 } } },
+    uq: { u: { holyIronLore: 1 }, b: { blastFurnace: 4 } }, sb: 'D', br: 'I',
+  },
+  kilnSurge: {
+    n: '窑炉增产', d: '圣火窑 prodM +30%。',
+    p: [{ r: 'holyFlame', a: 15 }, { r: 'piety', a: 80 }],
+    e: { bldM: { holyKiln: { prodM: 0.3 } } },
+    uq: { ud: { kilnExpand: 1 } }, sb: 'D', br: 'I',
+  },
+  altarSurge: {
+    n: '祭坛增产', d: '祭坛 prodM +30%（与 #1 加法叠加共 +80%）。',
+    p: [{ r: 'piety', a: 100 }, { r: 'holyOil', a: 6 }],
+    e: { bldM: { divineAltar: { prodM: 0.3 } } },
+    uq: { ud: { altarRefine: 1 } }, sb: 'D', br: 'I',
+  },
+  priestSchool: {
+    n: '神学院', d: '祭司 jobM +20%（与 #3 叠加）。',
+    p: [{ r: 'piety', a: 120 }, { r: 'lore', a: 300 }],
+    e: { jobM: { priest: 0.2 } },
+    uq: { ud: { priestDevotion: 1 } }, sb: 'D', br: 'I',
   },
   holyGraceB: {
-    n: '圣铁恩典', d: '神恩上限 +5%（→65%）。',
-    p: [{ r: 'holyIron', a: 10 }, { r: 'piety', a: 300 }],
+    n: '恩典通达', d: '神恩上限 +5%（60%→65%）。',
+    p: [{ r: 'piety', a: 250 }, { r: 'holyFlame', a: 20 }, { r: 'holyIron', a: 5 }],
     e: { _graceCapBonus: 0.05 },
     uq: { u: { churchArchLore: 1 } }, sb: 'D', br: 'I',
   },
@@ -3205,7 +3226,7 @@ const UPGD = {
     n: '邦交冥思·深', d: '深度 2 邦书消耗 -20%。',
     p: [{ r: 'charter', a: 30 }, { r: 'exotic', a: 8 }],
     e: { _depthCostReduce2: 0.2 },
-    uq: { u: { allianceLore: 1 } }, sb: 'T',
+    uq: { u: { allianceLore: 1 }, allianceDepth: 1 }, sb: 'T',
   },
   platformInsight: {
     n: '会盟台领悟', d: '会盟台每座额外邦书产出 +0.003/s。',
@@ -3229,13 +3250,13 @@ const UPGD = {
     n: '邦交冥思·玄', d: '深度 3 邦书消耗 -20%。',
     p: [{ r: 'charter', a: 60 }, { r: 'exotic', a: 15 }],
     e: { _depthCostReduce3: 0.2 },
-    uq: { u: { allianceLore: 1 } }, sb: 'T',
+    uq: { u: { allianceLore: 1 }, allianceDepth: 2 }, sb: 'T',
   },
   maintenanceEase: {
     n: '维护减担', d: '深度 3 维护成本 -20%。',
     p: [{ r: 'charter', a: 80 }, { r: 'exotic', a: 18 }],
     e: { _maintenanceReduce: 0.2 },
-    uq: { u: { allianceLore: 1 } }, sb: 'T',
+    uq: { u: { allianceLore: 1 }, allianceDepth: 3 }, sb: 'T',
   },
   guestComfort: {
     n: '远客居安', d: '远客居满意度加成翻倍（.01→.02）。',
@@ -3244,9 +3265,9 @@ const UPGD = {
     uq: { b: { guestQuarter: 3 } }, sb: 'T',
   },
   diplomatDeepen: {
-    n: '邦交官进阶', d: '邦交官效率递减缓和。',
+    n: '邦交官进阶', d: '邦交官上限 +1。',
     p: [{ r: 'charter', a: 50 }, { r: 'exotic', a: 12 }],
-    e: { _diplomatDecay: 0.05 },
+    e: { _jobCapBonus: { diplomat: 1 } },
     uq: { u: { guestLore: 1 } }, sb: 'T',
   },
   exoticFlow: {
@@ -3355,7 +3376,7 @@ const DEITY_RITUAL_DATA = {
   lunarWeave:     { n: '命丝编织', d: '下次占卜可从 4 签中选。',   deity: 'moonFox',     cost: [{ r: 'holyOil', a: 4 }, { r: 'charm', a: 30 }],  dur: -1, e: { _divDrawCount: 4 }, cd: 5 },
   warmthSpread:   { n: '暖意传递', d: '3 季内全资源产出 +8%。',    deity: 'bonfireGod',  cost: [{ r: 'holyOil', a: 4 }, { r: 'berry', a: 300 }], dur: 3, e: { _allProdM: 0.08 }, cd: 5 },
   knowledgeSteal: { n: '知识窃取', d: '立即获得最贵未完成研究 15% 进度。', deity: 'namelessFog', cost: [{ r: 'holyOil', a: 6 }, { r: 'scroll', a: 15 }], dur: 0, e: { _researchProgress: 0.15 }, cd: 6 },
-  bloodLegacy:    { n: '血脉传承', d: '3 季内职业效率 +20%。',     deity: 'ancestorSpirit', cost: [{ r: 'holyOil', a: 5 }, { r: 'ancientCoin', a: 20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
+  bloodLegacy:    { n: '血脉传承', d: '3 季内职业效率 +20%。',     deity: 'ancestorSpirit', cost: [{ r: 'holyOil', a: 5 }, { r: 'ancCoin', a: 20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
   tradeBlessing:  { n: '通商护佑', d: '3 季内商队概率 +25%，远行奖励 +15%。', deity: 'goldTailMerchant', cost: [{ r: 'holyOil', a: 4 }, { r: 'coin', a: 100 }], dur: 3, e: { _caravanProb: 0.25, _expRewardM: 0.15 }, cd: 5 },
 };
 
@@ -3600,8 +3621,8 @@ const ALLIANCE_DEPTH = [
 
 // ===== v0.15 节令系统：消耗的文化资源 → 加成 =====
 const SEASON_RITES = {
-  dye:  { consume: 1, mul: { jobMul: .05 }, name: '染丝', desc: '穿新衣干活有精神' },
-  wine: { consume: 1, mul: { berryMul: .08 }, name: '果酒', desc: '微醺的狐狸摘得更多' },
+  dye:  { consume: 1, mul: { jobMul: .05 }, name: '彩络', desc: '穿新衣干活有精神' },
+  wine: { consume: 1, mul: { berryMul: .08 }, name: '醴浆', desc: '微醺的狐狸摘得更多' },
   ink:  { consume: 1, mul: { loreMul: .10 }, name: '墨锭', desc: '研墨读书效率高' },
 };
 // 三全礼 = 三者全选生效 → 满意度 +5% + 全产出 +3%（allM 加法）
@@ -3737,6 +3758,7 @@ const TABS = [
   { id: 'w', n: '山外', uq: { u: { beyondValley: 1 } } },
   { id: 'k', n: '典制', uq: { u: { folkLore: 1 } } },
   { id: 'f', n: '宗教', uq: { u: { divineLore: 1 } } },
+  { id: 'a', n: '成就' },
 ];
 
 // ===== 山谷见闻事件 =====
@@ -3874,7 +3896,7 @@ const WD = [
 // ===== 远行目的地 =====
 const EXD = {
   nearHill: {
-    n: '荒丘', days: 100,
+    n: '荒丘', days: 100, wip: true,
     cost: [{ r: 'berry', a: 200 }, { r: 'coin', a: 8 }, { r: 'charm', a: 4 }],
     uq: { b: { trailroad: 2 }, u: { longJourney: 1 } },
     rewards: [
@@ -3884,7 +3906,7 @@ const EXD = {
     ],
   },
   forest: {
-    n: '密林', days: 150,
+    n: '密林', days: 150, wip: true,
     cost: [{ r: 'berry', a: 300 }, { r: 'coin', a: 10 }, { r: 'charm', a: 8 }],
     uq: { b: { trailroad: 3 }, u: { longJourney: 1 }, exp: { nearHill: 1 } },
     rewards: [
@@ -3910,7 +3932,7 @@ const EXD = {
     n: '云岭', days: 60, narrative: true,
     d: '西北方常年云雾的高山。',
     cost: [{ r: 'berry', a: 100 }, { r: 'coin', a: 5 }, { r: 'charm', a: 1 }],
-    uq: { b: { trailroad: 1, watchtower: 1 }, u: { longJourney: 1 } },
+    uq: { b: { trailroad: 1, watchtower: 1 }, u: { longJourney: 1 }, exp: { oldRuin: 1 } },
     rewards: [
       { r: 'charm', min: 3, max: 5, prob: 1 },
       { r: 'ancCoin', min: 2, max: 3, prob: 1 },
@@ -3919,7 +3941,7 @@ const EXD = {
   },
   // ===== v0.14 文化远行（占位名） =====
   windRidge: {
-    n: '枯风口', days: 80, narrative: true,
+    n: '枯风口', days: 80, narrative: true, wip: true,
     d: '山脊断裂处的天然隘口。',
     cost: [{ r: 'berry', a: 80 }, { r: 'coin', a: 4 }],
     uq: { b: { trailroad: 3 }, polity: true, exp: { forest: 1 } },
@@ -4047,6 +4069,8 @@ const SPEC_BD = {
       tip: ['它跟地有仇。'] },
     B: { n: '糊弄学', d: '造价 -20%，产量 +10%', prodMul: 1.1, costMul: 0.8,
       tip: ['差不多得了，反正莓果自己也不挑地方长。'] },
+    C: { n: '归隐式', d: '产量 +200%，造价 +200%（孤注一掷）', prodMul: 3.0, costMul: 3.0,
+      tip: ['退到山里去，把一辈子的莓子都种在一处。'] },
   },
   lumberYard: {
     A: { n: '向山里走去', d: '圆木 +50%，每座消耗碎石 0.005/s', prodMul: 1.5, drain: { stone: 0.005 },
@@ -4386,7 +4410,7 @@ const CUSTD = [
     unlock: { u: ['folkLore'], r: { dye: 5 } },
     cost: [{ r: 'dye', a: 5 }],
     ongoing: { kind: 'spring', r: 'dye', a: 5 },
-    desc: '全年满意度 +5%；春季每年消耗 5 染丝。',
+    desc: '全年满意度 +5%；春季每年消耗 5 彩络。',
     tip: ['旧衣服又没破——但新的好看。']
   },
   { id: 'shareHunt', n: '共狩日',
@@ -4418,8 +4442,7 @@ const CUSTD = [
   { id: 'moonClass', n: '月话课',
     unlock: { u: ['engraving'], b: { moonStage: 1 } },
     cost: [{ r: 'scroll', a: 5 }, { r: 'ancCoin', a: 10 }],
-    onActivate: { trainScholar: 1 },
-    desc: '激活时学者授业等级 +1（一次性）。',
+    desc: '永久：学识上限 +30、学者产出 +10%。',
     tip: ['打呼的都给我坐后排。']
   },
   { id: 'watchNight', n: '守夜传统',
@@ -4445,37 +4468,37 @@ const CUSTD = [
 
 // ===== §五 2.9 成就系统 =====
 const ACHIEVEMENT_DATA = {
-  // --- 阶段一：基础成长（15 个）---
-  firstBuild:    { n: '初建', d: '建造第一座建筑' },
-  pop5:          { n: '小聚落', d: '拥有 5 只狐狸' },
-  pop20:         { n: '谷中部落', d: '拥有 20 只狐狸' },
-  pop50:         { n: '繁荣山谷', d: '拥有 50 只狐狸' },
-  firstResearch: { n: '求知', d: '完成第一项研究' },
-  firstCraft:    { n: '巧手', d: '手动制作第一件工艺品' },
-  firstTrade:    { n: '开市', d: '与第一支商队完成交易' },
-  firstExpedition:{ n: '出发', d: '派出第一次远行队伍' },
-  firstCustom:   { n: '立规', d: '激活第一个习俗' },
-  custom5:       { n: '礼法初成', d: '激活 5 个习俗' },
-  berryHoard:    { n: '莓果山', d: '囤积 3000 野莓' },
-  lore100:       { n: '学海', d: '累计获得 100 学识' },
-  scroll50:      { n: '满架卷轴', d: '拥有 50 卷轴' },
-  firstPolity:   { n: '立国', d: '选定政体' },
-  firstPolicy:   { n: '定策', d: '选定第一个政策' },
+  // --- 阶段一：基础成长（15 个）。n = 题名（短句风，无终止句号）；d = 解锁条件 ---
+  firstBuild:     { n: '第一根木头',     d: '建造第一座建筑' },
+  pop5:           { n: '围火五尾',       d: '拥有 5 只狐狸' },
+  pop20:          { n: '名字越叫越多',   d: '拥有 20 只狐狸' },
+  pop50:          { n: '山谷的口音',     d: '拥有 50 只狐狸' },
+  firstResearch:  { n: '一卷读完',       d: '完成第一项研究' },
+  firstCraft:     { n: '不是它们的东西', d: '手动制作第一件工艺品' },
+  firstTrade:     { n: '第一笔便宜',     d: '与第一支商队完成交易' },
+  firstExpedition:{ n: '走出谷口',       d: '派出第一次远行队伍' },
+  firstCustom:    { n: '谁都记得的规矩', d: '激活第一个习俗' },
+  custom5:        { n: '默契成规',       d: '激活 5 个习俗' },
+  berryHoard:     { n: '三千颗甜',       d: '囤积 3000 野莓' },
+  lore100:        { n: '记得比忘的多',   d: '累计获得 100 学识' },
+  scroll50:       { n: '满架还在塞',     d: '拥有 50 卷轴' },
+  firstPolity:    { n: '写在外面的名字', d: '选定政体' },
+  firstPolicy:    { n: '以后就这么办',   d: '选定第一个政策' },
 
   // --- 阶段二：分支觉醒（15 个）---
-  branchChosen:  { n: '择路', d: '选定工业或灵修路线' },
-  coal10:        { n: '黑金', d: '拥有 10 煤', br: 'I' },
-  steel5:        { n: '铸钢', d: '拥有 5 钢', br: 'I' },
-  mine3:         { n: '矿脉纵横', d: '建造 3 座矿坑', br: 'I' },
-  pollTier1:     { n: '烟尘初起', d: '污染达到第一阶梯', br: 'I' },
-  spirit10:      { n: '灵流初感', d: '拥有 10 灵能', br: 'M' },
-  fateSilk5:     { n: '织命', d: '拥有 5 命丝', br: 'M' },
-  spiritWell3:   { n: '灵泉遍布', d: '建造 3 座灵泉', br: 'M' },
-  unrestTier1:   { n: '心念微乱', d: '躁念达到第一阶梯', br: 'M' },
-  firstSpell:    { n: '初术', d: '施放第一个灵术', br: 'M' },
-  upgd5:         { n: '精益求精', d: '购买 5 个进阶升级' },
-  year10:        { n: '十年如一日', d: '度过第 10 个年头' },
-  year50:        { n: '半百岁月', d: '度过第 50 个年头' },
-  expDone3:      { n: '行者', d: '完成 3 次远行' },
-  bld20:         { n: '百废俱兴', d: '建造总计 20 座建筑' },
+  branchChosen:   { n: '路口分叉',       d: '选定工业或灵修路线' },
+  coal10:         { n: '袖口的黑',       d: '拥有 10 煤', br: 'I' },
+  steel5:         { n: '一块硬过石头',   d: '拥有 5 钢', br: 'I' },
+  mine3:          { n: '山的三个肚子',   d: '建造 3 座矿坑', br: 'I' },
+  pollTier1:      { n: '风里的怪味',     d: '污染达到第一阶梯', br: 'I' },
+  spirit10:       { n: '掌心被风舔',     d: '拥有 10 灵能', br: 'M' },
+  fateSilk5:      { n: '五根未遇之线',   d: '拥有 5 命丝', br: 'M' },
+  spiritWell3:    { n: '三处井底回响',   d: '建造 3 座灵泉', br: 'M' },
+  unrestTier1:    { n: '不大不小的结',   d: '躁念达到第一阶梯', br: 'M' },
+  firstSpell:     { n: '不该听懂的话',   d: '施放第一个灵术', br: 'M' },
+  upgd5:          { n: '一次比一次轻',   d: '购买 5 个进阶升级' },
+  year10:         { n: '记住幼狐的名字', d: '度过第 10 个年头' },
+  year50:         { n: '别人的开头',     d: '度过第 50 个年头' },
+  expDone3:       { n: '路也认得你',     d: '完成 3 次远行' },
+  bld20:          { n: '山谷换了影子',   d: '建造总计 20 座建筑' },
 };
