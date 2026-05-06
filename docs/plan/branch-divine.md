@@ -1224,7 +1224,7 @@ function castRitual(id) {
 | 神 | 仪式 2（大） | ID | 消耗 | 效果 | 冷却 |
 |----|------------|-----|------|------|------|
 | 山神 | 石化护盾 | `petrifyShield` | 圣油 ×5 + 石材 ×200 | 3 季内污染产出 -50% | 5 季 |
-| 月狐 | 命丝编织 | `fateWeave` | 圣油 ×4 + 符咒 ×30 | 下次占卜可从 4 签中选（而非 3） | 5 季（至下次占卜消耗） |
+| 月狐 | 命丝编织 | `lunarWeave` | 圣油 ×4 + 符咒 ×30 | 下次占卜可从 4 签中选（而非 3） | 5 季（至下次占卜消耗） |
 | 篝火神 | 暖意传递 | `warmthSpread` | 圣油 ×4 + 浆果 ×300 | 3 季内全资源产出 +8% | 5 季 |
 | 雾中无名 | 知识窃取 | `knowledgeSteal` | 圣油 ×6 + 卷轴 ×15 | 立即获得当前最贵未完成研究 15% 进度 | 6 季 |
 | 祖灵集合 | 血脉传承 | `bloodLegacy` | 圣油 ×5 + 古币 ×20 | 3 季内职业效率 +20% | 5 季 |
@@ -1368,7 +1368,7 @@ const DEITY_DATA = {
     n: '月狐', theme: '灵性/符咒',
     passive: { _charmM: 0.12 },
     passiveByLine: { M: { _spellBoost: 0.08 }, I: { _hapFlat: 0.03 } },
-    rituals: ['moonBath', 'fateWeave'],
+    rituals: ['moonBath', 'lunarWeave'],
     sects: ['crescentSect', 'fullMoonSect', 'eclipseSect'],
   },
   bonfireGod: {
@@ -1408,7 +1408,7 @@ const DEITY_RITUAL_DATA = {
 
   // 大仪式（圣油 + 通用资源消耗，持续效果）
   petrifyShield:  { n: '石化护盾', deity: 'mountainGod', cost: [{ r:'holyOil', a:5 }, { r:'stone', a:200 }], dur: 3, e: { _pollProdM: -0.50 }, cd: 5 },
-  fateWeave:      { n: '命丝编织', deity: 'moonFox',     cost: [{ r:'holyOil', a:4 }, { r:'charm', a:30 }],  dur: -1, e: { _divDrawCount: 4 }, cd: 5 },
+  lunarWeave:      { n: '命丝编织', deity: 'moonFox',     cost: [{ r:'holyOil', a:4 }, { r:'charm', a:30 }],  dur: -1, e: { _divDrawCount: 4 }, cd: 5 },
   warmthSpread:   { n: '暖意传递', deity: 'bonfireGod',  cost: [{ r:'holyOil', a:4 }, { r:'berry', a:300 }], dur: 3, e: { _allProdM: 0.08 }, cd: 5 },
   knowledgeSteal: { n: '知识窃取', deity: 'namelessFog',  cost: [{ r:'holyOil', a:6 }, { r:'scroll', a:15 }], dur: 0, e: { _researchProgress: 0.15 }, cd: 6 },
   bloodLegacy:    { n: '血脉传承', deity: 'ancestorSpirit', cost: [{ r:'holyOil', a:5 }, { r:'ancientCoin', a:20 }], dur: 3, e: { _jobEffM: 0.20 }, cd: 5 },
