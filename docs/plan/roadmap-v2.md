@@ -62,59 +62,22 @@
 
 ---
 
-## 二、已有代码资产盘点
+## 二、规划总量（来自各 branch 文档）
 
-<!-- SECTION: existing-code-audit -->
+<!-- SECTION: planning-totals -->
 
-> 以下内容已在 `data.js` 中定义，有完整的 RD/BD/JD/UD/CD/UPGD 条目和 `br:'I'`/`br:'M'` 标记。
-> **但不等于"可用"**——仍需验证 engine.js 计算逻辑、UI 渲染、数值平衡。
-
-### 工业线已有代码
-
-| 类型 | 数量 | 具体内容 |
-|------|------|----------|
-| 资源 | 9 | coal, steel, plate, concrete, gear, oil, barrel, draft + iron(共用) |
-| 建筑 | 12 | mine, blastFurnace, chimney, purifier, steelVault, oilWell, oilTank, steamEngine, combustEngine, factory, railroad, windTower |
-| 职业 | 5 | deepMiner, smelter, driller, machinist, engineer |
-| 研究 | 16 | deepMining→steelWork→{fineCraft,forging,concreteTech,pollControl}; oilExtract→{oilStorage,steamPower,oilGas}→combustion→blueprintLore→assemblyLine; transmission→roadwork; cleanWind |
-| 工艺 | 7 | steel, gear, plate, concrete, oil, barrel, draft |
-| 升级 | 20 | ironPickaxe→coalLamp 全 20 项 |
-| 系统 | 2 | 能量系统(energyP/C/Ratio)、污染系统(5 阶梯 + 灾害事件) |
-
-### 灵修线已有代码
-
-| 类型 | 数量 | 具体内容 |
-|------|------|----------|
-| 资源 | 9 | spirit, fateSilk, bead, spiritInk, sigil, resonance, elixir, spectrum, insight |
-| 建筑 | 4 | spiritWell, spiritTower, quietRoom, leyArray |
-| 职业 | 2 | spiritSenser, silkWeaver |
-| 研究 | 6 | spiritSense→leylineLore→{silkWeave, inscription, pureMind, beadCraft} |
-| 工艺 | 4 | fateSilk, bead, spiritInk, sigil |
-| 升级 | 20 | wellRefine→beadGuard 全 20 项 |
-| 灵术 | 3 | spiritSight, tidePull, fateWeave |
-| 系统 | 2 | 灵脉系统(leylineP/C/Ratio)、内乱系统(5 阶梯 + 心魔事件) |
-
-### 政治系统已有代码
-
-| 类型 | 数量 | 具体内容 |
-|------|------|----------|
-| 资源 | 1 | council (议事录) |
-| 建筑 | 2 | councilHall, polityHall |
-| 研究 | 4 | councilLore, polityLore, policyLore, branchLore |
-| 政体 | 6 | elder, public, trade, anarchy, hermit, martial |
-| 政策组 | 5 | branch(I/M 二选一), land(3选1), edu(3选1), trade(3选1), class(3选1) |
-
-### 关键缺口
-
-| 内容 | 状态 |
-|------|------|
-| 灵修 Phase B-E（共振/化神/超越/灵迁） | **未定义**——仅有 4 个 B 阶段资源名(resonance/elixir/spectrum/insight)，无建筑/研究/升级 |
-| 神启副线全部内容 | **未定义**——branch-divine.md 设计完整，代码零 |
-| 通达副线全部内容 | **未定义**——branch-diplomat.md 设计完整，代码零 |
-| 宗教页签 UI | **未定义**——需新建 |
-| 远行解锁（荒丘/密林/枯风口） | **已解锁**（荒丘/密林 §四 1.4，枯风口 §六 3.5） |
-| 谷声资源 | **已废弃**——原 v0.16-plan.md 设计，决议移除（见§四 1.1） |
-| 工业 Phase C-E（自动化/传输/太空） | **部分定义**——factory/railroad/windTower 已在 B 中，更高阶未定义 |
+> 历史的"已有代码资产盘点"+"关键缺口"小节随 v0.16 → v0.19 多轮迭代严重过时（"未定义"项几乎全部已实装），已删除避免误导。
+>
+> **当前实装量**：参照 [changelog.md](../changelog.md) 与 §四 ~ §十 各阶段实施进度表，或运行时执行：
+> ```js
+> // 浏览器控制台运行
+> Object.values(BD).filter(b=>b.br==='I').length    // 工业建筑数
+> Object.values(UPGD).filter(u=>u.br==='I'&&!u.sb).length  // 工业升级数
+> ```
+>
+> **快照（v0.18 实装）**：工业 23 建筑 / 8 职业 / 34 研究 / 16 配方 / 78 升级；灵修 18 建筑 / 7 职业 / 31 研究 / 17 配方 / 78 升级；神启 13 建筑 / 14 研究 / 8 配方；通达 7 建筑 / 8 研究 / 30 升级；政治 2 建筑 / 4 研究。
+>
+> 下文"分支规划总量"为各 branch doc 设计的**最终目标**（Phase A-E 全部完成）——与上方实装量的差额即为待开发内容。
 
 ### 分支规划总量（含已有 + 未实现）
 
