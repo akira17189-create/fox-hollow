@@ -957,10 +957,14 @@ function renderBldRow(id) {
   if (bldFilter === 'buildable' && !ok) return '';
   if (bldFilter === 'built' && G.bld[id].c <= 0) return '';
   var costs = d.p.map(function(p, i) {
-    var need = bp(id, i), have = G.res[p.r].v;
-    return (have < need ? '<span class="short">' : '') +
-      RD[p.r].n + ' ' + Math.ceil(need) +
-      (have < need ? '</span>' : '');
+    var need = Math.ceil(bp(id, i));
+    var have = Math.floor(G.res[p.r].v);
+    var short = have < need;
+    // 短缺时显示 当前/需要；充足时只显示需要量（避免冗长）
+    var qty = short ? (have + '/' + need) : need;
+    return (short ? '<span class="short">' : '') +
+      RD[p.r].n + ' ' + qty +
+      (short ? '</span>' : '');
   }).join(', ');
   var sec = {
     desc: d.d,
