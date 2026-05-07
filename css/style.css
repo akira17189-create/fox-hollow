@@ -114,14 +114,16 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .bld-name{font-weight:bold;color:#333;cursor:pointer;}
 .bld-name:hover{text-decoration:underline;}
 .bld-cnt{color:#888;font-size:12px;}
+.bld-cost::before{content:"┃";color:#ddd;margin-right:6px;font-weight:normal;}
 .bld-btn{padding:1px 8px;background:#fff;border:1px solid #bbb;cursor:pointer;font-size:12px;color:#333;margin-left:4px;}
+.bld-btn:first-of-type{margin-left:auto;}
 .bld-btn:hover:not(:disabled){background:#eef;border-color:#88b;}
 .bld-btn:disabled{opacity:0.3;cursor:default;}
 .sell-btn{color:#888;border-color:#ccc;}
 .sell-btn:hover{color:#b00;border-color:#b00;background:#fff5f5;}
 .bld-detail{font-size:12px;color:#999;margin-top:1px;display:none;}
 .bld-detail.show{display:block;}
-.bld-cost{font-size:12px;color:#888;margin-left:auto;}
+.bld-cost{font-size:12px;color:#888;}
 .bld-cost .short, .cr-cost .short, .exp-row .short, .cv-item .short{color:#b00;}
 
 /* JOB ROWS */
