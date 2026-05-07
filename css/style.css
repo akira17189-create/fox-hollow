@@ -141,13 +141,17 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .village-hdr{font-size:12px;color:#666;margin-bottom:6px;}
 .village-hdr b{color:#333;}
 
-/* CRAFT / RESEARCH ROWS */
+/* CRAFT / RESEARCH ROWS - 统一极简按钮风（全游戏标准）*/
 .cr-row{padding:4px 0;border-bottom:1px solid #f0f0f0;}
 .cr-top{display:flex;align-items:baseline;gap:6px;}
 .cr-name{font-weight:bold;color:#333;}
-.cr-btn{padding:1px 8px;background:#fff;border:1px solid #bbb;cursor:pointer;font-size:12px;margin-left:auto;}
-.cr-btn:hover:not(:disabled){background:#eef;border-color:#88b;}
-.cr-btn:disabled{opacity:0.3;cursor:default;}
+.cr-btn, .bld-btn, .exp-fox-btn{padding:1px 8px;background:#fff;border:1px solid #bbb;cursor:pointer;font-size:12px;color:#333;margin-left:4px;}
+.cr-btn{margin-left:auto;}
+.cr-btn:hover:not(:disabled), .bld-btn:hover:not(:disabled), .exp-fox-btn:hover:not(:disabled){background:#eef;border-color:#88b;}
+.cr-btn:disabled, .bld-btn:disabled, .exp-fox-btn:disabled{opacity:0.3;cursor:default;}
+.exp-fox-btn.sel{background:#333;color:#fff;border-color:#333;}
+.exp-fox-btn.sel:hover{background:#333;color:#fff;}
+.bld-btn:first-of-type, button.bld-btn{margin-left:auto;}
 .auto-btn{margin-left:4px;color:#888;border-color:#ccc;}
 .auto-btn:hover{color:#070;border-color:#070;background:#f5fff5;}
 .auto-btn.auto-on{color:#070;border-color:#070;background:#f0fff0;}

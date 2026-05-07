@@ -1261,11 +1261,11 @@ function rTC() {
         extra += ' <span style="color:#c66;font-size:11px;">冷却 ' + cdLeft + 's</span>';
       }
       var sec = { effects: [SD[sid].d], tip: pickTip('spell_' + sid, SD[sid].tip) };
-      var nameHtml = hpWrap('<span class="bld-name">' + SD[sid].n + '</span>', sec);
-      h += '<div class="bld-row"><div class="bld-top">' +
+      var nameHtml = hpWrap('<span class="cr-name">' + SD[sid].n + '</span>', sec);
+      h += '<div class="cr-row"><div class="cr-top">' +
         nameHtml + extra +
-        '<span class="bld-cost">' + cost + '</span>' +
-        '<button class="bld-btn" onclick="castSpell(\'' + sid + '\')" ' +
+        '<span class="cr-cost">' + cost + '</span>' +
+        '<button class="cr-btn" onclick="castSpell(\'' + sid + '\')" ' +
         (ok ? '' : 'disabled') + '>施法</button></div></div>';
     }
   }
