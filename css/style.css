@@ -105,6 +105,10 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .bld-chip{font-size:11px;padding:2px 8px;border:1px solid #ddd;border-radius:10px;cursor:pointer;color:#888;user-select:none;}
 .bld-chip:hover{color:#333;border-color:#aaa;}
 .bld-chip.on{background:#333;color:#fff;border-color:#333;}
+.bld-chip.dis{cursor:default;opacity:0.4;color:#bbb;}
+.bld-chip.dis:hover{color:#bbb;border-color:#ddd;}
+.bld-chip-n{color:#bbb;font-size:10px;margin-left:2px;}
+.bld-chip.on .bld-chip-n{color:#ccc;}
 .bld-row{padding:3px 0;border-bottom:1px solid #f5f5f5;}
 .bld-top{display:flex;align-items:baseline;gap:6px;}
 .bld-name{font-weight:bold;color:#333;cursor:pointer;}

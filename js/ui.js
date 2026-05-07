@@ -1020,19 +1020,37 @@ function setBldFilter(f) { bldFilter = f; rTC(); }
 function renderBldList(tab) {
   var groups = (tab === 'v') ? BLD_GROUPS_V : BLD_GROUPS;
   var h = '';
-  // 过滤栏
-  var chipDef = [
-    { k: 'all', n: '全部' },
-    { k: 'buildable', n: '可建造' },
-    { k: 'built', n: '已建' },
-  ];
-  h += '<div class="bld-filter">';
-  for (var ci = 0; ci < chipDef.length; ci++) {
-    var c = chipDef[ci];
-    var on = bldFilter === c.k;
-    h += '<span class="bld-chip' + (on ? ' on' : '') + '" onclick="setBldFilter(\'' + c.k + '\')">' + c.n + '</span>';
+  // 先统计本 tab 的过滤计数（only count visible buildings）
+  var counts = { all: 0, buildable: 0, built: 0 };
+  for (var bid in BD) {
+    var bd = BD[bid];
+    if (!bd || !G.bld[bid] || !G.bld[bid].on) continue;
+    if (bd.t !== tab) continue;
+    if (isProdLocked('bld', bid)) continue;
+    if (G.bld[bid].c === 0 && (anyBranchLocked(bd) || (bd.uq && !chk(bd.uq)))) continue;
+    counts.all++;
+    if (canB(bid)) counts.buildable++;
+    if (G.bld[bid].c > 0) counts.built++;
   }
-  h += '</div>';
+  // 过滤栏（只在 all > 0 时显示；0 数量的 chip 灰掉）
+  if (counts.all > 0) {
+    var chipDef = [
+      { k: 'all', n: '全部' },
+      { k: 'buildable', n: '可建造' },
+      { k: 'built', n: '已建' },
+    ];
+    h += '<div class="bld-filter">';
+    for (var ci = 0; ci < chipDef.length; ci++) {
+      var c = chipDef[ci];
+      var on = bldFilter === c.k;
+      var n = counts[c.k];
+      var dis = n === 0;
+      h += '<span class="bld-chip' + (on ? ' on' : '') + (dis ? ' dis' : '') + '"'
+        + (dis ? '' : ' onclick="setBldFilter(\'' + c.k + '\')"') + '>'
+        + c.n + ' <span class="bld-chip-n">' + n + '</span></span>';
+    }
+    h += '</div>';
+  }
   // 分组渲染
   for (var gi = 0; gi < groups.length; gi++) {
     var grp = groups[gi];
