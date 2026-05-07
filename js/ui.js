@@ -242,9 +242,17 @@ function bldUnlockNotes(d) {
   return n;
 }
 
-// 职业效果描述
+// 职业效果描述（隐藏未解锁资源 — 避免剧透/提前曝光后期内容）
 function jobEffects(id, e) {
   var r = [];
+  // 猎手特殊：动态生成 desc，香草未解锁时不提及
+  if (id === 'hunter') {
+    var parts = ['兽皮 +0.015/s'];
+    if (G.res.spice && G.res.spice.on) parts.push('副产 香草 +0.0025/s');
+    parts.push('授业可提升产出');
+    r.push(parts.join('；'));
+    return r;
+  }
   // 斥候等无产出职业用 desc 字段（纯 desc 则直接返回）
   if (JD[id] && JD[id].desc) {
     r.push(JD[id].desc);
@@ -255,7 +263,12 @@ function jobEffects(id, e) {
   }
   for (var k in e) {
     var v = e[k];
-    if (k.endsWith('P')) r.push('每只狐狸产出：' + (RD[k.slice(0, -1)]?.n || k) + ' +' + (v * 0.5) + '/s');
+    if (k.endsWith('P')) {
+      var resKey = k.slice(0, -1);
+      // 跳过未解锁资源（如 spice 在早期不该显示）
+      if (G.res[resKey] && !G.res[resKey].on) continue;
+      r.push('每只狐狸产出：' + (RD[resKey]?.n || k) + ' +' + (v * 0.5) + '/s');
+    }
   }
   return r;
 }

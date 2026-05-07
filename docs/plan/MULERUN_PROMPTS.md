@@ -10,29 +10,46 @@
 复制下面整段发给 mulerun：
 
 ```
-按 docs/plan/DEV_SOP.md 的流程，执行 docs/plan/roadmap-v2.md §四 实施进度表中
+按 docs/plan/DEV_SOP.md 流程，执行 docs/plan/roadmap-v2.md §四-§十 中
 下一个 ⏳ 任务（或当前 ⏳ 进行中任务）。
 
 阅读顺序（不可跳）：
 1. docs/plan/INDEX.md
-2. docs/plan/roadmap-v2.md §四 进度表 + 对应任务卡
+2. docs/plan/roadmap-v2.md
+   - §三 阶段总览（确认当前 phase）
+   - 当前 phase 章节内的实施进度表 + 对应任务卡
 3. docs/plan/DEV_SOP.md
 4. docs/RULES.md §五 + §七 + §八
+5. 任务涉及的 branch-*.md 章节（按任务卡"涉及文件清单"推断）
 
 执行要求：
 - 检查任务卡"前置"全部 ✅，否则停下报告
-- 严格按任务卡"逐步执行"改代码，行号 ±5 范围内定位
+- 严格按"逐步执行"改代码，行号 ±5 范围内定位
 - 改 JS 必须递增 index.html 的 ?v=N（RULES §五.9）
+- 启动验证服务：preview_start "fox-hollow"（端口冲突自动换，别杀外部进程）
+- 多步骤（≥3 步）任务用 TodoWrite 跟踪
 - 改完跑"验收"清单全过才 commit
+- 验收必须包含：
+  1. console 无 error（preview_console_logs level=error）
+  2. 旧存档加载不崩（如改了 G 字段，验证 migrate）
+  3. preview_eval 跑任务卡指定的验证表达式
+  4. 任务卡内每个 [ ] 项都打 ✅
+- commit message 按 RULES §八.5 4 要素：
+  (1) scope: 章节号 摘要
+  (2) 改动列表（按文件分组）
+  (3) 验证清单 ✅
+  (4) cache-buster 版本号（如适用）
 - 不主动 git push
 - 不跨步骤跳跃
+- 不修复任务卡之外的 bug（发现就报告，不动手；hotfix 走单独 prompt）
 - 遇到 RULES §八.2 的 6 个停下场景立即停下报告
 
 完成后报告（用以下格式）：
-- 任务卡章节号（如 §四 1.3）
+- 任务卡章节号（如 §七 4.6）
 - commit SHA
 - 验收清单逐项结果（✅/❌）
 - 偏离任务卡的改动（如有，原因）
+- 期间发现的、未触动的 unrelated 问题（列清单等待人审）
 - 等待"检查"指令
 
 不要继续做下一个任务。停下等检查。
