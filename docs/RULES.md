@@ -327,12 +327,14 @@ fox-hollow/
 > 本节为 mulerun（接手开发的 AI）必读。**违反任一条 = 错误**。
 > 完整开发 SOP 见 [docs/plan/DEV_SOP.md](plan/DEV_SOP.md)。
 
-### 8.1 mulerun 两条硬限制
+### 8.1 mulerun 硬限制
 
 | # | 限制 | 违反后果 |
 |---|------|---------|
-| 1 | **不得主动 git push**：完成 commit 后停下报告"已 commit，等待 review"，由人类决定何时 push | 错误代码可能进入远程，影响其他贡献者 |
-| 2 | **不得跨步骤跳跃**：必须按 [roadmap-v2.md §四 实施进度表](plan/roadmap-v2.md) 中 ⏳ 的下一步做，禁止跳到后面的步骤 | 留半残状态、依赖错位、build 不通 |
+| 1 | **不得跨步骤跳跃**：必须按 [roadmap-v2.md §四 实施进度表](plan/roadmap-v2.md) 中 ⏳ 的下一步做，禁止跳到后面的步骤 | 留半残状态、依赖错位、build 不通 |
+
+> **关于 git push**：commit 完成 + 验收清单全过后**自动 push**。这是单人开发项目，不存在"远程被破坏"风险；GitHub Pages 自动部署需要 push 才能让玩家看到修复。
+> 例外：如果 commit 后发现 bug 想紧急 revert，先报告再决定（这种情况罕见，正常流程是 commit 前已经验收过）。
 
 > **关于修改设计文档**：mulerun 在**必要时**可以修改 roadmap-v2.md / branch-*.md 的设计内容（如发现冲突、勘误、或开发中需要细化设计）。但必须：
 > 1. 在 commit message 明确说明改了什么 + 原因

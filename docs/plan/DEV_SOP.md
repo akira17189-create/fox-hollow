@@ -10,9 +10,10 @@
 ## 〇、绝对纪律（不得违反）
 
 1. **不得跨步骤跳跃**：必须按 [roadmap-v2.md §四 实施进度表](roadmap-v2.md) 中 ⏳ 标记的下一步做。
-2. **不得主动 git push**：完成 commit 后，停下并报告"已 commit，等待 review"。由人类决定何时 push。
-3. **不得跳过验收**：任何 `[ ] 验收` 项 fail，立刻停下排查，不要继续下一步。
-4. **不得沉默选择**：遇到模棱两可、文档冲突、报错原因不明，立刻停下报告，不要 silently 选择一个方向继续。
+2. **不得跳过验收**：任何 `[ ] 验收` 项 fail，立刻停下排查，不要继续下一步。
+3. **不得沉默选择**：遇到模棱两可、文档冲突、报错原因不明，立刻停下报告，不要 silently 选择一个方向继续。
+
+> **git push 政策**：commit 完成 + 验收过即**自动 push**到 origin/master（单人项目，GitHub Pages 自动部署需要 push 才能让玩家看到）。例外：刚 commit 想 revert 时先报告。
 
 > **关于修改设计文档**：必要时可以修改 roadmap-v2.md / branch-*.md（如发现冲突、勘误、或开发中需要细化设计）。但必须在 commit message 说明改了什么 + 原因，并保留最小必要范围。优先用 §十五 勘误表记录跨文档不一致。
 
@@ -144,15 +145,15 @@ scope 取值：`engine`, `ui`, `data`, `docs`, `v0.16.X`（版本里程碑）
 
 把下一个 ⬜ 任务的状态改 ⏳。
 
-### 3.5 不要 push
+### 3.5 自动 push
 
-**停下报告**：
+commit + 验收过 → 立刻 `git push origin master`。push 完报告：
 ```
 已完成 §四 1.X
 - commit SHA: <hash>
 - 验收: 全过
 - 进度表已更新
-- 等待 review 后 push
+- 已 push 到 origin/master（GitHub Pages 自动部署中）
 ```
 
 ---

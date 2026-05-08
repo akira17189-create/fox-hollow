@@ -1,7 +1,7 @@
 # 开发循环 prompt 模板（复制粘贴给 AI agent）
 
 > 把接手开发的 AI（mulerun / Claude Code / Codex / 其他）都当成新手贡献者：明确指令 + 明确边界 = 减少错误。
-> 工作流：**[Prompt A 执行] → [Prompt B 检查] → 人类 review → push → 进入下一轮**
+> 工作流：**[Prompt A 执行 + 自动 push] → [Prompt B 检查] → 人类 review → 进入下一轮**
 > 配套规则文档：[DEV_SOP.md](DEV_SOP.md)（开发流程纪律）+ [../RULES.md](../RULES.md)（协作规则）
 
 ---
@@ -40,7 +40,7 @@
   (2) 改动列表（按文件分组）
   (3) 验证清单 ✅
   (4) cache-buster 版本号（如适用）
-- 不主动 git push
+- commit + 验收过即 git push（自动）
 - 不跨步骤跳跃
 - 不修复任务卡之外的 bug（发现就报告，不动手；hotfix 走单独 prompt）
 - 遇到 RULES §八.2 的 6 个停下场景立即停下报告
@@ -87,7 +87,7 @@
    - 版本里程碑级才需要 changelog 条目
 
 4. 报告（用以下格式）：
-   - ✅ 全过 → 写"通过，等待 push 后进入下一步"
+   - ✅ 全过 → 写"通过，已 push，等待人类 review 后进入下一步"
    - ❌ 有问题 → 列出每个问题 + 严重度（🔴 阻塞 / 🟡 警告 / 🔵 建议）
      由人类决定如何处理
 
@@ -103,13 +103,13 @@
 ```
 你（人类）：[复制 Prompt A 发给 mulerun]
   ↓
-mulerun：执行任务 → 报告 commit SHA + 验收
+mulerun：执行任务 → commit + push → 报告 SHA + 验收
   ↓
 你：[复制 Prompt B 发给 mulerun]
   ↓
 mulerun：检查 → 报告通过 / 列出问题
   ↓
-你（如通过）：检查 mulerun 报告 → git push（人类操作）
+你（如通过）：直接进入下一轮（push 已自动完成）
 你（如有问题）：人工修 / 让 mulerun 修特定问题 / 决定下一步
   ↓
 [发 Prompt A 进入下一轮]
@@ -121,7 +121,7 @@ mulerun：检查 → 报告通过 / 列出问题
 |------|------|
 | mulerun 在 Prompt A 阶段就停下报告问题 | 不发 Prompt B，先解决问题 |
 | Prompt B 发现 🔴 阻塞 | 让 mulerun 修：发"修复 B 报告中的问题 N，仅修这一项，其他不动" |
-| 多个步骤需要连做 | 每步骤都走完整 A→B→push 循环，不要并行 |
+| 多个步骤需要连做 | 每步骤都走完整 A→commit/push→B 循环，不要并行 |
 | 发现 bug 不在任务卡范围 | 单独发 prompt："hotfix：<bug 描述>，单独 commit，不修改任何任务进度" |
 
 ---
