@@ -674,13 +674,32 @@ function tabActionableCount(tabId) {
       }
     }
   } else if (tabId === 'k') {
-    // 典制：习俗可激活
+    // 典制：习俗可激活 + 治理可选项
     if (typeof CUSTD !== 'undefined') {
       for (var ci = 0; ci < CUSTD.length; ci++) {
         var c = CUSTD[ci];
         if (typeof isCustomVisible === 'function' && !isCustomVisible(c)) continue;
         if (G.customs && G.customs[c.id]) continue;
         if (typeof canActivateCustom === 'function' && canActivateCustom(c.id)) n++;
+      }
+    }
+    // 治理：Tier 1 / 政体 / 政策域 可选时计入
+    if (G.upg.polityLore?.done && !G.tier1) n++;  // Tier 1 路线待选
+    if (G.tier1 && !G.polity) n++;                // 政体待选
+    if (G.upg.policyLore?.done && typeof POLICY !== 'undefined') {
+      for (var domId in POLICY) {
+        var dom = POLICY[domId];
+        if (!dom || !dom.permanent) continue;
+        if (G.policies && G.policies[domId]) continue;  // 已选过
+        // 检查至少一个 opt 资源充足，省得 disable 状态也计数
+        if (dom.cost) {
+          var costOk = true;
+          for (var ri = 0; ri < dom.cost.length; ri++) {
+            var p = dom.cost[ri];
+            if ((G.res[p.r]?.v || 0) < p.a) { costOk = false; break; }
+          }
+          if (costOk) n++;
+        }
       }
     }
   }

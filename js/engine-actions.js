@@ -137,6 +137,11 @@ function research(id) {
   if (id === 'oilExtract' || id === 'inscription') G.phase = Math.max(G.phase || 0, 3);
   if (id === 'calcination' || id === 'crystalize') G.phase = Math.max(G.phase || 0, 4);
   log('研究完成：' + UD[id].n, 'important');
+  // v0.20 §八 hotfix: branchLore 完成后立即弹强制选路对话框
+  // （之前只有 migrate() 在 load 时检测 → 玩家研究完不刷新就看不到选路 → 典制页签缺主线选项）
+  if (id === 'branchLore' && !G.policies?.branch && typeof showBranchMigrationModal === 'function') {
+    showBranchMigrationModal();
+  }
   rAll();
 }
 
