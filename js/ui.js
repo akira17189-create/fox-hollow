@@ -4,16 +4,16 @@
  */
 
 // ===== 发布版裁剪（dev/prod 双模式） =====
-// 本地 localhost / 127.0.0.1 = dev 模式，所有内容可见（开发测试用）
-// 其他域名（GitHub Pages / mule pages 等）= prod 模式，按 PROD_LOCKED 列表过滤
-// 这是临时机制——在 mulerun 完成 Phase 1 重构、内容补全前，发布版只展示到驿道/云岭/彩络
+// 本地 localhost / 127.0.0.1 = dev 模式，所有内容可见
+// 其他域名（GitHub Pages 等）= prod 模式，按 PROD_LOCKED 列表过滤
+// 当前所有列表为空——所有内容线上可见。如需临时隐藏未完成内容，按 category 加 ID 即可。
 const IS_DEV = window.location.hostname === 'localhost'
             || window.location.hostname === '127.0.0.1';
 const PROD_LOCKED = {
-  bld:   ['moonStage', 'carveStone', 'artistry', 'gathering', 'ancestor', 'councilHall', 'polityHall'],
-  res:   ['wine', 'ink', 'silk'],
-  exp:   ['nearHill', 'forest', 'windRidge'],
-  spell: ['overflow', 'doubleCraft', 'inkPact'],
+  bld:   [],
+  res:   [],
+  exp:   [],
+  spell: [],
 };
 function isProdLocked(category, id) {
   if (IS_DEV) return false;
