@@ -15,6 +15,14 @@
 | [branch-divine-mystery.md](branch-divine-mystery.md) | ~899 | 神启-秘仪路（灵修+神启的子文档：飞升阶梯、化神、飞升终局） |
 | [branch-diplomat.md](branch-diplomat.md) | ~825 | 通达副线（4 阶段 A-D + 声望/邦交系统，主线无关，仅追加结局叙事） |
 
+## 开发流程文档
+
+| 文件 | 用途 |
+|------|------|
+| [DEV_SOP.md](DEV_SOP.md) | 开发执行 SOP（每次开发前必读）：纪律、读取顺序、任务卡检查、commit 规则 |
+| [DEV_PROMPTS.md](DEV_PROMPTS.md) | 开发循环 prompt 模板（复制粘贴给 AI agent）：Prompt A 执行 / Prompt B 检查 + 内容创作 / 阶段合规检查附录 |
+| [../RULES.md](../RULES.md) | 协作规则：核心纪律 + UI 约定 + 资源 ID 规范 + 文档维护 + 常见错误 |
+
 ## AI 读取建议
 
 文档体量较大但不拆分，原因：

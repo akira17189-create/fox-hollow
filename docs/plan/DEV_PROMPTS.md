@@ -1,7 +1,8 @@
-# mulerun 标准 prompt（每次开发循环复制粘贴）
+# 开发循环 prompt 模板（复制粘贴给 AI agent）
 
-> 把 mulerun 当成新手贡献者：明确指令 + 明确边界 = 减少错误。
+> 把接手开发的 AI（mulerun / Claude Code / Codex / 其他）都当成新手贡献者：明确指令 + 明确边界 = 减少错误。
 > 工作流：**[Prompt A 执行] → [Prompt B 检查] → 人类 review → push → 进入下一轮**
+> 配套规则文档：[DEV_SOP.md](DEV_SOP.md)（开发流程纪律）+ [../RULES.md](../RULES.md)（协作规则）
 
 ---
 
