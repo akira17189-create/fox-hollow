@@ -1159,6 +1159,9 @@ function openGate() {
   if (!G.subBranches?.D || G.mainLine !== 'mystic') { log('需要灵修+神启路线。', 'warn'); return; }
   var gateIndex = G._gates || 0;
   if (gateIndex >= GATE_DEF.length) { log('已无更多门可开。', 'warn'); return; }
+  // 阶段门控：phase 4 仅前 2 门，phase 5 前 4 门，phase 6+ 全开（与 ui.js 一致）
+  var phaseLimit = (G.phase >= 6) ? 5 : (G.phase >= 5) ? 4 : (G.phase >= 4) ? 2 : 0;
+  if (gateIndex >= phaseLimit) { log('当前阶段尚未开放该门。', 'warn'); return; }
   var gate = GATE_DEF[gateIndex];
   // 检查化神池等级
   var poolCount = G.bld.apotheosisPool?.c || 0;
