@@ -140,6 +140,102 @@ mulerun：检查 → 报告通过 / 列出问题
 
 ---
 
+## 附录 1：内容创作流程（接外部 LLM）
+
+> 适用：事件池扩充、叙事文本批量生成等"创意密度高、成本敏感"的任务。
+> 例：phase 4.6 山谷见闻事件包（69 条 = 23 槽 × 3 文风候选）。
+
+### 工作流
+
+```
+1. 写 prompt 模板 → tools/prompts/<task-name>.md
+2. 跑 tools/multi-model-query.py 并发调多个金山云模型
+   - 命令: KSYUN_API_KEY=xxx python -u tools/multi-model-query.py \
+           tools/prompts/<task-name>.md --serial
+   - 输出: tools/output/<timestamp>_<model>.md（每模型一份）
+3. 用户同时给某些网页 LLM（kimi/元宝/deepseek 网页）发同一 prompt 收回
+4. 我合并所有候选 → 按硬约束打分挑选 → 写入对应 JS 数组
+5. cache-bust + 浏览器实测 + commit
+```
+
+### prompt 模板的硬约束部分必须包含
+
+- **角色级硬规则**（如狐狸用"它"，禁"他/她/他们/她们"）
+- **风格示例**（每种风格 1-2 条仿写，避免抽象描述）
+- **禁词列表**（"突然/忽然/能量/神奇/无比" 等）
+- **物件具体**列表（年轮/卷轴/爪印 等具象词，避免"美丽景象"）
+- **资源/建筑 ID 速查表**（精确到代码里的 ID 名）
+- **字数硬上下限**（如 40-100 字）
+- **禁止总结尾巴**（不写"这是好兆头"）
+- **输出格式硬约束**（`{ t: '...', sb: 'D', ... }` JS 字面量，可直接粘贴）
+
+### 模型选择
+
+| 模型类别 | 特征 | 推荐场景 |
+|---|---|---|
+| `deepseek-v4-flash` | 非推理，平衡，~80s 出 9K tokens | 默认主力 |
+| `mimo-v2.5-pro` | 推理少（~18 tokens），快 | 第二候选 |
+| `glm-5.1` | 快、轻 | 备用候选 |
+| `kimi-k2.5` / `qwen3-235b-a22b-thinking` | 重推理，30 min 易超时 | 默认禁用 |
+| `deepseek-v4-pro` / `kimi-k2.6` | 重推理 | 默认禁用 |
+
+multi-model-query.py 的 `MODELS` 列表已固定为前 4 个。重推理模型不能并发跑（互相争 reasoning_content 配额会全部超时）。
+
+### 挑选规则
+
+1. **硬约束过滤**：踩禁词、用错代词、夹英文 ID、超长太多的直接淘汰
+2. **风格区分**：每槽位每风格至少留 1 条，3 种风格不重复
+3. **改写优先级**：能改写就改写（如把"星图阁"统一为"灵图阁"），不能改写才整条丢
+4. **门控自洽**：t 文本提到的副线建筑必须出现在 uq.b 里（避免叙事突兀，参考 phase 4.6 邦交 5 条修复）
+
+---
+
+## 附录 2：合规检查指令（Prompt B 增强版）
+
+> 比正文 Prompt B 多 3 项检查，本次 phase 4 收尾用。
+
+复制下面发给 mulerun（替换 §X.Y 为实际章节号）：
+
+```
+对刚才完成的任务（§X.Y）做合规检查然后修复（不止报告）：
+
+1. 代码合规
+   - node syntax check 所有 JS 文件
+   - preview 硬刷新主页（location.reload）→ preview_console_logs level=error 必须 0
+   - 任务卡"验收"清单逐项 preview_eval 验证（已跑过的复核摘要即可）
+   - 旧存档兼容（如改 G 字段或 schema → 检查 migrate 函数补全字段）
+
+2. 文档同步
+   - roadmap-v2 当前阶段（§三 阶段总览定位）进度表：状态 ⏳→✅ + 填了 commit SHA
+   - 验证 SHA 真实存在（git cat-file -e <sha>）
+   - 设计文档（branch-*.md）若有相关改动是否同步
+   - 跨文档关键 ID 一致性（grep 主要建筑/资源/职业 ID 看代码 vs 文档）
+   - 版本里程碑级（v0.X 整数）才需要 changelog 条目
+
+3. 未跟踪文件
+   - git status 看 ?? 项，每项决定：commit / .gitignore / 本地保留
+   - 浏览器 MCP 副产物 (.playwright-cli/) 应进 .gitignore
+   - LLM 输出缓存 (tools/output/) 应进 .gitignore
+   - 用户备份 zip 应进 .gitignore
+   - dev server 配置 (.claude/launch.json) 应 commit
+
+发现问题就修，修完一起 commit。
+```
+
+### 与正文 Prompt B 的差异
+
+| 项 | 正文 B | 附录 B |
+|---|---|---|
+| 章节号 | 硬编码"§四进度表"（phase 1） | "当前阶段进度表"（按 §三 定位）|
+| SHA 真实性 | 不验证 | 验证 git cat-file -e |
+| 未跟踪文件 | 不检查 | 检查 + 决定处置 |
+| 行为模式 | 仅报告等人审 | 自动修复 |
+| 适用场景 | 单步任务结尾 | 整阶段（如 phase 4）收尾 |
+
+正文 Prompt B 适合"一个任务卡跑完后做闸门"，附录 B 适合"整个阶段收尾时的总体审计"。
+
+---
+
 ## 进度表更新示例
 
 mulerun 完成 1.3 后应该这样更新 [roadmap-v2.md §四 进度表](roadmap-v2.md)：
