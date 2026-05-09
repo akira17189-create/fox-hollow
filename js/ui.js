@@ -1865,7 +1865,7 @@ function rTC() {
 
     var actCount = 0;
     for (var ck in (G.customs || {})) if (G.customs[ck]) actCount++;
-    h += '<div style="margin-bottom:10px;font-weight:bold;color:#555;">已激活习俗：' + actCount + ' / ' + CUSTD.length + '</div>';
+    h += '<div class="customs-count">已激活习俗：<span class="' + (actCount > 0 ? 'ca-on' : 'ca-off') + '">' + actCount + '</span> / ' + CUSTD.length + '</div>';
 
     h += '<div class="customs-list">';
     for (var ci = 0; ci < CUSTD.length; ci++) {
@@ -1878,20 +1878,26 @@ function rTC() {
       var statusCls = isActive ? 'custom-active' : (unlocked ? 'custom-ready' : 'custom-locked');
 
       h += '<div class="custom-card ' + statusCls + '">';
-      h += '<div class="custom-name">' + c.n + '</div>';
-      h += '<div class="custom-desc">' + c.desc + '</div>';
+      h += '<div class="custom-row">';
+      h += '<span class="custom-name">' + c.n + '</span>';
+      var descAttr = (c.desc || '').replace(/"/g, '&quot;');
+      h += '<span class="custom-desc" title="' + descAttr + '">' + c.desc + '</span>';
 
       if (isActive) {
-        h += '<div class="custom-status">已激活</div>';
+        h += '<span class="custom-status">✓ 已激活</span>';
       } else if (unlocked) {
+        h += '<button onclick="activateCustom(\'' + c.id + '\')" class="custom-link-btn"' + (hasResources ? '' : ' disabled') + '>▶ 激活</button>';
+      }
+      h += '</div>';
+
+      if (!isActive && unlocked) {
         var costStr = c.cost.map(function(p) {
           var have = G.res[p.r] ? G.res[p.r].v : 0;
           var col = have >= p.a ? '#333' : '#b00';
           return '<span style="color:' + col + '">' + ((RD[p.r] && RD[p.r].n) || p.r) + ' ' + p.a + '</span>';
         }).join('，');
         h += '<div class="custom-cost">成本：' + costStr + '</div>';
-        h += '<button onclick="activateCustom(\'' + c.id + '\')" class="bld-btn"' + (hasResources ? '' : ' disabled') + '>激活</button>';
-      } else {
+      } else if (!unlocked) {
         var req = c.unlock || {};
         var reqStrs = [];
         if (req.u) for (var rui = 0; rui < req.u.length; rui++) {
@@ -1921,7 +1927,7 @@ function rTC() {
           var done = (G.springExpDone || 0) >= req.spring;
           reqStrs.push((done ? '✓ ' : '✗ ') + '春季远行完成 ≥ ' + req.spring);
         }
-        h += '<div class="custom-req">' + reqStrs.join('<br>') + '</div>';
+        h += '<div class="custom-req">' + reqStrs.join('｜') + '</div>';
       }
 
       if (c.tip && c.tip.length) {
@@ -2278,7 +2284,7 @@ function renderRitePanel() {
     if (G.seasonRites[k]) applied.push(SEASON_RITES[k].name);
   }
   if (applied.length) {
-    var statusText = applied.join('+');
+    var statusText = applied.join('·');
     if (G.seasonRites.all) statusText += '（三全礼）';
     h += '<span class="rite-status-applied">已应用：' + statusText + '</span>';
   } else if (!pending) {
