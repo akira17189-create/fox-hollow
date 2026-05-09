@@ -1111,6 +1111,86 @@ const UD = {
     uq: { u: { stargazing: 1 }, b: { observatory: 3 } },
   },
 
+  // ===== 工业分支 D阶段：辉能时代研究链（5.1c, 13 项） =====
+  fission: {
+    n: '裂变', d: '把寒钛压进合金笼里——它会慢慢碎成会发光的灰。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1800 }, { r: 'titan', a: 50 }, { r: 'alloy', a: 10 }, { r: 'draft', a: 10 }],
+    e: { uraniumU: 1 },
+    uq: { u: { refining: 1 }, b: { refinery: 2 } },
+  },
+  radiantPower: {
+    n: '辉能', d: '辉石不只是会发光——把光收起来，能煮饭，也能熔金。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'uranium', a: 10 }, { r: 'alloy', a: 15 }],
+    e: {},
+    uq: { u: { fission: 1 }, b: { accelerator: 1 } },
+  },
+  particle: {
+    n: '粒子学', d: '辉光不是一缕，是无数颗。看清每一颗，才能让它们听话。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1600 }, { r: 'uranium', a: 15 }, { r: 'alloy', a: 8 }],
+    e: {},
+    uq: { u: { fission: 1 } },
+  },
+  shielding: {
+    n: '屏蔽术', d: '辉石的脾气不能放任——一层混凝、一层钛、再一层混凝，它就老实了。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1500 }, { r: 'uranium', a: 20 }, { r: 'pillar', a: 5 }],
+    e: {},
+    uq: { u: { radiantPower: 1 } },
+  },
+  proliferation: {
+    n: '增殖论', d: '一颗辉石点燃，能引出第二颗——只要环境对。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1700 }, { r: 'uranium', a: 30 }, { r: 'draft', a: 10 }],
+    e: {},
+    uq: { u: { radiantPower: 1 }, b: { furnace: 2 } },
+  },
+  thoriumConv: {
+    n: '重晶转化', d: '把辉石的余烬再熔一次——会得到更稳、更密的东西。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1500 }, { r: 'uranium', a: 30 }],
+    e: { thoriumU: 1 },
+    uq: { u: { radiantPower: 1 } },
+  },
+  superCond: {
+    n: '超导', d: '冷到一定程度，电就不再损耗——辉能从此走得更远。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1800 }, { r: 'alloy', a: 15 }, { r: 'uranium', a: 10 }],
+    e: {},
+    uq: { u: { particle: 1 } },
+  },
+  mirrorForge: {
+    n: '镜锻', d: '合金磨成镜，照得见辉光的形状——也能把它折回去。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1600 }, { r: 'alloy', a: 10 }, { r: 'uranium', a: 8 }],
+    e: { mirrorAlloyU: 1 },
+    uq: { u: { refining: 1, radiantPower: 1 } },
+  },
+  voidPrinciple: {
+    n: '幽理', d: '把所有图纸压成一本书——书里没字，但翻一页就懂一件事。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'outline', a: 5 }, { r: 'uranium', a: 15 }],
+    e: { codexU: 1 },
+    uq: { u: { systematics: 1, radiantPower: 1 } },
+  },
+  radiation: {
+    n: '辐射学', d: '辉光会渗——隔着墙、隔着皮毛。学会防它，先学会看见它。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1500 }, { r: 'uranium', a: 20 }, { r: 'alloy', a: 10 }],
+    e: {},
+    uq: { u: { radiantPower: 1 } },
+  },
+  autoMech: {
+    n: '机关自驱', d: '机器自己上料、自己出货——狐狸只管在远处看着。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 2200 }, { r: 'alloy', a: 15 }, { r: 'uranium', a: 20 }, { r: 'draft', a: 15 }],
+    e: {},
+    uq: { u: { automation: 1, radiantPower: 1 } },
+  },
+  powerNet: {
+    n: '能网', d: '把每座熔炉串起来——一处过载，全网分担。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 1900 }, { r: 'uranium', a: 15 }, { r: 'alloy', a: 12 }, { r: 'pillar', a: 5 }],
+    e: {},
+    uq: { u: { superCond: 1 }, b: { furnace: 2 } },
+  },
+  deepRadiance: {
+    n: '深层辉脉', d: '辉石在更深的岩层里成片地长——把矿井挖到那里，省一半料。', br: 'I', phase: 4,
+    p: [{ r: 'lore', a: 2100 }, { r: 'uranium', a: 25 }, { r: 'thorium', a: 8 }],
+    e: {},
+    uq: { u: { proliferation: 1 }, b: { accelerator: 2 } },
+  },
+
   // ===== 灵修分支 A阶段：初感（6 个研究） =====
   spiritSense: {
     n: '感应术', d: '闭上眼，用爪尖去触碰看不见的东西——第一缕灵流。', br: 'M',

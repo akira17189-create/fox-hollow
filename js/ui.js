@@ -297,6 +297,11 @@ function upgEffects(e) {
     else if (k === 'titanPartU') r.push('解锁资源：钛构件');
     else if (k === 'pillarU') r.push('解锁资源：混凝柱');
     else if (k === 'starchartU') r.push('解锁资源：星图');
+    // 工业分支 D阶段资源解锁
+    else if (k === 'uraniumU') r.push('解锁资源：辉石');
+    else if (k === 'thoriumU') r.push('解锁资源：重晶');
+    else if (k === 'mirrorAlloyU') r.push('解锁资源：镜合金');
+    else if (k === 'codexU') r.push('解锁资源：密典');
     // 灵修分支 A阶段资源解锁
     else if (k === 'spiritU') r.push('解锁资源：灵能');
     else if (k === 'fateSilkU') r.push('解锁资源：命丝');

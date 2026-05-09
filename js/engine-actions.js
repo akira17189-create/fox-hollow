@@ -110,6 +110,11 @@ function research(id) {
   if (UD[id].e?.starchartU) { G.res.starchart.on = 1; }
   if (UD[id].e?.titanPartU) { G.res.titanPart.on = 1; }
   if (UD[id].e?.pillarU) { G.res.pillar.on = 1; }
+  // 工业分支 D阶段资源解锁
+  if (UD[id].e?.uraniumU) { G.res.uranium.on = 1; }
+  if (UD[id].e?.thoriumU) { G.res.thorium.on = 1; }
+  if (UD[id].e?.mirrorAlloyU) { G.res.mirrorAlloy.on = 1; }
+  if (UD[id].e?.codexU) { G.res.codex.on = 1; }
   // 灵修分支 C阶段资源解锁
   if (UD[id].e?.crystalSilkU) { G.res.crystalSilk.on = 1; }
   if (UD[id].e?.radianceU) { G.res.radiance.on = 1; }
