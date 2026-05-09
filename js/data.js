@@ -4305,6 +4305,54 @@ const SD = {
     br: 'M',
     uq: { u: { starSense: 1 } },
   },
+
+  // ===== 灵修 D 阶段灵术（v0.20 §八 5.2f, 5 个） =====
+  primordialDriveSpell: {
+    n: '元驱', d: '本季所有灵修建筑效果×2',
+    cost: [{ r: 'primordial', a: 5 }, { r: 'silenceStone', a: 1 }],
+    cooldown: 750, // 150s
+    br: 'M', phase: 4,
+    uq: { u: { primordialDrive: 1 } },
+  },
+  mirrorViewSpell: {
+    n: '镜观', d: '发现一个灵修任务目标（灵图替代星图，phase 7 任务系统启用后激活）',
+    cost: [{ r: 'mirrorSpirit', a: 1 }, { r: 'spiritChart', a: 50 }],
+    cooldown: 1500, // 300s
+    br: 'M', phase: 4,
+    uq: { u: { mirrorArt: 1 } },
+  },
+  voidReadSpell: {
+    n: '幽读', d: '永久：下一个升级花费-30%',
+    cost: [{ r: 'voidCodex', a: 1 }],
+    cooldown: 3000, // 600s
+    br: 'M', phase: 4,
+    uq: { u: { voidCodexLore: 1 } },
+  },
+  silenceMeditation: {
+    n: '寂石冥想', d: '消耗寂石跳跃 N 天（N=10+5×寂界门数；机制简化版：消耗+季节加速）',
+    cost: [{ r: 'silenceStone', a: 5 }, { r: 'primordial', a: 10 }],
+    cooldown: 4500, // 900s
+    br: 'M', phase: 4,
+    uq: { u: { silenceField: 1 } },
+  },
+  pactPrayerSpell: {
+    n: '灵契祈愿', d: '切换当前灵契（5 选 1，详见灵契系统）',
+    cost: [{ r: 'spiritCore', a: 5 }, { r: 'voidCodex', a: 1 }],
+    cooldown: 1500, // 300s
+    br: 'M', phase: 4,
+    uq: { u: { spiritPactLore: 1 } },
+  },
+};
+
+// ===== 灵契系统定义（灵修 D 独占，v0.20 §八 5.2f） =====
+// 5 选 1，激活时通过 pactPrayerSpell 切换。每套灵契提供独占被动。
+// e 字段为占位（5 phase 整体验收时实装具体加成数值）。
+const PACT_DEF = {
+  earthPact: { n: '大地契', d: '土性灵契：基础资源产出加成（占位）', e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  waterPact: { n: '流水契', d: '水性灵契：商队/远行加成（占位）',     e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  woodPact:  { n: '林木契', d: '木性灵契：建筑造价折扣（占位）',       e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  firePact:  { n: '烈焰契', d: '火性灵契：配方产出加成（占位）',       e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  metalPact: { n: '玄金契', d: '金性灵契：研究/学识加成（占位）',     e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
 };
 
 // ===== 教令系统定义（教团独占） =====

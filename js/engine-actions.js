@@ -463,6 +463,53 @@ function castSpell(id) {
     return;
   }
 
+  // ===== 灵修 D 阶段灵术（v0.20 §八 5.2f） =====
+  if (id === 'primordialDriveSpell') {
+    if (G.primordialDriveSeason === G.season) { log('本季已经施过元驱了。', 'warn'); return; }
+    for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
+    G.primordialDriveSeason = G.season;
+    G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
+    log('元驱启动，本季所有灵修建筑效果倍增！', 'important');
+    rAll();
+    return;
+  }
+  if (id === 'mirrorViewSpell') {
+    for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
+    G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
+    log('镜观启动——但灵修任务系统尚未实装（phase 7），效果暂时占位。', 'echo');
+    rAll();
+    return;
+  }
+  if (id === 'voidReadSpell') {
+    if (G.voidReadActive) { log('幽读尚在生效中，先完成一次升级。', 'warn'); return; }
+    for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
+    G.voidReadActive = true;
+    G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
+    log('幽典展开，下一次升级花费将大幅降低。', 'important');
+    rAll();
+    return;
+  }
+  if (id === 'silenceMeditation') {
+    for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
+    G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
+    // 简化版：本季全产出 +10%（数据占位）。完整时间跳跃机制待 phase 5.5 整体验收
+    G.silenceMeditationSeason = G.season;
+    log('寂石冥想：山谷的时间安静下来——本季产出提升（完整时间跳跃机制留待整体验收实装）。', 'echo');
+    rAll();
+    return;
+  }
+  if (id === 'pactPrayerSpell') {
+    for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
+    G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
+    // 简化版：循环切换 5 灵契
+    var pacts = ['earthPact', 'waterPact', 'woodPact', 'firePact', 'metalPact'];
+    var idx = pacts.indexOf(G.activePact);
+    G.activePact = pacts[(idx + 1) % 5];
+    log('灵契祈愿：当前灵契切换为「' + PACT_DEF[G.activePact].n + '」。', 'important');
+    rAll();
+    return;
+  }
+
   for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
 
   if (id === 'rain') {

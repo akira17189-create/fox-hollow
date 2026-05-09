@@ -2968,6 +2968,9 @@ function resetG() {
   G.resonWaveSeason = -1; G.shapeFoxSeason = -1; G.shapeFoxExtra = 0; G.sageUtterActive = false;
   // v0.19 灵修 C 阶段灵术
   G.spiritWeaveSeason = -1; G.starSenseSeason = -1;
+  // v0.20 §八 5.2f 灵修 D 阶段灵术 + 灵契系统
+  G.primordialDriveSeason = -1; G.silenceMeditationSeason = -1;
+  G.voidReadActive = false; G.activePact = null;
   // v0.16 政体与政策
   G.polity = null; G.polityChanges = 0;
   G.polityPenaltySeason = -1; G.polityPenaltyYear = -1;
@@ -3158,6 +3161,11 @@ function migrate() {
   // v0.19 灵修 C 阶段灵术
   G.spiritWeaveSeason = G.spiritWeaveSeason ?? -1;
   G.starSenseSeason = G.starSenseSeason ?? -1;
+  // v0.20 §八 5.2f 灵修 D 阶段灵术 + 灵契系统
+  G.primordialDriveSeason = G.primordialDriveSeason ?? -1;
+  G.silenceMeditationSeason = G.silenceMeditationSeason ?? -1;
+  G.voidReadActive = G.voidReadActive ?? false;
+  G.activePact = G.activePact ?? null;
 
   // v0.16 政体与政策
   G.polity = G.polity || null;
