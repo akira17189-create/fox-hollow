@@ -93,6 +93,12 @@ const RD = {
   formSoul:    { n: '形魄', c: '加工', mx: 25, lock: 1 },
   spiritChart: { n: '灵图', c: '知识', mx: 0, lock: 1 },
 
+  // ===== 灵修分支 D阶段：深寂（v0.20 §八 5.2a） =====
+  primordial:    { n: '元念',  c: '加工', mx: 0,  lock: 1, tip: ['想着想着，连想本身也消失了——只剩想之前的那个东西。'] },
+  silenceStone:  { n: '寂石',  c: '加工', mx: 20, lock: 1, tip: ['敲不响也磨不开。把它放在耳边，听见的是没有声音的声音。'] },
+  mirrorSpirit:  { n: '镜灵',  c: '加工', mx: 5,  lock: 1, tip: ['朝它哈一口气，看见的是自己十年后的样子。'] },
+  voidCodex:     { n: '幽典',  c: '知识', mx: 5,  lock: 1, tip: ['翻第一页是空的。翻第二页还是空的。但翻完合上，已经记住了所有事。'] },
+
   // ===== 神启副线 A阶段：初悟 =====
   piety:   { n: '虔诚', c: '研究', mx: 0, lock: 1 },
   holyOil: { n: '圣油', c: '研究', mx: 25, lock: 1 },
@@ -600,6 +606,14 @@ const BD = {
     p: [{ r: 'insight', b: 5, k: 1.12 }, { r: 'spiritInk', b: 10, k: 1.12 }, { r: 'scroll', b: 30, k: 1.12 }],
     e: { spiritChartP: .001, unrestP: .01 },
     uq: { u: { chartDraw: 1 } },
+  },
+
+  // ===== 灵修分支 D阶段：深寂（v0.20 §八 5.2a） =====
+  spiritVault: {
+    n: '灵匣', t: 'b', d: '装灵性物的匣子——盖上之后，里面的东西仍在自己浮动。', br: 'M', phase: 4,
+    p: [{ r: 'crystalSilk', b: 10, k: 1.15 }, { r: 'silenceStone', b: 2, k: 1.15 }, { r: 'insight', b: 8, k: 1.15 }],
+    e: { primordialMx: 30, silenceStoneMx: 20 },
+    uq: { b: { primordialPool: 1 } },
   },
 
   // ===== 神启副线 A阶段：初悟 =====
