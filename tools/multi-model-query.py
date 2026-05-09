@@ -25,10 +25,10 @@ MODELS = [
     {"id": "kimi-k2.5", "max_tokens": 16000},
     {"id": "mimo-v2.5-pro", "max_tokens": 16000},
     {"id": "glm-5.1", "max_tokens": 16000},
-    # 重推理且 content 常空的，按需通过 --only 启用：
-    # {"id": "deepseek-v4-pro", "max_tokens": 32000},
-    # {"id": "kimi-k2.6", "max_tokens": 32000},
-    # {"id": "qwen3-235b-a22b-thinking-2507", "max_tokens": 32000},
+    # 重推理模型（reasoning_content 主导，30 分钟可能超时）：默认不并发，--only 启用
+    {"id": "deepseek-v4-pro", "max_tokens": 32000},
+    {"id": "kimi-k2.6", "max_tokens": 32000},
+    {"id": "qwen3-235b-a22b-thinking-2507", "max_tokens": 32000},
 ]
 
 
