@@ -105,6 +105,10 @@ const RD = {
   // ===== 神启副线 B-教团 =====
   holyFlame: { n: '圣火', c: '加工', mx: 0, lock: 1 },
   holyIron:  { n: '圣铁', c: '加工', mx: 0, lock: 1 },
+  // ===== 神启副线 C-教团（v0.20 §八 5.3a） =====
+  hymn:           { n: '颂咏',  c: '研究', mx: 0,  lock: 1, tip: ['唱到第三遍的时候，你会发现合唱里多了一个不像狐狸的声音。'] },
+  holyRelic:      { n: '圣骸',  c: '加工', mx: 10, lock: 1, tip: ['它什么时候来到山谷的，没人记得；要把它送走，每只狐狸都说不行。'] },
+  holyScripture:  { n: '圣典',  c: '知识', mx: 5,  lock: 1, tip: ['翻一页轻一两，翻到最后整本飘起来——读得到的人最先笑。'] },
   // ===== 神启副线 B-秘仪 =====
   ambrosia: { n: '神露', c: '研究', mx: 15, lock: 1 },
   gnosis:   { n: '秘知', c: '研究', mx: 0, lock: 1 },
@@ -684,6 +688,56 @@ const BD = {
     p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'charm', b: 20, k: 1.12 }, { r: 'piety', b: 20, k: 1.12 }],
     e: { _oilCraftBonus: .05 },
     uq: { u: { holyWorkLore: 1 } }, sb: 'D', br: 'I', t: 'f',
+  },
+
+  // ===== 神启副线 C-教团（工业+神启）（v0.20 §八 5.3a, 8 个建筑） =====
+  cathedral: {
+    n: '大教堂', d: '一座建筑能让山谷的影子都拉长——它就是这样的存在。',
+    p: [{ r: 'hymn', b: 8, k: 1.25 }, { r: 'holyFlame', b: 15, k: 1.25 }, { r: 'piety', b: 200, k: 1.25 }, { r: 'concrete', b: 30, k: 1.25 }],
+    e: { allM: .05, pietyP: .05, _hapFlat: .03 },
+    uq: { u: { hymnArt: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  hymnHall: {
+    n: '颂咏堂', d: '颂歌一遍遍唱起来——唱到第十遍时，连墙都开始嗡嗡共鸣。',
+    p: [{ r: 'holyFlame', b: 8, k: 1.18 }, { r: 'scroll', b: 25, k: 1.18 }, { r: 'piety', b: 60, k: 1.18 }],
+    e: { hymnP: .005, hymnMx: 20 },
+    uq: { u: { hymnArt: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  pilgrimage: {
+    n: '朝圣道', d: '一条铺到山外的路——走在上面的狐狸，回来时眼神都亮一些。',
+    p: [{ r: 'concrete', b: 50, k: 1.20 }, { r: 'piety', b: 80, k: 1.20 }, { r: 'holyOil', b: 5, k: 1.20 }],
+    e: { _hapFlat: .02, _caravanBonusFlat: .05 },
+    uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  relicShrine: {
+    n: '圣骸堂', d: '保存圣骸的地方——它本身不会动，但靠近的狐狸都会下意识踮起脚走路。',
+    p: [{ r: 'holyRelic', b: 2, k: 1.18 }, { r: 'brick', b: 80, k: 1.18 }, { r: 'piety', b: 100, k: 1.18 }],
+    e: { holyRelicMx: 20, pietyP: .02 },
+    uq: { u: { relicLore: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  crusadeCamp: {
+    n: '圣战营', d: '不是练兵——是练心。出营的狐狸知道自己回不回得来。',
+    p: [{ r: 'holyIron', b: 10, k: 1.22 }, { r: 'holyFlame', b: 20, k: 1.22 }, { r: 'piety', b: 150, k: 1.22 }],
+    e: { _expRewardBonus: .15, _edictDurBonus: 1 },
+    uq: { u: { crusadeLore: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  scriptureSpire: {
+    n: '圣典塔', d: '塔身刻满字，从下往上读是教义，从上往下读是预言。',
+    p: [{ r: 'holyScripture', b: 3, k: 1.20 }, { r: 'concrete', b: 40, k: 1.20 }, { r: 'scroll', b: 80, k: 1.20 }],
+    e: { holyScriptureMx: 10, _researchDiscount: .05, loreM: .15 },
+    uq: { u: { scriptureCompile: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  atonementPool: {
+    n: '净罪池', d: '把不安的念头沉进水里——浮起来的就不再是念头。',
+    p: [{ r: 'holyOil', b: 8, k: 1.18 }, { r: 'concrete', b: 30, k: 1.18 }, { r: 'piety', b: 80, k: 1.18 }],
+    e: { pollutionM: -.10, _hapFlat: .02 },
+    uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
+  },
+  holyAltar: {
+    n: '圣火祭坛', d: '圣火不灭——只要还有狐狸记得，火就不熄。',
+    p: [{ r: 'holyFlame', b: 30, k: 1.22 }, { r: 'holyIron', b: 8, k: 1.22 }, { r: 'piety', b: 120, k: 1.22 }],
+    e: { holyFlameP: .03, holyFlameMx: 30 },
+    uq: { u: { holyFireEternal: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
   },
 
   // ===== 神启副线 B-秘仪（灵修+神启） =====
