@@ -608,7 +608,19 @@ const BD = {
     uq: { u: { chartDraw: 1 } },
   },
 
-  // ===== 灵修分支 D阶段：深寂（v0.20 §八 5.2a） =====
+  // ===== 灵修分支 D阶段：深寂（v0.20 §八 5.2a-b） =====
+  primordialPool: {
+    n: '元念池', t: 'b', d: '把晶丝沉到水底——水也学会了想事情，慢慢地，它的想法凝出元念。', br: 'M', phase: 4,
+    p: [{ r: 'crystalSilk', b: 15, k: 1.18 }, { r: 'spiritCore', b: 5, k: 1.18 }, { r: 'spectrum', b: 10, k: 1.18 }],
+    e: { primordialP: .001, crystalSilkP: -.003, leylineC: 5, unrestP: .05 },
+    uq: { u: { primordialism: 1 } },
+  },
+  silenceCave: {
+    n: '寂石窟', t: 'b', d: '从洞里取出来的石头不会响，把它放回洞里，连风也安静下来。', br: 'M', phase: 4,
+    p: [{ r: 'primordial', b: 10, k: 1.20 }, { r: 'spiritCore', b: 8, k: 1.20 }, { r: 'formSoul', b: 3, k: 1.20 }],
+    e: { silenceStoneP: .0005, leylineP: 5, unrestP: .04, allM: .05 },
+    uq: { u: { silenceCryst: 1 } },
+  },
   spiritVault: {
     n: '灵匣', t: 'b', d: '装灵性物的匣子——盖上之后，里面的东西仍在自己浮动。', br: 'M', phase: 4,
     p: [{ r: 'crystalSilk', b: 10, k: 1.15 }, { r: 'silenceStone', b: 2, k: 1.15 }, { r: 'insight', b: 8, k: 1.15 }],
