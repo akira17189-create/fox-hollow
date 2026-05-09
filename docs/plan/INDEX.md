@@ -23,6 +23,12 @@
 | [DEV_PROMPTS.md](DEV_PROMPTS.md) | 开发循环 prompt 模板（复制粘贴给 AI agent）：Prompt A 执行 / Prompt B 检查 + 内容创作 / 阶段合规检查附录 |
 | [../RULES.md](../RULES.md) | 协作规则：核心纪律 + UI 约定 + 资源 ID 规范 + 文档维护 + 常见错误 |
 
+## 审计报告
+
+| 文件 | 范围 | 工具 |
+|------|------|------|
+| [audit-pre-branch.md](audit-pre-branch.md) | branchLore 完成前所有 BD/UD/JD/CD 解锁链审计 | [tools/audit-prelock.js](../../tools/audit-prelock.js) |
+
 ## AI 读取建议
 
 文档体量较大但不拆分，原因：
