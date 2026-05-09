@@ -302,6 +302,11 @@ function upgEffects(e) {
     else if (k === 'thoriumU') r.push('解锁资源：重晶');
     else if (k === 'mirrorAlloyU') r.push('解锁资源：镜合金');
     else if (k === 'codexU') r.push('解锁资源：密典');
+    // 灵修分支 D阶段资源解锁
+    else if (k === 'primordialU') r.push('解锁资源：元念');
+    else if (k === 'silenceStoneU') r.push('解锁资源：寂石');
+    else if (k === 'mirrorSpiritU') r.push('解锁资源：镜灵');
+    else if (k === 'voidCodexU') r.push('解锁资源：幽典');
     // 灵修分支 A阶段资源解锁
     else if (k === 'spiritU') r.push('解锁资源：灵能');
     else if (k === 'fateSilkU') r.push('解锁资源：命丝');

@@ -115,6 +115,11 @@ function research(id) {
   if (UD[id].e?.thoriumU) { G.res.thorium.on = 1; }
   if (UD[id].e?.mirrorAlloyU) { G.res.mirrorAlloy.on = 1; }
   if (UD[id].e?.codexU) { G.res.codex.on = 1; }
+  // 灵修分支 D阶段资源解锁（primordial 在 RD.mx=0，需在解锁时设基础上限）
+  if (UD[id].e?.primordialU) { G.res.primordial.on = 1; G.res.primordial.mx = 30; }
+  if (UD[id].e?.silenceStoneU) { G.res.silenceStone.on = 1; }
+  if (UD[id].e?.mirrorSpiritU) { G.res.mirrorSpirit.on = 1; }
+  if (UD[id].e?.voidCodexU) { G.res.voidCodex.on = 1; }
   // 灵修分支 C阶段资源解锁
   if (UD[id].e?.crystalSilkU) { G.res.crystalSilk.on = 1; }
   if (UD[id].e?.radianceU) { G.res.radiance.on = 1; }

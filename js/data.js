@@ -1387,6 +1387,116 @@ const UD = {
     uq: { u: { chartDraw: 1 }, b: { chartHall: 3 } },
   },
 
+  // ===== 灵修分支 D阶段：深寂研究链（v0.20 §八 5.2c, 18 项） =====
+  primordialism: {
+    n: '元念术', d: '把心里那个最初的念头剥出来——它薄得像光，但能压住一座山。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1000 }, { r: 'crystalSilk', a: 20 }, { r: 'spiritCore', a: 10 }],
+    e: { primordialU: 1 },
+    uq: { u: { coreFusion: 1 }, b: { crystalCave: 3 } },
+  },
+  silenceCryst: {
+    n: '寂石凝', d: '把元念压紧、再压紧——压到它自己也安静下来，就成了石头。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1100 }, { r: 'primordial', a: 8 }, { r: 'radiance', a: 10 }],
+    e: { silenceStoneU: 1 },
+    uq: { u: { primordialism: 1 }, b: { radianceDais: 2 } },
+  },
+  mirrorArt: {
+    n: '镜术', d: '寂石磨成镜——照不出脸，但照得出心里漏掉的字。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1200 }, { r: 'silenceStone', a: 3 }, { r: 'spiritCore', a: 12 }],
+    e: { mirrorSpiritU: 1 },
+    uq: { u: { silenceCryst: 1 } },
+  },
+  hyperSense: {
+    n: '超感', d: '镜灵在身边时，感官会突破皮毛——能听见百米外的鼾声。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1300 }, { r: 'mirrorSpirit', a: 2 }, { r: 'insight', a: 15 }],
+    e: {},
+    uq: { u: { mirrorArt: 1 } },
+  },
+  spiritWeb: {
+    n: '灵网', d: '把每一根灵脉串起来——不是网，是一只很大的耳朵。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1500 }, { r: 'spiritCore', a: 15 }, { r: 'primordial', a: 12 }],
+    e: {},
+    uq: { u: { hyperSense: 1 }, b: { coreForge: 2 } },
+  },
+  voidLore: {
+    n: '幽理', d: '看不见的那一面也有规则——只是规则从不出声。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1400 }, { r: 'primordial', a: 10 }, { r: 'spectrum', a: 20 }],
+    e: {},
+    uq: { u: { primordialism: 1, cosmicSpec: 1 } },
+  },
+  primordialDrive: {
+    n: '元驱', d: '元念可以推着东西走——前提是没有狐狸眨眼。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1600 }, { r: 'spiritCore', a: 18 }, { r: 'primordial', a: 15 }],
+    e: {},
+    uq: { u: { coreFusion: 1, primordialism: 1 } },
+  },
+  silenceResonance: {
+    n: '寂弦感应', d: '寂石之间会响——但只有寂石听得见。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1800 }, { r: 'silenceStone', a: 10 }, { r: 'crystalSilk', a: 30 }],
+    e: {},
+    uq: { u: { silenceCryst: 1 } },
+  },
+  deepLeyline: {
+    n: '深层灵脉', d: '灵脉之下还有灵脉——更深的那条不流，但通往任何地方。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'silenceStone', a: 15 }, { r: 'primordial', a: 20 }],
+    e: {},
+    uq: { u: { silenceResonance: 1 } },
+  },
+  mirrorForging: {
+    n: '镜锻', d: '把灵核倒进镜里——出来的东西能在两边同时存在。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1500 }, { r: 'spiritCore', a: 12 }, { r: 'primordial', a: 10 }],
+    e: {},
+    uq: { u: { coreFusion: 1, primordialism: 1 } },
+  },
+  voidCodexLore: {
+    n: '幽典编', d: '把所有幽理写下来——空白处的字最重。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1800 }, { r: 'insight', a: 20 }, { r: 'primordial', a: 15 }],
+    e: { voidCodexU: 1 },
+    uq: { u: { cosmicSpec: 1, primordialism: 1 } },
+  },
+  spiritDrive: {
+    n: '灵驱', d: '念阵转起来——不需要燃料，只需要一只狐狸坐着想事情。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'spiritCore', a: 20 }, { r: 'silenceStone', a: 8 }],
+    e: {},
+    uq: { u: { spiritGrid: 1, primordialism: 1 } },
+  },
+  silenceField: {
+    n: '寂界术', d: '推开一扇看不见的门——门后没有时间。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2200 }, { r: 'silenceStone', a: 15 }, { r: 'mirrorSpirit', a: 5 }],
+    e: {},
+    uq: { u: { silenceResonance: 1, mirrorForging: 1 } },
+  },
+  spiritPactLore: {
+    n: '灵契学', d: '跟看不见的东西签字——签完了，它就一直在你身后。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'spiritCore', a: 18 }, { r: 'primordial', a: 15 }, { r: 'voidCodex', a: 3 }],
+    e: {},
+    uq: { u: { spiritWeb: 1, voidCodexLore: 1 } },
+  },
+  silentPurity: {
+    n: '净寂', d: '灵液里加一颗元念——能让一整片林子忘记躁动。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1600 }, { r: 'primordial', a: 12 }, { r: 'elixir', a: 8 }],
+    e: {},
+    uq: { u: { voidLore: 1, pureRadiance: 1 } },
+  },
+  primordialForging: {
+    n: '元念锻冶', d: '把元念塞进炉子——出来的不再是念，是会发烫的真。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 1800 }, { r: 'primordial', a: 18 }, { r: 'spiritCore', a: 15 }, { r: 'silenceStone', a: 8 }],
+    e: {},
+    uq: { u: { primordialDrive: 1 }, b: { primordialPool: 3 } },
+  },
+  mirrorSpiritFocus: {
+    n: '镜灵聚焦', d: '一面镜灵不够——三面对着一处，照出的不再是当下。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2000 }, { r: 'mirrorSpirit', a: 5 }, { r: 'silenceStone', a: 12 }, { r: 'radiance', a: 10 }],
+    e: {},
+    uq: { u: { mirrorForging: 1, hyperSense: 1 } },
+  },
+  voidCodexCompile: {
+    n: '幽典纂', d: '一本幽典写到第二本——记忆开始向外渗。', br: 'M', phase: 4,
+    p: [{ r: 'lore', a: 2200 }, { r: 'voidCodex', a: 5 }, { r: 'insight', a: 25 }, { r: 'primordial', a: 20 }],
+    e: {},
+    uq: { u: { voidCodexLore: 1, spiritWeb: 1 } },
+  },
+
   // ===== 神启副线 A阶段：初悟 =====
   divineLore: {
     n: '神启之学', d: '开启神恩之道，解锁虔诚资源与宗教页签。',
