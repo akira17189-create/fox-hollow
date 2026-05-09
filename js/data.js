@@ -269,7 +269,7 @@ const BD = {
     tip: ['你多的正好是我缺的——交易的全部哲学。']
   },
   shrine: {
-    n: '灵狐祠', t: 'b', d: '积蓄符咒之力。',
+    n: '灵狐祠', t: 'b', d: '积蓄符咒之力——灵性建筑链的入口。',
     p: [{ r: 'stone', b: 40, k: 1.12 }, { r: 'iron', b: 3, k: 1.12 }, { r: 'lore', b: 15, k: 1.12 }],
     e: { charmMx: 25, charmP: .012, hapB: .05 },
     uq: { b: { library: 1, smithy: 1 } },
@@ -811,7 +811,7 @@ const UD = {
     tip: ['不是所有石头都愿意叠在一起，得看缘分和灰浆。', '教一群碎石表演叠罗汉，并要求它们坚持一百年。']
   },
   forestLore: {
-    n: '林间密语', d: '大幅提升伐木效率。',
+    n: '林间密语', d: '（被动）大幅提升伐木效率。',
     p: [{ r: 'lore', a: 35 }, { r: 'wood', a: 20 }],
     e: { woodM: .5 },
     uq: { u: { stoneTools: 1 } },
@@ -832,21 +832,21 @@ const UD = {
     tip: ['先祖说的话，一半在风里，一半在梦里。']
   },
   spiritShelter: {
-    n: '灵狐庇护', d: '减轻寒冬对野莓产量的影响。',
+    n: '灵狐庇护', d: '（被动）减轻寒冬对野莓产量的影响。',
     p: [{ r: 'lore', a: 45 }, { r: 'charm', a: 8 }, { r: 'scroll', a: 3 }],
     e: { winterBuff: 1 },
     uq: { u: { foxFolklore: 1 } },
     tip: ['爪子搭在你肩上，暖烘烘的，但别回头。']
   },
   ancestorEye: {
-    n: '先祖之眼', d: '减少狐狸的野莓消耗。',
+    n: '先祖之眼', d: '（被动）减少狐狸的野莓消耗。',
     p: [{ r: 'lore', a: 35 }, { r: 'charm', a: 5 }, { r: 'scroll', a: 2 }],
     e: { foxEat: 1 },
     uq: { u: { foxFolklore: 1 } },
     tip: ['窝顶上蹲着先祖，碗里不敢剩东西。']
   },
   craftMastery: {
-    n: '工法精要', d: '解锁工坊自动制作。',
+    n: '工法精要', d: '（系统）解锁工坊自动制作。',
     p: [{ r: 'lore', a: 30 }, { r: 'plank', a: 3 }, { r: 'brick', a: 2 }],
     e: { autoCraft: 1 },
     uq: { u: { carpentry: 1, masonry: 1 } },
@@ -860,7 +860,7 @@ const UD = {
     tip: ['出了山谷才发现，世界比尾巴还长。']
   },
   longJourney: {
-    n: '远途跋涉', d: '远行奖励 +50%，解锁云岭目的地。',
+    n: '远途跋涉', d: '（被动）远行奖励 +50%，解锁云岭目的地。',
     p: [{ r: 'lore', a: 45 }, { r: 'silk', a: 1 }, { r: 'ancCoin', a: 1 }],
     e: { expReward: .5 },
     uq: { b: { trailroad: 2 }, exp: { oldRuin: 1 } },
@@ -933,11 +933,11 @@ const UD = {
     tip: ['众狐议事，各有各的尾巴翘法。']
   },
   branchLore: {
-    n: '择路而治', d: '山谷走到了岔路口——造物与灵术，只能择其一。',
+    n: '择路而治', d: '开启主线分叉，造物（工业）与灵术（灵修）只能择其一。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 40 }],
     e: {},
-    uq: { u: { polityLore: 1, policyLore: 1 }, polity: true, b: { councilHall: 3 }, custom: 8 },
-    tip: ['两条路都在脚下，但只有一条能走到底。']
+    uq: { u: { polityLore: 1, policyLore: 1 }, polity: true, b: { councilHall: 3 }, custom: 7 },
+    tip: ['两条路都在脚下——选定后再无回头。']
   },
 
   // ===== 工业分支 A阶段：煤钢时代（6 个研究） =====

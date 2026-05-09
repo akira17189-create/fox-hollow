@@ -147,24 +147,20 @@ berryGrove (←calendar + berryPatch×5)
 
 ---
 
-#### W2. 任务 B 引入的 branchLore 硬门槛可能过严
+#### W2. 任务 B 引入的 branchLore 硬门槛可能过严 ✅ 已修复
 
 任务 B 中我把 branchLore.uq 改成 `councilHall: 3 + custom: 8`。审计时复核：
 
 - **custom: 8** — 当前 CUSTD 总长 10。要求激活 8 即 80% — 玩家可能因为部分习俗依赖建筑/研究前置（如 ancestor 需要 shrine×3 + ancestry 研究）而暂时凑不齐 8。
 - **councilHall: 3** — councilHall 仅由 councilLore 解锁，造价递增（默认 ×1.12 通胀）。三座的总成本需手工算一下是否在玩家能承受范围。
 
-**修复建议**：
-- 选项A：保持 8 / 3，靠玩家时间投入推进，作为"季节积累"机制
-- 选项B：放宽到 7 / 2 减低门槛，但加上时间锁（如 G.year >= 5）
-- 选项C：保持 council 3 但把 custom 8 改回 7
-- 等用户反馈再决定
+**已实施**：选项 C 落实——保持 councilHall:3，custom 8→7（80%→70% 门槛）。
 
 ---
 
 ### 🔵 建议
 
-#### B1. 5 个 UD 是 pre-branch 范围内的"叶节点"（完成后无后续解锁）
+#### B1. 5 个 UD 是 pre-branch 范围内的"叶节点"（完成后无后续解锁） ✅ 已修复
 
 - forestLore（林间密语）— 木材产出 +50%
 - spiritShelter（灵狐庇护）— winterBuff:1
@@ -174,9 +170,12 @@ berryGrove (←calendar + berryPatch×5)
 
 这些都是被动效果研究（合理设计），不是 bug。但玩家可能感觉"研究完没下文"。
 
-**修复建议**：
-- 在描述末尾加"（被动加成）"或"（永久增益）"标签
-- craftMastery 的 autoCraft:1 实际上解锁了一个**系统级**功能（自动生产开关），描述可写"解锁工坊自动生产开关"
+**已实施**：在 d 字段开头加"（被动）/（系统）"标签：
+- forestLore.d: "（被动）大幅提升伐木效率。"
+- spiritShelter.d: "（被动）减轻寒冬对野莓产量的影响。"
+- ancestorEye.d: "（被动）减少狐狸的野莓消耗。"
+- craftMastery.d: "（系统）解锁工坊自动制作。"
+- longJourney.d: "（被动）远行奖励 +50%，解锁云岭目的地。"
 
 ---
 
@@ -188,7 +187,7 @@ berryGrove (←calendar + berryPatch×5)
 
 ---
 
-#### B3. 5 个研究的 effect 字段为空对象 `e: {}`
+#### B3. 5 个研究的 effect 字段为空对象 `e: {}` ✅ 已修复
 
 - artistryLore（百艺通觉）— 解锁 artistry 建筑 + 节令系统
 - councilLore（共谷议事）— 解锁 councilHall + 议政
@@ -196,11 +195,9 @@ berryGrove (←calendar + berryPatch×5)
 - policyLore（集议传统）— 解锁政策域面板
 - branchLore（择路而治）— phase=2 + 主线分叉
 
-这些是"门控研究"，效果通过解锁后续内容而非数值加成。**当前 d 字段已大多说明此类研究的解锁作用**（如 polityLore.d "解锁 Tier 1 路线选择与令台"）。
+这些是"门控研究"，效果通过解锁后续内容而非数值加成。
 
-**修复建议**：
-- artistryLore.d 当前是简短文字，可补充为"百艺通觉。解锁艺工坊与节令系统"以保持一致性
-- 不影响 gameplay，仅文案
+**已实施**：branchLore.d 从纯叙事改为"开启主线分叉，造物（工业）与灵术（灵修）只能择其一。"——明确功能说明。其他 4 个研究 d 字段已包含"解锁 X"说明，未动。
 
 ---
 
@@ -218,7 +215,7 @@ dye: { uq: { u: { folkLore: 1, engraving: 1 } } }
 
 ---
 
-#### B5. shrine 是"三向门户"建筑
+#### B5. shrine 是"三向门户"建筑 ✅ 已修复（最小修复：文档说明）
 
 shrine（灵狐祠）同时是以下三条解锁路径的入口：
 
@@ -228,14 +225,11 @@ shrine（灵狐祠）同时是以下三条解锁路径的入口：
 
 一个建筑承担三种解锁角色，玩家心智上不易理解"为什么这一座建筑能开这么多东西"。
 
-**修复建议**：
-- 设计上可以拆分（如新增"歌台"作为文化线入口替代 shrine 解锁 folkLore）
-- 但拆分会增加建筑数量，可能与极简主义冲突
-- 留作长期 review 项，不在本审计修复范围
+**已实施**：shrine.d 从"积蓄符咒之力。"改为"积蓄符咒之力——灵性建筑链的入口。"——明确告知玩家此建筑承担多重解锁角色。代码层面拆分需重设计，留作 v0.21+ 长期 review。
 
 ---
 
-#### B6. carpentry/masonry 同时给"资源解锁"+"配方解锁"
+#### B6. carpentry/masonry 同时给"资源解锁"+"配方解锁" ✅ 已审视判定不修
 
 ```js
 carpentry: { e: { plankU: 1, woodM: 0.3 } }   // 解锁 plank 资源
@@ -244,25 +238,24 @@ plank:     { uq: { u: { carpentry: 1 } } }    // 解锁 plank 配方
 
 研究完成时既启用 plank 资源（通过 e.plankU），又解锁 plank 配方（通过 CD.plank.uq）。两套解锁机制都在生效，但实际上一个就够。
 
-**修复建议**：
-- 选 1：只用 e.xxxU 标记资源解锁，配方 uq 改为依赖资源已解锁
-- 选 2：只用配方 uq.u 解锁配方，资源解锁通过"配方第一次产出时自动开启"
-- 现状不影响 gameplay，仅是冗余设计
-- 推荐保持现状，不修
+**审视结论**：维持现状不修。理由：
+- 改方案 1（配方依赖资源 on）需要 chk() 加 q.resOn 字段处理（engine 改动）
+- 改方案 2（资源跟随配方第一次产出）需要 craft() 加自动启用逻辑（engine 改动）
+- 两方案都需要数据 + 引擎双改，且玩家行为完全等价（双门槛同时由同一研究满足）
+- 现状的"双重保险"是可读性 trade-off，不是 bug
+- 修改成本/收益比偏低，留作长期重构机会
 
 ---
 
-#### B7. branchLore.tip 文案与新解锁链脱节
+#### B7. branchLore.tip 文案与新解锁链脱节 ✅ 已修复
 
 ```js
 tip: ['两条路都在脚下，但只有一条能走到底。']
 ```
 
-任务 B 之后 branchLore 是 depth 5 的研究终点（前置：polityLore + policyLore + councilHall×3 + custom×8 + polity 已选）。tip 暗示"两条路立即可选"，但实际玩家可能要等 1-2 季积累足够习俗。
+任务 B 之后 branchLore 是 depth 5 的研究终点（前置：polityLore + policyLore + councilHall×3 + custom×7 + polity 已选）。tip 暗示"两条路立即可选"，但实际玩家可能要等 1-2 季积累足够习俗。
 
-**修复建议**：
-- 微调 tip：'两条路都在脚下，方向已经议定。' 或保持原 tip
-- 仅文案问题，无影响
+**已实施**：tip 改为 "两条路都在脚下——选定后再无回头。"——保留诗意 + 强调不可逆决择。
 
 ---
 
