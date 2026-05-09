@@ -132,6 +132,10 @@ function bp(id, i) {
       if (ppen && ppen.buildCostM) buildMul += ppen.buildCostM;
     }
   }
+  // v0.16 Tier 1 路线 effect (内守: 建筑造价 -2%)
+  if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.buildCostM) {
+    buildMul += TIER[G.tier1].e.buildCostM;
+  }
   if (buildMul !== 0) cost = Math.ceil(cost * (1 + buildMul));
   // v0.18 §六 3.4 占卜年签：学海签建筑造价 +8%
   var _divBld = getDivinationEffects();
@@ -1266,6 +1270,14 @@ function calcR() {
       m.wood = (m.wood || 1) + pen.baseProdM;
       m.stone = (m.stone || 1) + pen.baseProdM;
     }
+  }
+
+  // v0.16 Tier 1 路线 effect (内守: 基础资源 +4%, 不受政堂加成)
+  if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.baseProdM) {
+    var v = TIER[G.tier1].e.baseProdM;
+    m.berry = (m.berry || 1) + v;
+    m.wood = (m.wood || 1) + v;
+    m.stone = (m.stone || 1) + v;
   }
 
   // v0.16 政策效果

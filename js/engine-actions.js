@@ -757,18 +757,29 @@ function saveRiteDefault() {
 // ===== v0.16 政体操作 =====
 function chooseTier1Confirm(tier) {
   if (G.tier1) return;
-  var name = tier === 'in' ? '内守' : '外拓';
-  var desc = tier === 'in' ? '专注内政发展，基础产出与建筑优先。' : '专注对外扩张，远征与贸易优先。';
-  var eff = tier === 'in'
-    ? '<span class="eff-pos">基础资源 +5%</span>，<span class="eff-pos">建筑造价 -3%</span>'
-    : '<span class="eff-pos">远行奖励 +10%</span>，<span class="eff-pos">商队来访 +5%</span>';
+  // v0.16 Tier 1 effect 实装后从 TIER 数据生成
+  var t = (typeof TIER !== 'undefined') ? TIER[tier] : null;
+  var name = t?.n || (tier === 'in' ? '内守' : '外拓');
+  var desc = t?.d || (tier === 'in' ? '专注内政发展，基础产出与建筑优先。' : '专注对外扩张，远征与贸易优先。');
+  var tierEffNames = { baseProdM: '基础资源', buildCostM: '建筑造价', expRewardM: '远行奖励', caravanProb: '商队来访' };
+  var effParts = [];
+  if (t && t.e) {
+    for (var ek in t.e) {
+      var v = t.e[ek];
+      var nm = tierEffNames[ek] || ek;
+      var sign = v > 0 ? '+' : '';
+      effParts.push('<span class="eff-pos">' + nm + ' ' + sign + (v * 100).toFixed(0) + '%</span>');
+    }
+  }
+  var eff = effParts.join('，');
+  var costStr = (t && t.cost) ? t.cost.map(function(c){ return (RD[c.r]?.n || c.r) + ' ' + c.a; }).join(' + ') : '卷轴 30 + 铜钱 30';
   var h = '';
   h += '<div class="confirm-warn">此选择不可撤销</div>';
   h += '<div class="confirm-opts"><div class="confirm-opt" style="border-color:#46739a;background:#f0f4f8;">';
   h += '<div class="confirm-opt-name">' + name + '</div>';
   h += '<div style="font-size:11px;color:#888;">' + desc + '</div>';
   h += '<div>' + eff + '</div>';
-  h += '<div style="font-size:11px;color:#666;margin-top:2px;">费用：卷轴 30 + 铜钱 30</div>';
+  h += '<div style="font-size:11px;color:#666;margin-top:2px;">费用：' + costStr + '</div>';
   h += '</div></div>';
   h += '<div class="confirm-actions">';
   h += '<button onclick="closeModal()">取消</button>';
@@ -815,7 +826,8 @@ function chooseTier1(tier) {
   if (G.tier1) return;
   if (!G.upg.polityLore?.done) return;
   if (tier !== 'in' && tier !== 'out') return;
-  var cost = [{ r: 'scroll', a: 30 }, { r: 'coin', a: 30 }];
+  // v0.16 Tier 1 effect 实装后从 TIER 数据读 cost / 名称
+  var cost = (typeof TIER !== 'undefined' && TIER[tier]?.cost) || [{ r: 'scroll', a: 30 }, { r: 'coin', a: 30 }];
   for (var i = 0; i < cost.length; i++) {
     if (!G.res[cost[i].r] || G.res[cost[i].r].v < cost[i].a) {
       log('资源不足，无法选定路线。', 'warn');
@@ -826,7 +838,7 @@ function chooseTier1(tier) {
     G.res[cost[i].r].v -= cost[i].a;
   }
   G.tier1 = tier;
-  var name = tier === 'in' ? '内守' : '外拓';
+  var name = (typeof TIER !== 'undefined' && TIER[tier]?.n) || (tier === 'in' ? '内守' : '外拓');
   log('谷中确立路线：' + name + '。', 'important');
   rAll();
 }

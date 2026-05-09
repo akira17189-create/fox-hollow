@@ -100,6 +100,10 @@ function resolveExpedition(idx, silent) {
       polityExpBonus += pen.expRewardM;
     }
   }
+  // v0.16 Tier 1 路线 effect (外拓: 远行奖励 +12%)
+  if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.expRewardM) {
+    polityExpBonus += TIER[G.tier1].e.expRewardM;
+  }
   var choiceRewardMul = 1;
   var cb = G.choiceBuffs || {};
   if (cb.nextRewardMul && cb.nextRewardMul[exp.dest]) {
@@ -327,6 +331,10 @@ function caravanArrivalProb() {
       var pe = POLICY[dom].opts[optId].e;
       if (pe && pe.caravanProb) bonus += pe.caravanProb;
     }
+  }
+  // v0.16 Tier 1 路线 effect (外拓: 商队来访 +5%)
+  if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.caravanProb) {
+    bonus += TIER[G.tier1].e.caravanProb;
   }
   // 污染惩罚：商队到达率
   var pTier = pollutionTier();

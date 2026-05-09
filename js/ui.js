@@ -2352,25 +2352,30 @@ function renderPolityTab() {
   } else if (!G.tier1) {
     h += '<div class="polity-choose-hint">请先选定路线方向（不可逆）：</div>';
     h += '<div class="polity-grid">';
-    // 内守
-    h += '<div class="polity-card">';
-    h += '<div class="polity-card-name">内守</div>';
-    h += '<div class="polity-card-desc">专注内政发展，基础产出与建筑优先。</div>';
-    h += '<div class="polity-card-effects"><span class="eff-pos">基础资源 +5%</span><br><span class="eff-pos">建筑造价 -3%</span></div>';
-    h += '<div class="policy-cost-info">费用：卷轴 30 + 铜钱 30</div>';
-    h += '<button class="bld-btn" onclick="chooseTier1Confirm(\'in\')">选择内守</button>';
-    h += '</div>';
-    // 外拓
-    h += '<div class="polity-card">';
-    h += '<div class="polity-card-name">外拓</div>';
-    h += '<div class="polity-card-desc">专注对外扩张，远征与贸易优先。</div>';
-    h += '<div class="polity-card-effects"><span class="eff-pos">远行奖励 +10%</span><br><span class="eff-pos">商队来访 +5%</span></div>';
-    h += '<div class="policy-cost-info">费用：卷轴 30 + 铜钱 30</div>';
-    h += '<button class="bld-btn" onclick="chooseTier1Confirm(\'out\')">选择外拓</button>';
-    h += '</div>';
+    // 从 TIER 数据生成（v0.16 Tier 1 实装后改为读 TIER）
+    var tierEffNames = { baseProdM: '基础资源', buildCostM: '建筑造价', expRewardM: '远行奖励', caravanProb: '商队来访' };
+    ['in', 'out'].forEach(function(tid) {
+      var t = TIER[tid];
+      h += '<div class="polity-card">';
+      h += '<div class="polity-card-name">' + t.n + '</div>';
+      h += '<div class="polity-card-desc">' + t.d + '</div>';
+      h += '<div class="polity-card-effects">';
+      var effs = [];
+      for (var ek in t.e) {
+        var v = t.e[ek];
+        var name = tierEffNames[ek] || ek;
+        var sign = v > 0 ? '+' : '';
+        effs.push('<span class="eff-pos">' + name + ' ' + sign + (v * 100).toFixed(0) + '%</span>');
+      }
+      h += effs.join('<br>');
+      h += '</div>';
+      h += '<div class="policy-cost-info">费用：' + t.cost.map(function(c){ return (RD[c.r]?.n || c.r) + ' ' + c.a; }).join(' + ') + '</div>';
+      h += '<button class="bld-btn" onclick="chooseTier1Confirm(\'' + tid + '\')">选择' + t.n + '</button>';
+      h += '</div>';
+    });
     h += '</div>';
   } else {
-    var tierName = G.tier1 === 'in' ? '内守' : '外拓';
+    var tierName = (TIER[G.tier1]?.n) || (G.tier1 === 'in' ? '内守' : '外拓');
     h += '<div class="polity-current"><div class="polity-current-name">路线：' + tierName + '</div>';
     h += '<div class="polity-locked-note">路线已确立，永久。</div></div>';
   }
