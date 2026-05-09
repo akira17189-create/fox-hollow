@@ -1508,7 +1508,7 @@ const CD = {
     n: '彩络', d: '丝帛+香草 → 彩络',
     inp: [{ r: 'silk', a: 1 }, { r: 'spice', a: 1 }],
     out: [{ r: 'dye', a: 1 }],
-    uq: { u: { folkLore: 1, engraving: 1 } },
+    uq: { u: { engraving: 1 } },
     tip: ['一锅热水，几朵花的葬礼，一匹布的新生。']
   },
   wine: {
