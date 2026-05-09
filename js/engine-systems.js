@@ -128,10 +128,13 @@ function resolveExpedition(idx, silent) {
   var _divExp = getDivinationEffects();
   if (_divExp && _divExp.penalty.expReward) mul *= (1 + _divExp.penalty.expReward);
   // 抽取奖励（2-3项）
+  // user-fb-2 修复：旧逻辑里抽到低概率项没中也 r++，可能导致 rewardCount 用光
+  // 在没中的项上→玩家拿 0 奖励。修为：仅命中（push）才 r++，未中只 splice + retry。
   var rewardCount = 2 + (Math.random() < 0.5 ? 1 : 0);
   var pool = d.rewards.slice();
   var rewards = [];
-  for (var r = 0; r < rewardCount && pool.length > 0; r++) {
+  var picked = 0;
+  while (picked < rewardCount && pool.length > 0) {
     var ri = Math.floor(Math.random() * pool.length);
     var rw = pool[ri];
     if (Math.random() > rw.prob) { pool.splice(ri, 1); continue; }
@@ -144,6 +147,7 @@ function resolveExpedition(idx, silent) {
       rewards.push(RD[rw.r].n + ' +' + amt);
     }
     pool.splice(ri, 1);
+    picked++;
   }
   // 抉择 buff：额外资源奖励
   if (cb.nextReturn && cb.nextReturn[exp.dest]) {

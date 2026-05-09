@@ -301,10 +301,13 @@ function activeWatchtowers() {
   return wt;
 }
 
-// 远行时间乘数（瞭望塔每座 ×0.85 + 抉择永久加成）
+// 远行时间乘数（瞭望塔每座 ×0.85 + 斥候每名 ×0.98 + 抉择永久加成）
 function expTimeMul() {
   var wt = activeWatchtowers();
   var mul = Math.pow(0.85, wt);
+  // 斥候在岗数量加成：每名 ×0.98（10 名 ≈ -18%，20 名 ≈ -33%）
+  var scoutCount = G.job.scout?.c || 0;
+  if (scoutCount > 0) mul *= Math.pow(0.98, scoutCount);
   if (G.choiceBuffs && G.choiceBuffs.permTimeMul) mul *= G.choiceBuffs.permTimeMul;
   // 铁路：远行时间 ×expTimeM/座（乘法叠加）
   if (G.bld.railroad?.c && BD.railroad?.e?.expTimeM) {
