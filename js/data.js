@@ -876,14 +876,14 @@ const UD = {
     tip: ['有只幼狐的后爪，不自觉地抠进了土里。']
   },
   calendar: {
-    n: '月令新酿', d: '解锁月歌台、醴浆、枯风口，与中期 2 习俗。',
+    n: '月令新酿', d: '解锁月歌台、醴浆与两种新习俗。',
     p: [{ r: 'lore', a: 100 }, { r: 'scroll', a: 5 }],
     e: { hapB: .02, berryM: .05 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
     tip: ['等月亮，等果熟，等酒醒。', '把太阳的刻度，酿成狐狸喉间的灼热。']
   },
   engraving: {
-    n: '岁时有常', d: '解锁刻名碑、墨锭与五个后期习俗。',
+    n: '岁时有常', d: '解锁刻名碑、墨锭与四种新习俗。',
     p: [{ r: 'lore', a: 120 }, { r: 'scroll', a: 10 }],
     e: { loreM: .1 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
@@ -919,7 +919,7 @@ const UD = {
     tip: ['坐下来说的第一句话不是决定，是"你先说"。']
   },
   polityLore: {
-    n: '法度通论', d: '解锁 Tier 1 路线选择与令台。',
+    n: '法度通论', d: '解锁路线选择与令台。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 40 }],
     e: {},
     uq: { u: { councilLore: 1 }, b: { councilHall: 2 } },
