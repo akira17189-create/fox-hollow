@@ -480,6 +480,15 @@ function calcEnergy() {
   G.energyCons = cons;
   G.energyNet = prod - cons;
   G.energyRatio = cons > 0 ? Math.min(1, prod / cons) : 1;
+  // 工业 D §八 5.1e #98 辉能蓄池：能量不足时衰减速率减免
+  // energyRatio < 1 表示衰减；reduce=0.5 时把"距离 1 的差值"减半（如 0.6 → 0.8）
+  if (G.energyRatio < 1) {
+    var _esReduce = 0;
+    for (var _es in G.upgd) {
+      if (G.upgd[_es].done && UPGD[_es]?.e?._energyShortageReduce) _esReduce = Math.max(_esReduce, UPGD[_es].e._energyShortageReduce);
+    }
+    if (_esReduce > 0) G.energyRatio = G.energyRatio + (1 - G.energyRatio) * _esReduce;
+  }
 }
 
 // ===== 灵脉系统 =====
@@ -1078,6 +1087,7 @@ function calcR() {
   var _jobM = {};
   var _happyJobBonus = {}; // 灵修升级：特定职业满意度额外加成
   var _resonancerSpiritP = 0; // 灵修 B 升级：共鸣师额外灵能产出
+  var _jobAllMul = 0; // 工业 D §八 5.1e #103 智能调度：所有职业产出乘数
   for (const [uid, us] of Object.entries(G.upgd)) {
     if (!us.done) continue;
     var ue = UPGD[uid] && UPGD[uid].e;
@@ -1088,6 +1098,7 @@ function calcR() {
       for (var jid in ue._happyJobBonus) _happyJobBonus[jid] = (_happyJobBonus[jid] || 0) + ue._happyJobBonus[jid];
     }
     if (ue && ue._resonancerSpiritP) _resonancerSpiritP += ue._resonancerSpiritP;
+    if (ue && ue._jobAllM) _jobAllMul += ue._jobAllM;
   }
   // 灵修 B 灵术：化形·灵狐（本季所有职业效率 ×1.5）
   var shapeFoxMul = 1;
@@ -1105,7 +1116,7 @@ function calcR() {
     if (!s.c) continue;
     var trainBonus = 1 + ((G.train[id] || 0) + _trainBonusLvl) * 0.1 + policyTrainFlat;
     var talentData = G.jobTalent[id] && SPEC_JD[id] ? SPEC_JD[id][G.jobTalent[id]] : null;
-    var jobUpgdMul = 1 + (_jobM[id] || 0);
+    var jobUpgdMul = 1 + (_jobM[id] || 0) + _jobAllMul;
     // 灵修升级：满意度额外加成（如感应远距 ×满意度×1.2）
     var happyMul = G.happy;
     if (_happyJobBonus[id]) happyMul *= (1 + _happyJobBonus[id]);
@@ -1690,10 +1701,18 @@ function calcR() {
     r.renown *= (1 + _crossCultureBonus * mainBldCount2);
   }
 
-  // 季节倍率（含灵狐庇护冬季加成 + 霜藏专精）
+  // 季节倍率（含灵狐庇护冬季加成 + 霜藏专精 + 工业 D §八 5.1e #106 辉能供暖）
   var berrySeasonMul = SM[G.season];
   if (G.season === 3 && G.upg.spiritShelter?.done) berrySeasonMul = 0.4;
   if (G.season === 3 && G.bldSpec.warehouse === 'B') berrySeasonMul *= (1 + SPEC_BD.warehouse.B.winterBuff);
+  // 工业 D §八 5.1e #106 辉能供暖：冬季野莓惩罚衰减（berrySeasonMul 向 1.0 拉近）
+  if (G.season === 3 && berrySeasonMul < 1) {
+    var _winterReduce = 0;
+    for (var _wp in G.upgd) {
+      if (G.upgd[_wp].done && UPGD[_wp]?.e?._winterPenaltyReduce) _winterReduce = Math.max(_winterReduce, UPGD[_wp].e._winterPenaltyReduce);
+    }
+    if (_winterReduce > 0) berrySeasonMul = berrySeasonMul + (1 - berrySeasonMul) * _winterReduce;
+  }
   r.berry *= berrySeasonMul;
 
   // 祈雨术加成

@@ -2400,6 +2400,182 @@ const UPGD = {
     uq: { u: { refining: 1 }, b: { railroad: 1 } },
   },
 
+  // ===== 工业分支 D阶段升级 #79-106（v0.20 §八 5.1e, 28 个） =====
+  // 工具类 #79-81
+  uraniumTools: {
+    n: '辉石工具', d: '所有基础产出+25%（与钛制工具叠加）', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 10 }, { r: 'alloy', a: 5 }],
+    e: { berryM: 0.25, woodM: 0.25, stoneM: 0.25, ironM: 0.25 },
+    uq: { u: { fission: 1 } },
+  },
+  uraniumPickaxe: {
+    n: '辉石矿镐', d: '煤产出+50%（叠加铁/钛矿镐）', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 8 }, { r: 'alloy', a: 3 }],
+    e: { coalM: 0.5 },
+    uq: { u: { fission: 1 } },
+  },
+  uraniumDrill: {
+    n: '辉石钻头', d: '油井产出+40%（叠加钛钻头）', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 8 }, { r: 'alloy', a: 3 }],
+    e: { bldM: { oilWell: { prodM: 0.4 } } },
+    uq: { u: { fission: 1 } },
+  },
+  // 产出倍率类 #82-90
+  particleFocus: {
+    n: '粒子聚焦', d: '加速器产出+60%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 15 }, { r: 'alloy', a: 10 }],
+    e: { bldM: { accelerator: { prodM: 0.6 } } },
+    uq: { u: { particle: 1 } },
+  },
+  proliferReact: {
+    n: '增殖反应', d: '熔炉能量产出+50%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 30 }, { r: 'draft', a: 10 }],
+    e: { _energyBoost: { furnace: 0.5 } },
+    uq: { u: { proliferation: 1 } },
+  },
+  mirrorPolish: {
+    n: '镜面精磨', d: '镜合金配方产出×2', br: 'I', phase: 4,
+    p: [{ r: 'mirrorAlloy', a: 5 }, { r: 'titan', a: 20 }],
+    e: { craftM: { craftMirrorAlloy: { outMul: 1.0 } } },
+    uq: { u: { mirrorForge: 1 } },
+  },
+  thoriumStable: {
+    n: '钍稳定器', d: '熔炉产出加成+60%（含全产出加成）', br: 'I', phase: 4,
+    p: [{ r: 'thorium', a: 10 }, { r: 'alloy', a: 15 }],
+    e: { bldM: { furnace: { prodM: 0.6 } } },
+    uq: { u: { thoriumConv: 1 } },
+  },
+  uraniumCatalyst: {
+    n: '辉石催化', d: '炼钢配方产出×3（钢瓶颈终极解）', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 20 }, { r: 'titan', a: 15 }],
+    e: { craftM: { steel: { outMul: 2.0 } } },
+    uq: { u: { radiantPower: 1 } },
+  },
+  thoriumReson: {
+    n: '重晶共鸣', d: '加速器/熔炉/辉匣产出+15%', br: 'I', phase: 4,
+    p: [{ r: 'thorium', a: 8 }, { r: 'uranium', a: 30 }],
+    e: { bldM: { accelerator: { prodM: 0.15 }, furnace: { prodM: 0.15 }, radianceBox: { prodM: 0.15 } } },
+    uq: { u: { thoriumConv: 1 } },
+  },
+  deepCalc: {
+    n: '深层煅烧', d: '煅烧炉产出+100%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 15 }, { r: 'titan', a: 30 }, { r: 'oil', a: 40 }],
+    e: { bldM: { calcFurnace: { prodM: 1.0 } } },
+    uq: { u: { radiantPower: 1 } },
+  },
+  fastFission: {
+    n: '加速裂解', d: '加速器产出+40%（与粒子聚焦叠加）', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 25 }, { r: 'alloy', a: 12 }],
+    e: { bldM: { accelerator: { prodM: 0.4 } } },
+    uq: { u: { particle: 1 } },
+  },
+  codexInsight: {
+    n: '密典洞见', d: '所有研究费用-10%', br: 'I', phase: 4,
+    p: [{ r: 'codex', a: 5 }, { r: 'lore', a: 1500 }],
+    e: { _researchCostM: -0.10 },
+    uq: { u: { voidPrinciple: 1 } },
+  },
+  // 存储类 #91-93
+  uraniumVault: {
+    n: '辉石保险库', d: '辉石/重晶上限+60%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 15 }, { r: 'pillar', a: 5 }],
+    e: { mxM: { uranium: 0.6, thorium: 0.6 } },
+    uq: { u: { fission: 1 } },
+  },
+  mirrorVessel: {
+    n: '镜合金容器', d: '镜合金/密典上限+50%', br: 'I', phase: 4,
+    p: [{ r: 'mirrorAlloy', a: 5 }, { r: 'alloy', a: 10 }],
+    e: { mxM: { mirrorAlloy: 0.5, codex: 0.5 } },
+    uq: { u: { mirrorForge: 1 } },
+  },
+  radianceCompress: {
+    n: '辉能压缩仓', d: '煤/钢/火油/寒钛上限+30%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 20 }, { r: 'alloy', a: 15 }, { r: 'pillar', a: 8 }],
+    e: { mxM: { coal: 0.3, steel: 0.3, oil: 0.3, titan: 0.3 } },
+    uq: { u: { radiantPower: 1 } },
+  },
+  // 消耗减免类 #94-99
+  shieldedReact: {
+    n: '屏蔽反应室', d: '熔炉辉石消耗-30%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 20 }, { r: 'pillar', a: 5 }],
+    e: { bldM: { furnace: { extraP: { uranium: 0.0003 } } } },
+    uq: { u: { shielding: 1 } },
+  },
+  superCoil: {
+    n: '超导线圈', d: '加速器能耗-2（5→3）', br: 'I', phase: 4,
+    p: [{ r: 'alloy', a: 15 }, { r: 'uranium', a: 10 }],
+    e: { _energyCostReduce: { accelerator: 2 } },
+    uq: { u: { superCond: 1 } },
+  },
+  thoriumDense: {
+    n: '重晶浓缩', d: '重晶转化原料-25%（200→150）', br: 'I', phase: 4,
+    p: [{ r: 'thorium', a: 5 }, { r: 'uranium', a: 50 }],
+    e: { craftM: { craftThorium: { inpM: { uranium: -0.25 } } } },
+    uq: { u: { thoriumConv: 1 } },
+  },
+  radProtect: {
+    n: '辐射防护', d: '加速器/熔炉污染-30%', br: 'I', phase: 4,
+    p: [{ r: 'alloy', a: 20 }, { r: 'pillar', a: 8 }],
+    e: { bldM: { accelerator: { pollM: -0.3 }, furnace: { pollM: -0.3 } } },
+    uq: { u: { radiation: 1 } },
+  },
+  energyReservoir: {
+    n: '辉能蓄池', d: '能量不足时衰减速率-50%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 25 }, { r: 'mirrorAlloy', a: 3 }],
+    e: { _energyShortageReduce: 0.5 },
+    uq: { u: { proliferation: 1 } },
+  },
+  codexAnnotate: {
+    n: '密典注解', d: '研究费用-15%（与密典洞见叠加）', br: 'I', phase: 4,
+    p: [{ r: 'codex', a: 3 }, { r: 'lore', a: 1000 }],
+    e: { _researchCostM: -0.15 },
+    uq: { u: { voidPrinciple: 1 } },
+  },
+  // 自动化类 #100-103
+  radianceAutoForge: {
+    n: '辉能自动锻', d: '自动制作速率+30%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 10 }, { r: 'alloy', a: 8 }, { r: 'draft', a: 8 }],
+    e: { _autoCraftSpeed: 0.3 },
+    uq: { u: { autoMech: 1 } },
+  },
+  autoThorium: {
+    n: '自动重晶转', d: '重晶配方可自动制作', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 15 }, { r: 'titanPart', a: 8 }, { r: 'outline', a: 3 }],
+    e: { _autoCraftEnable: 'craftThorium' },
+    uq: { u: { thoriumConv: 1 } },
+  },
+  autoMirror: {
+    n: '自动镜锻', d: '镜合金配方可自动制作', br: 'I', phase: 4,
+    p: [{ r: 'mirrorAlloy', a: 3 }, { r: 'alloy', a: 10 }, { r: 'draft', a: 5 }],
+    e: { _autoCraftEnable: 'craftMirrorAlloy' },
+    uq: { u: { mirrorForge: 1 } },
+  },
+  smartScheduler: {
+    n: '智能调度', d: '所有职业产出+20%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 20 }, { r: 'outline', a: 5 }, { r: 'alloy', a: 12 }],
+    e: { _jobAllM: 0.2 },
+    uq: { u: { autoMech: 1 } },
+  },
+  // 跨系统类 #104-106
+  radianceBeacon: {
+    n: '辉能灯塔', d: '远行奖励+25%，远行时间-20%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 8 }, { r: 'pillar', a: 5 }],
+    e: { _expRewardBonus: 0.25, _expTimeM: 0.8 },
+    uq: { u: { radiantPower: 1 } },
+  },
+  uraniumCoinage: {
+    n: '辉石铸币', d: '铜钱产出+50%，商队到达率+5%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 5 }, { r: 'coin', a: 200 }],
+    e: { coinM: 0.5, _caravanFreq: 0.05 },
+    uq: { u: { radiantPower: 1 } },
+  },
+  radianceHeat: {
+    n: '辉能供暖', d: '冬季野莓惩罚-50%', br: 'I', phase: 4,
+    p: [{ r: 'uranium', a: 12 }, { r: 'pillar', a: 3 }],
+    e: { _winterPenaltyReduce: 0.5 },
+    uq: { u: { radiantPower: 1 } },
+  },
+
   // ===== 灵修分支 A阶段升级 #1-20 =====
   // #1 灵泉精修：灵泉产出 +50%
   wellRefine: {
