@@ -3892,6 +3892,224 @@ const UPGD = {
     uq: { u: { churchArchLore: 1 } }, sb: 'D', br: 'I',
   },
 
+  // ===== 神启副线 C-教团：升级 #31-65（v0.20 §八 5.3c, 35 个） =====
+  // 产出倍率 #31-38
+  hymnSurge: {
+    n: '颂咏增产', d: '颂咏堂产出 +50%。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'holyFlame', a: 10 }],
+    e: { bldM: { hymnHall: { prodM: 0.5 } } },
+    uq: { b: { hymnHall: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  cathedralGrace: {
+    n: '大教堂恩典', d: '神恩上限 +3%/座大教堂（5.5 整体验收时实装具体公式）。',
+    p: [{ r: 'hymn', a: 8 }, { r: 'holyIron', a: 10 }],
+    e: {},
+    uq: { b: { cathedral: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  relicPower: {
+    n: '圣骸力量', d: '圣骸堂产出翻倍。',
+    p: [{ r: 'holyRelic', a: 3 }, { r: 'piety', a: 150 }],
+    e: { bldM: { relicShrine: { prodM: 1.0 } } },
+    uq: { b: { relicShrine: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  scripturePower: {
+    n: '圣典之力', d: '圣典塔学识加成翻倍。',
+    p: [{ r: 'holyScripture', a: 3 }, { r: 'piety', a: 150 }],
+    e: { bldM: { scriptureSpire: { prodM: 1.0 } } },
+    uq: { b: { scriptureSpire: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  flameAltarSurge: {
+    n: '圣火祭坛增产', d: '圣火祭坛产出 +50%。',
+    p: [{ r: 'holyFlame', a: 25 }, { r: 'holyIron', a: 10 }],
+    e: { bldM: { holyAltar: { prodM: 0.5 } } },
+    uq: { b: { holyAltar: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  pilgrimBlessing: {
+    n: '朝圣祝福', d: '朝圣道幸福加成翻倍（5.5 实装）。',
+    p: [{ r: 'hymn', a: 3 }, { r: 'piety', a: 100 }],
+    e: {},
+    uq: { b: { pilgrimage: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  hymnistDevotion: {
+    n: '颂咏师精进', d: '颂咏师产出 +40%。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'holyScripture', a: 2 }],
+    e: { jobM: { cantor: 0.4 } },
+    uq: { j: { cantor: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  crusaderZeal: {
+    n: '十字军热忱', d: '十字军远行奖励加成（5.5 实装）。',
+    p: [{ r: 'holyFlame', a: 20 }, { r: 'holyIron', a: 8 }],
+    e: {},
+    uq: { j: { crusader: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  // 存储 #39-43
+  hymnVault: {
+    n: '颂咏库', d: '颂咏上限 +30。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'holyIron', a: 5 }],
+    e: { _flatMx: { hymn: 30 } },
+    uq: { b: { hymnHall: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  relicVault: {
+    n: '圣骸库', d: '圣骸上限 +50%。',
+    p: [{ r: 'holyRelic', a: 3 }, { r: 'holyIron', a: 8 }],
+    e: { mxM: { holyRelic: 0.5 } },
+    uq: { b: { relicShrine: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  scriptureVault: {
+    n: '圣典库', d: '圣典上限 +50%。',
+    p: [{ r: 'holyScripture', a: 3 }, { r: 'scroll', a: 30 }],
+    e: { mxM: { holyScripture: 0.5 } },
+    uq: { b: { scriptureSpire: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  holyIronVaultUp: {
+    n: '圣铁库扩建', d: '圣铁库存储贡献 +50%。',
+    p: [{ r: 'holyIron', a: 10 }, { r: 'brick', a: 50 }],
+    e: { bldMxM: { holyIronVault: 0.5 } },
+    uq: { b: { holyIronVault: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  flameMxUp: {
+    n: '圣火仓扩', d: '圣火上限 +30%。',
+    p: [{ r: 'holyFlame', a: 15 }, { r: 'brick', a: 40 }],
+    e: { mxM: { holyFlame: 0.3 } },
+    uq: { b: { holyKiln: 5 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  // 教令强化 #44-48
+  edictMastery: {
+    n: '教令宗师', d: '教令冷却 -1 季（教令系统启用时实装）。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'holyFlame', a: 15 }],
+    e: {},
+    uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  edictPower: {
+    n: '教令强化', d: '基础教令效果 +10%（教令系统）。',
+    p: [{ r: 'holyScripture', a: 3 }, { r: 'piety', a: 200 }],
+    e: {},
+    uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  crusadeEdictUp: {
+    n: '圣战令强化', d: '圣战令效果 +15%（教令系统）。',
+    p: [{ r: 'holyFlame', a: 25 }, { r: 'holyIron', a: 12 }],
+    e: {},
+    uq: { u: { crusadeLore: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  edictSlotC: {
+    n: '教令增席·高', d: '教令同时激活上限 +1（教令系统）。',
+    p: [{ r: 'hymn', a: 8 }, { r: 'holyScripture', a: 2 }],
+    e: {},
+    uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  pilgrimEdictUp: {
+    n: '朝圣令强化', d: '朝圣令效果 +15%（教令系统）。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'piety', a: 150 }],
+    e: {},
+    uq: { u: { pilgrimageLore: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  // 圣战与远征 #49-53
+  crusadeCampUp: {
+    n: '圣战营强化', d: '圣战营教令持续效果翻倍（5.5 实装）。',
+    p: [{ r: 'holyFlame', a: 20 }, { r: 'holyIron', a: 10 }],
+    e: {},
+    uq: { b: { crusadeCamp: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  holyExpBonus: {
+    n: '神圣远征', d: '远行奖励 +10%（永久，与研究叠加）。',
+    p: [{ r: 'holyRelic', a: 3 }, { r: 'holyFlame', a: 15 }],
+    e: { _expRewardBonus: 0.10 },
+    uq: { u: { expeditionTheology: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  crusadeLogistics: {
+    n: '圣战后勤', d: '圣战军粮效果加成（5.5 实装）。',
+    p: [{ r: 'holyIron', a: 8 }, { r: 'piety', a: 150 }],
+    e: {},
+    uq: { u: { crusadePrep: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  faithCaravan: {
+    n: '信仰商队', d: '商队到达率 +10%。',
+    p: [{ r: 'hymn', a: 3 }, { r: 'piety', a: 120 }],
+    e: { _caravanFreq: 0.10 },
+    uq: { b: { pilgrimage: 4 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  holyLandBonus: {
+    n: '圣地回报', d: '圣地夺还后远行额外圣骸概率 +5%（5.5 实装）。',
+    p: [{ r: 'holyRelic', a: 5 }, { r: 'holyScripture', a: 3 }],
+    e: {},
+    uq: { u: { holyLandReclaim: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  // 跨系统 #54-58
+  sacredIndustry: {
+    n: '神圣工业', d: '工业配方产出 +10%（全局）。',
+    p: [{ r: 'holyScripture', a: 5 }, { r: 'holyFlame', a: 20 }, { r: 'piety', a: 250 }],
+    e: {},
+    uq: { u: { holyLandReclaim: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  faithMine: {
+    n: '信仰矿脉', d: '煤/铁产出 +15%。',
+    p: [{ r: 'holyIron', a: 10 }, { r: 'piety', a: 200 }],
+    e: { coalM: 0.15, ironM: 0.15 },
+    uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  holyEnergy: {
+    n: '圣能', d: '能量产出 +10%（全源；5.5 实装）。',
+    p: [{ r: 'holyFlame', a: 25 }, { r: 'holyIron', a: 12 }],
+    e: {},
+    uq: { b: { holyAltar: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  faithResearch: {
+    n: '信仰学问', d: '学识产出 +10%。',
+    p: [{ r: 'holyScripture', a: 3 }, { r: 'piety', a: 180 }],
+    e: { loreM: 0.10 },
+    uq: { u: { scriptureCompile: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  purifyDeep: {
+    n: '深层净罪', d: '净罪池治污翻倍（5.5 实装）。',
+    p: [{ r: 'holyOil', a: 10 }, { r: 'piety', a: 200 }],
+    e: {},
+    uq: { b: { atonementPool: 3 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  // 神恩推进 #59-65
+  graceCapC1: {
+    n: '恩典深化·壹', d: '神恩上限 +3%。',
+    p: [{ r: 'hymn', a: 8 }, { r: 'piety', a: 300 }],
+    e: { _graceCapBonus: 0.03 },
+    uq: { b: { cathedral: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  graceCapC2: {
+    n: '恩典深化·贰', d: '神恩上限 +3%。',
+    p: [{ r: 'holyRelic', a: 3 }, { r: 'piety', a: 400 }],
+    e: { _graceCapBonus: 0.03 },
+    uq: { ud: { graceCapC1: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  graceCapC3: {
+    n: '恩典深化·叁', d: '神恩上限 +4%。',
+    p: [{ r: 'holyScripture', a: 5 }, { r: 'piety', a: 500 }],
+    e: { _graceCapBonus: 0.04 },
+    uq: { ud: { graceCapC2: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  pietyMxC: {
+    n: '虔诚大瓮', d: '虔诚上限 +50%。',
+    p: [{ r: 'hymn', a: 5 }, { r: 'holyIron', a: 8 }],
+    e: { mxM: { piety: 0.5 } },
+    uq: { b: { cathedral: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  relicGrace: {
+    n: '圣骸恩典', d: '每个圣骸库存 +0.5% 虔诚产出（5.5 实装）。',
+    p: [{ r: 'holyRelic', a: 5 }, { r: 'piety', a: 250 }],
+    e: {},
+    uq: { u: { relicTreatise: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  scriptureGrace: {
+    n: '圣典恩典', d: '每个圣典库存 +1% 学识产出（5.5 实装）。',
+    p: [{ r: 'holyScripture', a: 5 }, { r: 'piety', a: 250 }],
+    e: {},
+    uq: { u: { doctrineSystem: 1 } }, sb: 'D', br: 'I', phase: 4,
+  },
+  hymnOfLabor: {
+    n: '劳作颂歌', d: '基础资源产出 +8%（永久）。',
+    p: [{ r: 'hymn', a: 10 }, { r: 'piety', a: 300 }],
+    e: { berryM: 0.08, woodM: 0.08, stoneM: 0.08 },
+    uq: { u: { hymnArt: 1 }, b: { cathedral: 2 } }, sb: 'D', br: 'I', phase: 4,
+  },
+
   // ===== 神启副线 B-秘仪：升级 #11-30 =====
   mysteryDeepen: {
     n: '秘仪深化', d: '秘仪殿秘知上限 +50%。',
