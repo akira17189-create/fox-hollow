@@ -233,12 +233,14 @@ const BD = {
     n: '伐木场', t: 'b', d: '提高圆木产出效率。',
     p: [{ r: 'berry', b: 60, k: 1.12 }, { r: 'wood', b: 8, k: 1.12 }],
     e: { woodP: .12 },
+    uq: { b: { berryPatch: 1 } },
     tip: ['跟整座山林谈判，一次只带走一棵。']
   },
   quarry: {
     n: '采石坑', t: 'b', d: '提高碎石产出效率。',
     p: [{ r: 'berry', b: 80, k: 1.12 }, { r: 'stone', b: 10, k: 1.12 }],
     e: { stoneP: .08 },
+    uq: { b: { berryPatch: 1 } },
     tip: ['往下挖，挖到大地开始心疼的地方。']
   },
 
@@ -1931,7 +1933,7 @@ const CD = {
     n: '墨锭', d: '兽皮+碎石 → 墨锭',
     inp: [{ r: 'leather', a: 3 }, { r: 'stone', a: 2 }],
     out: [{ r: 'ink', a: 1 }],
-    uq: { u: { engraving: 1 } },
+    uq: { u: { engraving: 1 }, b: { memorial: 1 } },
     tip: ['推一下，拉一下。再推一下，再拉一下。悟了没？没。']
   },
 
