@@ -2455,13 +2455,14 @@ function renderPolityTab() {
       var isCurrent = currentOpt === optId;
       var isLocked = currentOpt && !isCurrent; // 另一个选项被永久锁定
       h += '<div class="policy-opt' + (isCurrent ? ' policy-opt-active' : '') + (isLocked ? ' policy-opt-locked' : '') + '">';
-      var sec = {};
-      if (opt.d) sec.desc = opt.d;
-      // hpWrap 期望 effects/notes 是数组（内部 .join('<br>')），不能预先 join
-      if (opt.e && Object.keys(opt.e).length > 0) sec.effects = policyEffectLines(opt.e);
-      if (opt.pen && Object.keys(opt.pen).length > 0) sec.notes = policyEffectLines(opt.pen);
-      var nameHtml = hpWrap('<span class="policy-opt-name">' + opt.n + '</span>', sec);
-      h += nameHtml;
+      h += '<div class="policy-opt-name">' + opt.n + '</div>';
+      if (opt.d) h += '<div class="policy-opt-desc">' + opt.d + '</div>';
+      if (opt.e && Object.keys(opt.e).length > 0) {
+        h += '<div class="policy-opt-effects">' + policyEffectLines(opt.e).join('<br>') + '</div>';
+      }
+      if (opt.pen && Object.keys(opt.pen).length > 0) {
+        h += '<div class="policy-opt-effects" style="margin-top:2px;">' + polityPenLines(opt.pen).join('<br>') + '</div>';
+      }
       if (isCurrent) {
         h += '<span class="policy-opt-current">已确立</span>';
       } else if (isLocked) {
