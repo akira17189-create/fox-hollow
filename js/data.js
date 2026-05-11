@@ -5234,7 +5234,7 @@ const EXD = {
     n: '云岭', days: 60, narrative: true,
     d: '西北方常年云雾的高山。',
     cost: [{ r: 'berry', a: 100 }, { r: 'coin', a: 5 }, { r: 'charm', a: 1 }],
-    uq: { b: { trailroad: 1, watchtower: 1 }, u: { longJourney: 1 }, exp: { oldRuin: 1 } },
+    uq: { b: { trailroad: 1, watchtower: 1 }, exp: { oldRuin: 1 } },
     rewards: [
       { r: 'charm', min: 3, max: 5, prob: 1 },
       { r: 'ancCoin', min: 2, max: 3, prob: 1 },

@@ -2473,7 +2473,7 @@ function simulateOffline(seconds) {
       G.merchantSpiceAcc += coinRate / TPD;
       if (G.merchantSpiceAcc >= 15) {
         G.merchantSpiceAcc -= 15;
-        if (G.res.spice && G.res.spice.mx > 0 && G.res.spice.v < G.res.spice.mx && Math.random() < 0.35) {
+        if (G.res.spice && G.res.spice.mx > 0 && G.res.spice.v < G.res.spice.mx && Math.random() < 0.60) {
           G.res.spice.v = Math.min(G.res.spice.v + 1, G.res.spice.mx);
           if (!G.res.spice.on) G.res.spice.on = true;
         }
@@ -2826,7 +2826,7 @@ function tick() {
     G.merchantSpiceAcc += coinRate / TPD;
     if (G.merchantSpiceAcc >= 15) {
       G.merchantSpiceAcc -= 15;
-      if (G.res.spice && G.res.spice.mx > 0 && G.res.spice.v < G.res.spice.mx && Math.random() < 0.35) {
+      if (G.res.spice && G.res.spice.mx > 0 && G.res.spice.v < G.res.spice.mx && Math.random() < 0.60) {
         G.res.spice.v = Math.min(G.res.spice.v + 1, G.res.spice.mx);
         if (!G.res.spice.on) G.res.spice.on = true;
         var slog = MERCHANT_SPICE_LOGS[Math.floor(Math.random() * MERCHANT_SPICE_LOGS.length)];

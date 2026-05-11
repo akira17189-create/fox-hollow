@@ -1422,8 +1422,8 @@ function rTC() {
         var filled = Math.round(pct / 10);
         var bar = '';
         for (var bi = 0; bi < 10; bi++) bar += (bi < filled ? '█' : '░');
-        h += '<div class="merchant-spice-bar">' +
-          '<span class="msb-label">路边生意</span> ' +
+        h += '<div class="merchant-spice-bar" title="商贩兼营路边小摊：累积满 15 铜钱产率时，有 60% 概率获得 1 香草。">' +
+          '<span class="msb-label">路边生意（满进度 60% 概率 +1 香草）</span> ' +
           '<span class="msb-bar">[' + bar + ']</span> ' +
           '<span class="msb-val">' + fmt(acc) + ' / 15</span></div>';
       }

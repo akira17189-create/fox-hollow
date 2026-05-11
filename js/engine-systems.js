@@ -31,12 +31,13 @@ function sendExpedition(destId, foxCount) {
   // 扣资源
   for (var i = 0; i < d.cost.length; i++)
     G.res[d.cost[i].r].v -= d.cost[i].a;
-  // 斥候出征
-  G.foxAway = (G.foxAway || 0) + foxCount;
-  G.job.scout.c -= foxCount;
-  // 计算实际路程 tick
+  // 计算实际路程 tick（先算 timeMul，让 scoutCount 包含本次派出的斥候——
+  // 玩家直觉"派的多 = 时间快"，所以总斥候数（含派出）参与加成）
   var cb = G.choiceBuffs || {};
   var timeMul = expTimeMul();
+  // 斥候出征（扣减 G.job.scout.c 必须在 expTimeMul 之后，否则 scoutCount 不含本批 foxCount）
+  G.foxAway = (G.foxAway || 0) + foxCount;
+  G.job.scout.c -= foxCount;
   // 多斥候速度加成：1 - (n-1)*0.10，下限 0.5（每多 1 只 -10%，6 只封顶 50%）
   var speedMul = Math.max(0.5, 1 - (foxCount - 1) * 0.10);
   timeMul *= speedMul;
