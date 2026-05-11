@@ -309,7 +309,7 @@ const BD = {
   vault: {
     n: '石窖', t: 'b', d: '用铁与砖砌成的深层储藏室。',
     p: [{ r: 'plank', b: 3, k: 1.12 }, { r: 'brick', b: 5, k: 1.12 }, { r: 'iron', b: 3, k: 1.12 }],
-    e: { berryMx: 1500, woodMx: 200, stoneMx: 150, leatherMx: 30, ironMx: 30, loreMx: 30, scrollMx: 15, coinMx: 30, charmMx: 15 },
+    e: { berryMx: 1500, woodMx: 200, stoneMx: 150, leatherMx: 30, ironMx: 30, loreMx: 30, scrollMx: 15, coinMx: 30, charmMx: 15, plankMx: 50, brickMx: 50 },
     uq: { u: { ironWorking: 1 } },
     tip: ['存东西是一种对明天的想象。','凉凉的，暗暗的，什么都不会坏。']
   },
@@ -5840,7 +5840,7 @@ const ACHIEVEMENT_DATA = {
   berryHoard:     { n: '三千颗甜',       d: '囤积 3000 野莓' },
   lore100:        { n: '记得比忘的多',   d: '当前 100 学识' },
   scroll50:       { n: '满架还在塞',     d: '拥有 50 卷轴' },
-  firstPolity:    { n: '写在外面的名字', d: '选定政体' },
+  firstPolity:    { n: '写在外面的名字', d: '选定治风' },
   firstPolicy:    { n: '以后就这么办',   d: '选定第一个政策' },
 
   // --- 阶段二：分支觉醒（15 个）---

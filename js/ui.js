@@ -1917,11 +1917,15 @@ function rTC() {
         if (req.u) for (var rui = 0; rui < req.u.length; rui++) {
           var udId = req.u[rui];
           var done = G.upg[udId] && G.upg[udId].done;
-          reqStrs.push((done ? '✓ ' : '✗ ') + '研究：' + ((UD[udId] && UD[udId].n) || udId));
+          var udName = (UD[udId] && UD[udId].n) || udId;
+          var udHint = formatUqHint(UD[udId] && UD[udId].uq);
+          reqStrs.push((done ? '✓ ' : '✗ ') + '研究：<span title="' + udHint.replace(/"/g, '&quot;') + '">' + udName + '</span>');
         }
         if (req.b) for (var bk in req.b) {
           var hb = G.bld[bk] ? G.bld[bk].c : 0, nb = req.b[bk];
-          reqStrs.push((hb >= nb ? '✓ ' : '✗ ') + ((BD[bk] && BD[bk].n) || bk) + ' ≥ ' + nb);
+          var bldName = (BD[bk] && BD[bk].n) || bk;
+          var bldHint = formatUqHint(BD[bk] && BD[bk].uq);
+          reqStrs.push((hb >= nb ? '✓ ' : '✗ ') + '<span title="' + bldHint.replace(/"/g, '&quot;') + '">' + bldName + '</span> ≥ ' + nb);
         }
         if (req.j) for (var jk in req.j) {
           var hj = G.job[jk] ? G.job[jk].c : 0, nj = req.j[jk];
@@ -2681,6 +2685,31 @@ function rSeason() {
     SN[G.season] + ' · 第' + G.year + '年 · 第' + (Math.floor(G.day) + 1) + '天';
 }
 
+// ===== helper：解锁条件简述（用于习俗 req 列表的 hover tooltip）=====
+function formatUqHint(uq) {
+  if (!uq) return '无前置';
+  var parts = [];
+  if (uq.u) for (var k in uq.u) parts.push('研究「' + ((UD[k] && UD[k].n) || k) + '」');
+  if (uq.b) for (var k in uq.b) parts.push((BD[k] && BD[k].n || k) + ' ≥ ' + uq.b[k]);
+  if (uq.j) for (var k in uq.j) parts.push((JD[k] && JD[k].n || k) + ' ≥ ' + uq.j[k]);
+  if (uq.r) for (var k in uq.r) parts.push((RD[k] && RD[k].n || k) + ' ≥ ' + uq.r[k]);
+  if (uq.polity) parts.push('治风已选');
+  if (uq.custom !== undefined) parts.push('习俗激活 ≥ ' + uq.custom);
+  return parts.length ? '前置：' + parts.join('，') : '无前置';
+}
+
+// ===== 渲染：自动存档状态 =====
+function rSaveStatus() {
+  var el = document.getElementById('save-status');
+  if (!el || !G.lastSaveTime) return;
+  var sec = Math.floor((Date.now() - G.lastSaveTime) / 1000);
+  var text;
+  if (sec < 5) text = '刚刚已存档';
+  else if (sec < 60) text = '上次存档 ' + sec + 's 前';
+  else text = '上次存档 ' + Math.floor(sec / 60) + ' 分钟前';
+  el.textContent = text;
+}
+
 // ===== 全量渲染 =====
 var _blockTC = 0;
 function rAll() {
@@ -2689,6 +2718,7 @@ function rAll() {
   if (_blockTC > 0) { _blockTC--; }
   else { rTC(); }
   rSeason();
+  rSaveStatus();
 }
 
 // ===== v0.18 §六 3.4 占卜年签 Modal =====

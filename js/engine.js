@@ -3425,6 +3425,25 @@ function resetGame() {
   location.reload();
 }
 
+// 二次点击确认重置：第一次点击让按钮变红显示「再点确认」，4 秒内再次点击才真重置
+// 防止误触（按钮挪到 header 末尾 + 二次确认双重保护）
+function armReset(el) {
+  if (el.dataset.armed === '1') {
+    try { localStorage.removeItem('fhSave'); } catch (e) { }
+    location.reload();
+    return;
+  }
+  el.dataset.armed = '1';
+  el.classList.add('armed');
+  el.textContent = '再点确认';
+  setTimeout(function () {
+    if (!el || !document.body.contains(el)) return;
+    el.dataset.armed = '';
+    el.classList.remove('armed');
+    el.textContent = '重置';
+  }, 4000);
+}
+
 // ===== 存档码 =====
 function closeModal() {
   document.getElementById('modal-overlay').style.display = 'none';

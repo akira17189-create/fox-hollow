@@ -6,6 +6,9 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 #header-right{display:flex;align-items:center;gap:10px;}
 #header-right a{font-size:12px;color:#555;cursor:pointer;text-decoration:none;border-bottom:1px dashed #aaa;}
 #header-right a:hover{color:#000;border-bottom-color:#000;}
+#header-right a#reset-btn{color:#888;}
+#header-right a#reset-btn.armed{color:#c00;font-weight:bold;border-bottom-color:#c00;}
+#save-status{font-size:11px;color:#aaa;}
 #season-display{font-size:0.85em;color:#888;}
 
 #game{display:flex;min-height:calc(100vh - 32px);}

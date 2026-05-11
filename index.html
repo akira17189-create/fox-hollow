@@ -4,17 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小狐大世界</title>
-<link rel="stylesheet" href="css/style.css?v=13">
+<link rel="stylesheet" href="css/style.css?v=14">
 </head>
 <body>
 <div id="header">
   <h1>小狐大世界</h1>
   <div id="header-right">
-    <a onclick="resetGame()">重置</a>
     <a onclick="manualSave()">存档</a>
     <a onclick="showCodeExport()">存档码</a>
     <a onclick="showCodeImport()">导入存档码</a>
+    <span id="save-status"></span>
     <span id="season-display"></span>
+    <a id="reset-btn" onclick="armReset(this)">重置</a>
   </div>
 </div>
 <div id="game">
@@ -44,10 +45,10 @@
     </div>
   </div>
 </div>
-<script src="js/data.js?v=84"></script>
-<script src="js/engine.js?v=49"></script>
+<script src="js/data.js?v=85"></script>
+<script src="js/engine.js?v=50"></script>
 <script src="js/engine-actions.js?v=36"></script>
 <script src="js/engine-systems.js?v=18"></script>
-<script src="js/ui.js?v=47"></script>
+<script src="js/ui.js?v=48"></script>
 </body>
 </html>
