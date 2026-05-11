@@ -2366,11 +2366,11 @@ function renderPolityTab() {
 
   // ── Tier 1 路线面板 ──
   h += '<div class="polity-section">';
-  h += '<div class="polity-section-title">路线</div>';
+  h += '<div class="polity-section-title">取向</div>';
   if (!G.upg.polityLore?.done) {
-    h += '<div class="polity-locked">完成研究「' + (UD.polityLore?.n || '法度通论') + '」后解锁路线选择。</div>';
+    h += '<div class="polity-locked">完成研究「' + (UD.polityLore?.n || '法度通论') + '」后解锁取向选择。</div>';
   } else if (!G.tier1) {
-    h += '<div class="polity-choose-hint">请先选定路线方向（不可逆）：</div>';
+    h += '<div class="polity-choose-hint">请先选定取向（不可逆）：</div>';
     h += '<div class="polity-grid">';
     // 从 TIER 数据生成（v0.16 Tier 1 实装后改为读 TIER）
     var tierEffNames = { baseProdM: '基础资源', buildCostM: '建筑造价', expRewardM: '远行奖励', caravanProb: '商队来访' };
@@ -2396,21 +2396,21 @@ function renderPolityTab() {
     h += '</div>';
   } else {
     var tierName = (TIER[G.tier1]?.n) || (G.tier1 === 'in' ? '内守' : '外拓');
-    h += '<div class="polity-current"><div class="polity-current-name">路线：' + tierName + '</div>';
-    h += '<div class="polity-locked-note">路线已确立，永久。</div></div>';
+    h += '<div class="polity-current"><div class="polity-current-name">取向：' + tierName + '</div>';
+    h += '<div class="polity-locked-note">取向已确立，永久。</div></div>';
   }
   h += '</div>';
 
-  // ── 政体面板 ──
+  // ── 治风面板 ──
   h += '<div class="polity-section">';
-  h += '<div class="polity-section-title">政体</div>';
+  h += '<div class="polity-section-title">治风</div>';
   if (!G.upg.polityLore?.done) {
-    h += '<div class="polity-locked">完成研究「' + (UD.polityLore?.n || '法度通论') + '」后解锁政体选择。</div>';
+    h += '<div class="polity-locked">完成研究「' + (UD.polityLore?.n || '法度通论') + '」后解锁治风选择。</div>';
   } else if (!G.tier1) {
-    h += '<div class="polity-locked">请先选定路线方向。</div>';
+    h += '<div class="polity-locked">请先选定取向。</div>';
   } else if (!G.polity) {
     // 首次选择（filtered by tier1）
-    h += '<div class="polity-choose-hint">尚未确立政体，请选择：</div>';
+    h += '<div class="polity-choose-hint">尚未确立治风，请选择：</div>';
     h += renderPolityGrid(true);
   } else {
     // 当前政体
@@ -2422,8 +2422,8 @@ function renderPolityTab() {
     h += '<div class="polity-current-desc">' + pd.d + '</div>';
     h += '<div class="polity-current-effects">' + polityEffectLines(pd.e, polityBoost).join('<br>') + '</div>';
     h += '<div class="polity-current-effects" style="margin-top:4px;">' + polityPenLines(pd.pen).join('<br>') + '</div>';
-    if (phCount > 0) h += '<div class="polity-boost">政堂 x' + phCount + '：正面效果 +' + Math.round((polityBoost - 1) * 100) + '%</div>';
-    h += '<div class="polity-locked-note">政体已确立，永久。</div>';
+    if (phCount > 0) h += '<div class="polity-boost">治风堂 x' + phCount + '：正面效果 +' + Math.round((polityBoost - 1) * 100) + '%</div>';
+    h += '<div class="polity-locked-note">治风已确立，永久。</div>';
     h += '</div>';
   }
   h += '</div>';
@@ -2438,7 +2438,7 @@ function renderPolityTab() {
     h += '<div class="polity-section-title">' + pd.n + '</div>';
     var currentOpt = G.policies[dom];
     if (!currentOpt) {
-      h += '<div class="polity-choose-hint">请选择路线（不可逆）：</div>';
+      h += '<div class="polity-choose-hint">请选择（不可逆）：</div>';
       // Show cost
       if (pd.cost && pd.cost.length > 0) {
         var costStr = pd.cost.map(function(c) { return (RD[c.r]?.n || c.r) + ' ' + c.a; }).join(' + ');

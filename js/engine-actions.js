@@ -846,7 +846,7 @@ function chooseTier1Confirm(tier) {
   h += '<button onclick="closeModal()">取消</button>';
   h += '<button class="confirm-yes" onclick="chooseTier1(\'' + tier + '\');closeModal()">确认选择</button>';
   h += '</div>';
-  document.getElementById('modal-title').textContent = '路线选择 — 确认';
+  document.getElementById('modal-title').textContent = '取向选择 — 确认';
   document.getElementById('modal-body').innerHTML = h;
   document.getElementById('modal-overlay').style.display = 'flex';
 }
@@ -878,7 +878,7 @@ function choosePolityConfirm(id) {
   h += '<button onclick="closeModal()">取消</button>';
   h += '<button class="confirm-yes" onclick="choosePolity(\'' + id + '\');closeModal()">确认选择</button>';
   h += '</div>';
-  document.getElementById('modal-title').textContent = '政体选择 — 确认';
+  document.getElementById('modal-title').textContent = '治风选择 — 确认';
   document.getElementById('modal-body').innerHTML = h;
   document.getElementById('modal-overlay').style.display = 'flex';
 }
@@ -891,7 +891,7 @@ function chooseTier1(tier) {
   var cost = (typeof TIER !== 'undefined' && TIER[tier]?.cost) || [{ r: 'scroll', a: 30 }, { r: 'coin', a: 30 }];
   for (var i = 0; i < cost.length; i++) {
     if (!G.res[cost[i].r] || G.res[cost[i].r].v < cost[i].a) {
-      log('资源不足，无法选定路线。', 'warn');
+      log('资源不足，无法选定取向。', 'warn');
       return;
     }
   }
@@ -900,7 +900,7 @@ function chooseTier1(tier) {
   }
   G.tier1 = tier;
   var name = (typeof TIER !== 'undefined' && TIER[tier]?.n) || (tier === 'in' ? '内守' : '外拓');
-  log('谷中确立路线：' + name + '。', 'important');
+  log('谷中确立取向：' + name + '。', 'important');
   rAll();
 }
 
@@ -916,7 +916,7 @@ function choosePolity(id) {
   var cost = POLITY[id].cost || [];
   for (var i = 0; i < cost.length; i++) {
     if (!G.res[cost[i].r] || G.res[cost[i].r].v < cost[i].a) {
-      log('资源不足，无法选定政体。', 'warn');
+      log('资源不足，无法选定治风。', 'warn');
       return;
     }
   }
@@ -926,7 +926,7 @@ function choosePolity(id) {
   }
   G.polity = id;
   G.tier1 = POLITY[id].tier1;
-  log('谷中定下政体：' + POLITY[id].n + '。', 'important');
+  log('谷中定下治风：' + POLITY[id].n + '。', 'important');
   rAll();
 }
 
