@@ -2338,9 +2338,27 @@ function anyBranchLocked(def) {
   return branchLocked(def) || subBranchLocked(def);
 }
 
+// 猫国式 30% 资源门槛：建筑显示需 uq 通过 + 每个已解锁资源储量 ≥ 基础造价 30%。
+// 未解锁的资源（on=false）跳过（玩家还没接触到该资源，门槛无意义）。
+// item.p 可为 BD 的 {r,b,k} 或 UD 的 {r,a} 格式。一旦通过门槛 on=1 不回退。
+function meetsResThreshold(item, threshold) {
+  if (!item || !item.p || !Array.isArray(item.p)) return true;
+  threshold = threshold !== undefined ? threshold : 0.30;
+  for (var i = 0; i < item.p.length; i++) {
+    var p = item.p[i];
+    if (!G.res[p.r]) continue;        // 资源未定义跳过
+    if (!G.res[p.r].on) continue;     // 资源未解锁跳过
+    var base = (p.b !== undefined ? p.b : (p.a || 0));
+    if (base <= 0) continue;          // 零价格资源跳过
+    if ((G.res[p.r].v || 0) < base * threshold) return false;
+  }
+  return true;
+}
+
 function updateUnlocks() {
+  // BD 加 30% 资源门槛：玩家先攒到 30% 基础造价才能看到建筑（猫国设计原则）
   for (const k of Object.keys(BD))
-    if (!G.bld[k].on && !anyBranchLocked(BD[k]) && chk(BD[k].uq)) G.bld[k].on = 1;
+    if (!G.bld[k].on && !anyBranchLocked(BD[k]) && chk(BD[k].uq) && meetsResThreshold(BD[k])) G.bld[k].on = 1;
   for (const k of Object.keys(JD))
     if (!G.job[k].on && !anyBranchLocked(JD[k]) && chk(JD[k].uq)) G.job[k].on = 1;
   for (const k of Object.keys(UD))
