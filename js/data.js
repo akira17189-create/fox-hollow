@@ -3990,13 +3990,13 @@ const UPGD = {
     n: '颂咏师精进', d: '颂咏师产出 +40%。',
     p: [{ r: 'hymn', a: 5 }, { r: 'holyScripture', a: 2 }],
     e: { jobM: { cantor: 0.4 } },
-    uq: { j: { cantor: 3 } }, sb: 'D', br: 'I', phase: 4,
+    uq: { job: { cantor: 3 } }, sb: 'D', br: 'I', phase: 4,
   },
   crusaderZeal: {
     n: '十字军热忱', d: '十字军远行奖励加成（5.5 实装）。',
     p: [{ r: 'holyFlame', a: 20 }, { r: 'holyIron', a: 8 }],
     e: {},
-    uq: { j: { crusader: 3 } }, sb: 'D', br: 'I', phase: 4,
+    uq: { job: { crusader: 3 } }, sb: 'D', br: 'I', phase: 4,
   },
   // 存储 #39-43
   hymnVault: {
