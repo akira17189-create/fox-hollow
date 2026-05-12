@@ -1970,6 +1970,7 @@ function rTC() {
   // ===== 神启副线 A阶段：宗教页签 =====
   else if (curTab === 'f') {
     // 上区：神恩面板
+    h += '<div class="section-label">神恩</div>';
     h += '<div class="divine-panel">';
     if (G.upg.graceLore?.done) {
       var gracePct = ((G._graceBonus || 0) * 100).toFixed(1);
@@ -1987,6 +1988,7 @@ function rTC() {
 
     // v0.18 §六 3.4 占卜年签面板（神恩面板旁）
     if (G.upg.divineLore?.done) {
+      h += '<div class="section-label">占卜</div>';
       h += '<div class="divine-divination">';
       var divEff = (G._divination !== null && G._divination !== undefined) ? DIVINATION_POOL[G._divination] : null;
       if (divEff) {
@@ -1999,7 +2001,9 @@ function rTC() {
     }
 
     // 建筑列表（tab: 'f' 过滤）
-    h += renderBldList('f');
+    var bldH = renderBldList('f');
+    if (bldH) h += '<div class="section-label">建筑</div>';
+    h += bldH;
 
     // 升级列表
     var divUpgH = '';
