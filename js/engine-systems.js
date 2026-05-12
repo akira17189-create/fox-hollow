@@ -38,8 +38,8 @@ function sendExpedition(destId, foxCount) {
   // 斥候出征（扣减 G.job.scout.c 必须在 expTimeMul 之后，否则 scoutCount 不含本批 foxCount）
   G.foxAway = (G.foxAway || 0) + foxCount;
   G.job.scout.c -= foxCount;
-  // 多斥候速度加成：1 - (n-1)*0.10，下限 0.5（每多 1 只 -10%，6 只封顶 50%）
-  var speedMul = Math.max(0.5, 1 - (foxCount - 1) * 0.10);
+  // 多斥候速度加成：1 - (n-1)*0.10，下限 0.3（每多 1 只 -10%，8 只封顶 30%）
+  var speedMul = Math.max(0.3, 1 - (foxCount - 1) * 0.10);
   timeMul *= speedMul;
   // 一次性目的地时间乘数
   if (cb.nextSendTimeMul && cb.nextSendTimeMul[destId]) {

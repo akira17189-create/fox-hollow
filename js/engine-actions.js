@@ -6,6 +6,13 @@
  */
 
 // ===== 玩家操作 =====
+// 手动祈祷：宗教 tab 的"虔诚"采集——每次 +1 虔诚（上限内）
+function pray() {
+  if (!G.res.piety || !G.res.piety.on) return;
+  G.res.piety.v = Math.min(G.res.piety.v + 1, G.res.piety.mx);
+  rRes(); rTC();
+}
+
 function gather(type) {
   var amt = type === 'berry' ? 1 * G.happy : 1;
   // 轻手天赋：手动采集量 +50%
@@ -82,9 +89,10 @@ function research(id) {
       if (sbId === 'D') log('祭司从旧墟带回一卷文书，纸页已经粘在一起了。它用水汽熏了两季，才把第一页揭开。上面的字是用爪尖刻的，笔画很浅，像写的人不敢用力。祭坛是用三块平石搭的，没有装饰。第一份供奉是一撮盐，一块磨刀石，一卷重新抄好的经文。', 'echo');
     }
   }
-    // 神启：解锁虔诚资源
+    // 神启：解锁虔诚资源（piety 在 RD.mx=0，需在解锁时设基础上限——否则 ritualBasic 死锁）
     if (UD[id].e?.pietyU) {
       G.res.piety.on = 1;
+      if (G.res.piety.mx < 30) G.res.piety.mx = 30;
     }
     // 神启：解锁圣油资源
     if (UD[id].e?.holyOilU) {

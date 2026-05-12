@@ -1642,30 +1642,41 @@ function rTC() {
       }
       // 外交建筑
       h += renderBldList('w');
-      // 外交升级
+      // 外交升级（与研究 tab 进阶升级同样式：cr-row + upgd-row）
       var dipUpgH = '';
+      var dipUpgDone = [];
       for (var uid in UPGD) {
         if (UPGD[uid].sb !== 'T') continue;
-        if (G.upgd[uid]?.done) continue;
-        if (!chk(UPGD[uid].uq) || anyBranchLocked(UPGD[uid])) continue;
+        if (anyBranchLocked(UPGD[uid])) continue;
+        if (G.upgd[uid]?.done) { dipUpgDone.push(uid); continue; }
+        if (!chk(UPGD[uid].uq)) continue;
         var ug = UPGD[uid];
-        var canBuy = true;
-        var costStr = ug.p.map(function(p) {
+        var ok = canUpgd(uid);
+        var cost = ug.p.map(function(p) {
           var have = G.res[p.r].v;
-          var ok = have >= p.a;
-          if (!ok) canBuy = false;
-          return (ok ? '' : '<span class="short">') + RD[p.r].n + ' ' + fmt(p.a) + (ok ? '' : '</span>');
+          return (have < p.a ? '<span class="short">' : '') +
+            RD[p.r].n + ' ' + fmt(p.a) + (have < p.a ? '</span>' : '');
         }).join(', ');
-        var sec = { desc: ug.d };
-        dipUpgH += hpWrap(
-          '<button class="btn' + (canBuy ? '' : ' dis') + '" onclick="buyUpgd(\'' + uid + '\')">'
-          + ug.n + '</button><span class="cost">' + costStr + '</span>',
-          sec
-        );
+        var sec = { desc: ug.d, effects: upgdEffects(ug.e), tip: ug.tip ? pickTip('upgd_' + uid, ug.tip) : '' };
+        var nameHtml = hpWrap('<span class="cr-name">' + ug.n + '</span>', sec);
+        dipUpgH += '<div class="cr-row upgd-row"><div class="cr-top">' +
+          nameHtml +
+          '<span class="cr-cost">' + cost + '</span>' +
+          '<button class="cr-btn" onclick="buyUpgd(\'' + uid + '\')" ' +
+          (ok ? '' : 'disabled') + '>购买</button></div></div>';
       }
-      if (dipUpgH) {
+      if (dipUpgH || dipUpgDone.length) {
         h += '<div class="res-cat" style="margin-top:10px;">外交升级</div>';
         h += dipUpgH;
+        if (dipUpgDone.length) {
+          h += '<div class="upgd-done-list">';
+          for (var di = 0; di < dipUpgDone.length; di++) {
+            var did = dipUpgDone[di];
+            var dsec = { desc: UPGD[did].d, effects: upgdEffects(UPGD[did].e), tip: UPGD[did].tip ? pickTip('upgd_' + did, UPGD[did].tip) : '' };
+            h += hpWrap('<span class="upgd-done-tag">✓ ' + UPGD[did].n + '</span>', dsec);
+          }
+          h += '</div>';
+        }
       }
     }
 
@@ -1735,7 +1746,7 @@ function rTC() {
               '>全部 ' + scoutAvail + '</button>';
           }
           // 速度提示
-          var speedMul = Math.max(0.5, 1 - (selVal - 1) * 0.10);
+          var speedMul = Math.max(0.3, 1 - (selVal - 1) * 0.10);
           if (selVal > 1) {
             h += '<span style="font-size:11px;color:#666;margin-left:4px;">×' + (speedMul * 100 | 0) + '% 时间</span>';
           }
@@ -1988,7 +1999,10 @@ function rTC() {
     }
     // 虔诚/圣油显示
     if (G.res.piety?.on) {
-      h += '<div class="res-status">虔诚: ' + fmt(G.res.piety.v) + ' / ' + fmt(G.res.piety.mx) + '</div>';
+      var prayDisabled = G.res.piety.v >= G.res.piety.mx;
+      h += '<div class="res-status">虔诚: ' + fmt(G.res.piety.v) + ' / ' + fmt(G.res.piety.mx) +
+        ' <button class="gbtn" style="margin-left:8px;" onclick="pray()"' +
+        (prayDisabled ? ' disabled' : '') + '>祈祷 +1</button></div>';
     }
     if (G.res.holyOil?.on) {
       h += '<div class="res-status">圣油: ' + fmt(G.res.holyOil.v) + ' / ' + fmt(G.res.holyOil.mx) + '</div>';
@@ -2529,21 +2543,32 @@ function polityEffectLines(e, boost) {
   return lines;
 }
 
+// 政策/政体效果 key → 玩家可见标签（统一字典，policyEffectLines 与 polityPenLines 共用）
+var EFFECT_LABELS = {
+  hapM: '满意度', berryM: '野莓', woodM: '圆木', stoneM: '碎石',
+  coinM: '铜钱', loreM: '学识', scrollM: '卷轴', charmM: '符咒',
+  caravanProb: '商队来访', bpChance: '图纸携带', baseProdM: '基础资源',
+  bldProdM: '建筑产出', trainCostM: '授业费用', trainFlat: '授业加成(扁平)',
+  gatherExpM: '采集经验', gatherM: '采集加成', jobM: '全职业产出',
+  buildCostM: '建筑造价', tradePriceM: '商品价格', diplomatResM: '外交资源',
+  researchCostM: '研究费用', researchSpeedM: '研究速度', expRewardM: '远行奖励',
+  spellEffM: '灵术效果', policyCostM: '政策费用', allM: '全产出',
+  scoutM: '斥候加成', hapCapM: '满意度上限',
+};
+
 function polityPenLines(pen) {
   if (!pen) return [];
   var lines = [];
-  var labels = {
-    hapM: '满意度', loreM: '学识产出', coinM: '铜钱产出', charmM: '符咒产出',
-    caravanProb: '商队来访', bpChance: '图纸携带', buildCostM: '建筑造价',
-    baseProdM: '基础资源', bldProdM: '建筑产出', expRewardM: '远行奖励',
-    researchCostM: '研究费用', researchSpeedM: '研究速度', diplomatResM: '外交资源',
-    jobM: '职业产出',
-  };
   for (var k in pen) {
     var v = pen[k];
     if (!v) continue;
-    var label = labels[k] || k;
-    var display = (v >= 0 ? '+' : '') + Math.round(v * 100) + '%';
+    var label = EFFECT_LABELS[k] || k;
+    var display;
+    if (k === 'trainFlat') {
+      display = '+' + v;
+    } else {
+      display = (v >= 0 ? '+' : '') + Math.round(v * 100) + '%';
+    }
     lines.push('<span class="eff-neg">[惩罚] ' + label + ' ' + display + '</span>');
   }
   return lines;
@@ -2551,16 +2576,9 @@ function polityPenLines(pen) {
 
 function policyEffectLines(e) {
   var lines = [];
-  var labels = {
-    hapM: '满意度', berryM: '野莓', woodM: '圆木', stoneM: '碎石',
-    coinM: '铜钱', loreM: '学识', scrollM: '卷轴', charmM: '符咒',
-    caravanProb: '商队来访', bpChance: '图纸携带', baseProdM: '基础资源',
-    trainCostM: '授业费用', trainFlat: '授业加成(扁平)', gatherExpM: '采集经验',
-    jobM: '全职业产出', buildCostM: '建筑造价', tradePriceM: '商品价格',
-  };
   for (var k in e) {
     var v = e[k];
-    var label = labels[k] || k;
+    var label = EFFECT_LABELS[k] || k;
     var display;
     if (k === 'trainFlat') {
       display = '+' + v;
@@ -2568,8 +2586,10 @@ function policyEffectLines(e) {
       display = (v >= 0 ? '+' : '') + Math.round(v * 100) + '%';
     }
     var cls = v >= 0 ? 'eff-pos' : 'eff-neg';
-    // trainCostM: 负值是好的（降低费用）
-    if (k === 'trainCostM' || k === 'tradePriceM' || k === 'buildCostM') cls = v <= 0 ? 'eff-pos' : 'eff-neg';
+    // trainCostM/tradePriceM/buildCostM/researchCostM/policyCostM: 负值是好的（降低费用）
+    if (k === 'trainCostM' || k === 'tradePriceM' || k === 'buildCostM' || k === 'researchCostM' || k === 'policyCostM') {
+      cls = v <= 0 ? 'eff-pos' : 'eff-neg';
+    }
     lines.push('<span class="' + cls + '">' + label + ' ' + display + '</span>');
   }
   return lines;

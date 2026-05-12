@@ -1116,7 +1116,7 @@ const UD = {
     uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   pollControl: {
-    n: '清浊工事', d: '工业的代价需要偿还——学会净化被污染的水与土。', br: 'I',
+    n: '清浊工事', d: '工业的代价需要偿还——净化池由此可建起，慢慢消解谷里的浊气。', br: 'I',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 20 }],
     e: {},
     uq: { u: { steelWork: 1 }, b: { blastFurnace: 2 } },
@@ -1172,7 +1172,7 @@ const UD = {
     uq: { u: { transmission: 1 } },
   },
   cleanWind: {
-    n: '清风', d: '让风做清洁工——它不要工钱，只要一座高塔。', br: 'I',
+    n: '清风', d: '让风做清洁工——风力塔由此可建起，既净污气，又收一点微弱的风能。', br: 'I',
     p: [{ r: 'lore', a: 700 }, { r: 'scroll', a: 45 }, { r: 'steel', a: 10 }],
     e: {},
     uq: { u: { pollControl: 1 }, b: { purifier: 3 } },
@@ -1624,7 +1624,7 @@ const UD = {
   },
   ritualBasic: {
     n: '祭祀礼法', d: '制定祭仪规范，祭坛可建起。',
-    p: [{ r: 'lore', a: 300 }, { r: 'charm', a: 20 }, { r: 'piety', a: 5 }],
+    p: [{ r: 'lore', a: 300 }, { r: 'charm', a: 35 }],
     e: {},
     uq: { u: { divineLore: 1 } }, sb: 'D',
   },
