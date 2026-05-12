@@ -404,9 +404,9 @@ const BD = {
     uq: { u: { deepMining: 1 } },
   },
   blastFurnace: {
-    n: '高炉', t: 'b', d: '以高温将铁与煤熔合为钢。解锁炼钢配方。', br: 'I',
+    n: '高炉', t: 'b', d: '高温将铁与煤熔合为钢，解锁炼钢配方与炉匠职业。', br: 'I',
     p: [{ r: 'brick', b: 15, k: 1.12 }, { r: 'iron', b: 10, k: 1.12 }, { r: 'coal', b: 20, k: 1.12 }],
-    e: { steelMx: 30, pollutionP: .02 },
+    e: { steelP: .01, steelMx: 30, pollutionP: .02 },
     uq: { b: { mine: 2 }, u: { steelWork: 1 } },
   },
   chimney: {
@@ -881,7 +881,7 @@ const JD = {
 
   // ===== 工业分支 A阶段职业 =====
   deepMiner:  { n: '深层矿工', d: '开采深层煤矿', e: { coalP: .06 }, br: 'I', uq: { b: { mine: 1 } }, tip: ['地底越深越暗，但煤越来越亮。', '矿道里的风有自己的脾气，学会听它说话，就不会迷路。'] },
-  smelter:    { n: '炉匠',   d: '自动炼钢',   desc: '每60tick自动消耗铁×5+煤×8炼出钢×1；授业可提升炼钢频率', e: {}, br: 'I', uq: { b: { blastFurnace: 2 } }, tip: ['火候看脸色，锤声听手感。', '铁和煤在炉子里吵了一架，出来的时候变成了钢。'] },
+  smelter:    { n: '炉匠',   d: '自动炼钢',   desc: '每60tick自动消耗铁×5+煤×8炼出钢×1；授业可提升炼钢频率', e: {}, br: 'I', uq: { b: { blastFurnace: 1 } }, tip: ['火候看脸色，锤声听手感。', '铁和煤在炉子里吵了一架，出来的时候变成了钢。'] },
 
   // ===== 工业分支 B阶段职业 =====
   driller:    { n: '钻井工', d: '深采火油',   e: { oilP: .03 }, br: 'I', uq: { u: { oilGas: 1 }, b: { oilWell: 3 } }, tip: ['地底的黑水比地上的井水难伺候多了——它会喷、会烫、会着火。', '钻头转了一圈又一圈，黑金终于愿意上来见人。'] },
@@ -1101,87 +1101,87 @@ const UD = {
     n: '齿合精工', d: '精密咬合的齿轮，是一切机械的起点。', br: 'I',
     p: [{ r: 'lore', a: 500 }, { r: 'steel', a: 5 }],
     e: { gearU: 1 },
-    uq: { u: { steelWork: 1 } },
+    uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   forging: {
     n: '轧板工艺', d: '将钢锤薄，得到可用于建造的钢板。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 450 }, { r: 'steel', a: 8 }],
     e: { plateU: 1 },
-    uq: { u: { steelWork: 1 } },
+    uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   concreteTech: {
     n: '凝石配方', d: '石与煤在高温下融合，冷却后坚如磐石。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 400 }, { r: 'coal', a: 20 }, { r: 'brick', a: 30 }],
     e: { concreteU: 1 },
-    uq: { u: { steelWork: 1 } },
+    uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   pollControl: {
     n: '清浊工事', d: '工业的代价需要偿还——学会净化被污染的水与土。', br: 'I',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 20 }],
     e: {},
-    uq: { u: { steelWork: 1 } },
+    uq: { u: { steelWork: 1 }, b: { blastFurnace: 2 } },
   },
 
   // ===== 工业分支 B阶段：油火时代（10 个研究） =====
   oilExtract: {
     n: '汲液工法', d: '地底深处有一种黑色的液体，比水稠，比火急。', br: 'I', phase: 3,
-    p: [{ r: 'lore', a: 700 }, { r: 'scroll', a: 50 }, { r: 'steel', a: 8 }],
+    p: [{ r: 'lore', a: 950 }, { r: 'scroll', a: 70 }, { r: 'steel', a: 15 }],
     e: { oilU: 1 },
-    uq: { u: { fineCraft: 1 }, b: { blastFurnace: 2 } },
+    uq: { u: { fineCraft: 1 }, b: { blastFurnace: 3 } },
   },
   oilStorage: {
     n: '油储学', d: '火油易燃、易挥、易怒——学会驯服它的第一步是给它找个好容器。', br: 'I', phase: 3,
-    p: [{ r: 'lore', a: 500 }, { r: 'plate', a: 5 }],
+    p: [{ r: 'lore', a: 680 }, { r: 'plate', a: 10 }],
     e: { barrelU: 1 },
     uq: { u: { oilExtract: 1 } },
   },
   steamPower: {
     n: '蒸汽原理', d: '水被火逼急了会跑，跑得够快就能推动齿轮。', br: 'I', phase: 3,
-    p: [{ r: 'lore', a: 800 }, { r: 'scroll', a: 60 }, { r: 'steel', a: 10 }, { r: 'oil', a: 5 }],
+    p: [{ r: 'lore', a: 1100 }, { r: 'scroll', a: 80 }, { r: 'steel', a: 20 }, { r: 'oil', a: 12 }],
     e: {},
     uq: { u: { oilExtract: 1 } },
   },
   combustion: {
     n: '内燃机理', d: '不再烧水推轮子——直接让火油在铁肚子里炸开。', br: 'I', phase: 4,
-    p: [{ r: 'lore', a: 900 }, { r: 'steel', a: 15 }, { r: 'oil', a: 10 }],
+    p: [{ r: 'lore', a: 1200 }, { r: 'steel', a: 25 }, { r: 'oil', a: 20 }],
     e: {},
     uq: { u: { steamPower: 1 } },
   },
   blueprintLore: {
     n: '蓝本学', d: '从"想到哪做到哪"到"画好了再动手"——工程的起点。', br: 'I',
-    p: [{ r: 'lore', a: 700 }, { r: 'scroll', a: 30 }],
+    p: [{ r: 'lore', a: 950 }, { r: 'scroll', a: 50 }, { r: 'gear', a: 5 }],
     e: { draftU: 1 },
     uq: { u: { combustion: 1 } },
   },
   assemblyLine: {
     n: '流水线', d: '每只狐狸只做一道工序，合起来比谁都快。', br: 'I', phase: 4,
-    p: [{ r: 'lore', a: 1000 }, { r: 'steel', a: 20 }, { r: 'gear', a: 15 }, { r: 'draft', a: 1 }],
+    p: [{ r: 'lore', a: 1400 }, { r: 'steel', a: 35 }, { r: 'gear', a: 25 }, { r: 'draft', a: 3 }],
     e: {},
-    uq: { u: { blueprintLore: 1, combustion: 1 }, b: { steamEngine: 3 } },
+    uq: { u: { blueprintLore: 1, combustion: 1 }, b: { steamEngine: 4 } },
   },
   transmission: {
     n: '传动学', d: '齿轮咬着齿轮，力量从一端传到看不见的另一端。', br: 'I',
-    p: [{ r: 'lore', a: 600 }, { r: 'gear', a: 10 }],
+    p: [{ r: 'lore', a: 850 }, { r: 'gear', a: 18 }],
     e: {},
-    uq: { u: { fineCraft: 1 }, b: { steamEngine: 2 } },
+    uq: { u: { fineCraft: 1 }, b: { steamEngine: 3 } },
   },
   roadwork: {
     n: '通途', d: '铁轨比泥路快，比驿道稳——商队的脚步从此有了节拍。', br: 'I', phase: 4,
-    p: [{ r: 'lore', a: 700 }, { r: 'steel', a: 15 }, { r: 'concrete', a: 5 }, { r: 'coin', a: 50 }],
+    p: [{ r: 'lore', a: 950 }, { r: 'steel', a: 25 }, { r: 'concrete', a: 12 }, { r: 'coin', a: 80 }],
     e: {},
     uq: { u: { transmission: 1 } },
   },
   cleanWind: {
     n: '清风', d: '让风做清洁工——它不要工钱，只要一座高塔。', br: 'I',
-    p: [{ r: 'lore', a: 500 }, { r: 'scroll', a: 30 }, { r: 'steel', a: 3 }],
+    p: [{ r: 'lore', a: 700 }, { r: 'scroll', a: 45 }, { r: 'steel', a: 10 }],
     e: {},
-    uq: { u: { pollControl: 1 }, b: { purifier: 2 } },
+    uq: { u: { pollControl: 1 }, b: { purifier: 3 } },
   },
   oilGas: {
     n: '油气学', d: '深井里冒出的不只有油，还有看不见的气——学会收集它。', br: 'I',
-    p: [{ r: 'lore', a: 600 }, { r: 'oil', a: 10 }, { r: 'draft', a: 1 }],
+    p: [{ r: 'lore', a: 850 }, { r: 'oil', a: 22 }, { r: 'draft', a: 2 }],
     e: {},
-    uq: { u: { oilExtract: 1 }, b: { oilWell: 3 } },
+    uq: { u: { oilExtract: 1 }, b: { oilWell: 4 } },
   },
 
   // ===== 工业分支 C阶段：精金时代（12 个研究） =====
