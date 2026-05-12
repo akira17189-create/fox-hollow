@@ -105,6 +105,9 @@ function resolveExpedition(idx, silent) {
   if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.expRewardM) {
     polityExpBonus += TIER[G.tier1].e.expRewardM;
   }
+  // 灵契 _expRewardM（流水契 +20%）
+  var _pactE_e = pactE();
+  if (_pactE_e._expRewardM) polityExpBonus += _pactE_e._expRewardM;
   var choiceRewardMul = 1;
   var cb = G.choiceBuffs || {};
   if (cb.nextRewardMul && cb.nextRewardMul[exp.dest]) {
@@ -360,6 +363,9 @@ function caravanArrivalProb() {
   // v0.19 §七 4.5 六神被动+仪式：商队概率加成
   if (G.deity && DEITY_DATA[G.deity]?.passive?._caravanProb) bonus += DEITY_DATA[G.deity].passive._caravanProb;
   if (G._deityCaravanBuff) bonus += G._deityCaravanBuff;
+  // 灵契 _caravanProb（流水契 +15%）
+  var _pactE_cv = pactE();
+  if (_pactE_cv._caravanProb) bonus += _pactE_cv._caravanProb;
   return Math.min(0.65, 0.5 + bonus);
 }
 

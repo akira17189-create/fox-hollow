@@ -634,11 +634,11 @@ function resBreakdown(k) {
   // === v0.15.1 建筑维持消耗 ===
   if (k === 'wine' && G.bld.moonStage?.c > 0) {
     lines.push('月歌台维持 ×' + G.bld.moonStage.c + '  -' + G.bld.moonStage.c + '/年' +
-      (G.moonStageActive ? '' : ' ⚠ 断供'));
+      (G.moonStageActive ? '' : ' ⚠ 醴浆不足，月歌台符咒产出 ×0.25'));
   }
   if (k === 'dye' && G.bld.artistry?.c > 0) {
     lines.push('艺工坊维持 ×' + G.bld.artistry.c + '  -' + G.bld.artistry.c + '/季' +
-      (G.artistryActive ? '' : ' ⚠ 断供'));
+      (G.artistryActive ? '' : ' ⚠ 彩络不足，艺工坊文化配方加成减半'));
   }
 
   return lines;
@@ -1044,9 +1044,9 @@ function renderBldRow(id) {
   }
   inner += '</span>';
   if (id === 'moonStage' && G.bld.moonStage.c > 0 && !G.moonStageActive)
-    inner += '<span class="maint-warn"> ⚠ 半效</span>';
+    inner += '<span class="maint-warn" title="月歌台每年春季需 1 醴浆/座维持；断供时符咒产出 ×0.25"> ⚠ 醴浆断供，符咒 ×0.25</span>';
   if (id === 'artistry' && G.bld.artistry.c > 0 && !G.artistryActive)
-    inner += '<span class="maint-warn"> ⚠ 半效</span>';
+    inner += '<span class="maint-warn" title="艺工坊每季需 1 彩络/座维持；断供时文化配方加成减半"> ⚠ 彩络断供，文化加成减半</span>';
   inner += '<span class="bld-cost">' + costs + '</span>';
   // 整行 = 一个建造按钮（hover 出 desc/effects 浮窗）
   var cardOnClick = ok ? ('build(\'' + id + '\')') : '';

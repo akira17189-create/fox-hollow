@@ -128,6 +128,10 @@ function research(id) {
   if (UD[id].e?.hymnU) { G.res.hymn.on = 1; G.res.hymn.mx = 30; }
   if (UD[id].e?.holyRelicU) { G.res.holyRelic.on = 1; }
   if (UD[id].e?.holyScriptureU) { G.res.holyScripture.on = 1; }
+  // 神启副线 C-秘仪资源解锁（v0.20 §八 5.3e）
+  if (UD[id].e?.divineInkU) { G.res.divineInk.on = 1; }
+  if (UD[id].e?.apotheosisStoneU) { G.res.apotheosisStone.on = 1; }
+  if (UD[id].e?.forbiddenCodexU) { G.res.forbiddenCodex.on = 1; }
   // 灵修分支 C阶段资源解锁
   if (UD[id].e?.crystalSilkU) { G.res.crystalSilk.on = 1; }
   if (UD[id].e?.radianceU) { G.res.radiance.on = 1; }
@@ -490,7 +494,8 @@ function castSpell(id) {
   if (id === 'mirrorViewSpell') {
     for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
     G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
-    log('镜观启动。灵图在水面上浮起一层薄影，影子里有什么东西在动，但还看不分明。', 'echo');
+    G.res.lore.v += 1000;
+    log('镜观启动。灵图在水面上浮起一层薄影，影子里隐约成形——学识 +1000。', 'important');
     rAll();
     return;
   }
@@ -518,7 +523,7 @@ function castSpell(id) {
     var pacts = ['earthPact', 'waterPact', 'woodPact', 'firePact', 'metalPact'];
     var idx = pacts.indexOf(G.activePact);
     G.activePact = pacts[(idx + 1) % 5];
-    log('灵契祈愿：当前灵契切换为「' + PACT_DEF[G.activePact].n + '」。', 'important');
+    log('灵契祈愿：当前灵契切换为「' + PACT_DEF[G.activePact].n + '」——' + PACT_DEF[G.activePact].d, 'important');
     rAll();
     return;
   }
@@ -551,12 +556,17 @@ function toggleAutoCraft(id) {
 function buyUpgd(id) {
   if (!UPGD[id] || G.upgd[id].done) return;
   if (!canUpgd(id)) return;
+  var mul = upgdCostMul();
   for (var i = 0; i < UPGD[id].p.length; i++) {
     var p = UPGD[id].p[i];
-    G.res[p.r].v -= p.a;
+    G.res[p.r].v -= Math.ceil(p.a * mul);
   }
   G.upgd[id].done = 1;
   log('进阶升级：' + UPGD[id].n, 'important');
+  if (G.voidReadActive) {
+    G.voidReadActive = false;
+    log('幽典消散——这次升级的费用被折去了三成。', 'echo');
+  }
   rAll();
 }
 
@@ -621,6 +631,17 @@ function craft(id) {
     for (var _ec = 0; _ec < G._edicts.length; _ec++) {
       if (G._edicts[_ec].effects._craftAllM) outMul += G._edicts[_ec].effects._craftAllM;
     }
+  }
+  // 灵契 _craftAllM（烈焰契 +20%）
+  var _pactE_c = pactE();
+  if (_pactE_c._craftAllM) outMul += _pactE_c._craftAllM;
+  // 艺工坊：dye/wine/ink 配方产出 +craftCultureMul/座（断供时半效）
+  if (id === 'dye' || id === 'wine' || id === 'ink') {
+    if (G.bld.artistry?.c && BD.artistry?.e?.craftCultureMul) {
+      var _artMul = G.artistryActive ? 1 : 0.5;
+      outMul += BD.artistry.e.craftCultureMul * G.bld.artistry.c * _artMul;
+    }
+    if (G.upg.artistryLore?.done) outMul += 0.2;
   }
   // v0.19 §七 4.2 灵修 C 升级：_craftBonus（配方扁平额外产出，如形魄凝实 +1）
   var _craftFlatBonus = 0;
@@ -1363,8 +1384,8 @@ function craftPerm(craftId) {
       G._holyGearBonus = (G._holyGearBonus || 0) + o.a;
       log('工业配方产出永久 +' + Math.round(o.a * 100) + '%。', 'info');
     } else if (o.r === '_gateDiscount') {
-      G._gateDiscount = o.a;
-      log('下次开门秘知消耗 -' + Math.round(o.a * 100) + '%。', 'info');
+      G._gateDiscount = Math.max(G._gateDiscount || 0, o.a);
+      log('下次开门秘知消耗 -' + Math.round(G._gateDiscount * 100) + '%。', 'info');
     }
   }
   rAll();

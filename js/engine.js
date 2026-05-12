@@ -106,6 +106,11 @@ function fmt(n) {
   return n.toFixed(2);
 }
 
+// 活跃灵契效果（5.2f 灵契系统）：返回当前灵契的 e 对象，无活跃返回 {}
+function pactE() {
+  return (G.activePact && typeof PACT_DEF !== 'undefined' && PACT_DEF[G.activePact]) ? PACT_DEF[G.activePact].e : {};
+}
+
 function bp(id, i) {
   const p = BD[id].p[i];
   var cost = Math.ceil(p.b * Math.pow(p.k, G.bld[id].c));
@@ -136,6 +141,9 @@ function bp(id, i) {
   if (G.tier1 && typeof TIER !== 'undefined' && TIER[G.tier1]?.e?.buildCostM) {
     buildMul += TIER[G.tier1].e.buildCostM;
   }
+  // 灵契 buildCostM（林木契 -15%）
+  var _pactE_b = pactE();
+  if (_pactE_b.buildCostM) buildMul += _pactE_b.buildCostM;
   if (buildMul !== 0) cost = Math.ceil(cost * (1 + buildMul));
   // v0.18 §六 3.4 占卜年签：学海签建筑造价 +8%
   var _divBld = getDivinationEffects();
@@ -206,6 +214,9 @@ function researchCostMul() {
     if (G.upgd[_rc].done && UPGD[_rc]?.e?._researchCostM)
       mul *= (1 + UPGD[_rc].e._researchCostM);
   }
+  // 灵契 _researchCostM（玄金契 -10%）
+  var _pactE_r = pactE();
+  if (_pactE_r._researchCostM) mul *= (1 + _pactE_r._researchCostM);
   // v0.19 §七 4.2 灵修 C 升级：_researchDiscount（研究费用全局永久减免）
   for (var _rd in G.upgd) {
     if (G.upgd[_rd].done && UPGD[_rd]?.e?._researchDiscount)
@@ -417,14 +428,20 @@ function collectCraftM() {
 }
 
 // 判断是否可购买进阶升级
+// 进阶升级花费乘数（幽读生效时下一次升级 -30%）
+function upgdCostMul() {
+  return G.voidReadActive ? 0.7 : 1.0;
+}
+
 function canUpgd(id) {
   if (!UPGD[id]) return false;
   if (G.upgd[id].done) return false;
   // 校验研究前置条件
   if (UPGD[id].uq && !chk(UPGD[id].uq)) return false;
+  var mul = upgdCostMul();
   for (var i = 0; i < UPGD[id].p.length; i++) {
     var p = UPGD[id].p[i];
-    if (G.res[p.r].v < p.a) return false;
+    if (G.res[p.r].v < Math.ceil(p.a * mul)) return false;
   }
   return true;
 }
@@ -1045,6 +1062,13 @@ function calcR() {
   if (G.tidePullSeason === G.season) {
     for (const k of Object.keys(r)) {
       if (r[k] > 0) r[k] *= 1.3;
+    }
+  }
+
+  // 灵修 D 灵术：寂石冥想（本季全产出 +40%）
+  if (G.silenceMeditationSeason === G.season) {
+    for (const k of Object.keys(r)) {
+      if (r[k] > 0) r[k] *= 1.4;
     }
   }
 
@@ -1670,6 +1694,15 @@ function calcR() {
       }
     }
   }
+  // 灵契 _baseResM（大地契 +20%）
+  var _pactE_p = pactE();
+  if (_pactE_p._baseResM) {
+    if (r.berry > 0) r.berry *= (1 + _pactE_p._baseResM);
+    if (r.wood > 0) r.wood *= (1 + _pactE_p._baseResM);
+    if (r.stone > 0) r.stone *= (1 + _pactE_p._baseResM);
+  }
+  // 灵契 loreM（玄金契 +15%）
+  if (_pactE_p.loreM && r.lore > 0) r.lore *= (1 + _pactE_p.loreM);
 
   // ===== v0.19 §七 4.3 飞升门效果应用 =====
   if (G._gateEffects) {

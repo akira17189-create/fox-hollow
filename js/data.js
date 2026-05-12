@@ -110,7 +110,7 @@ const RD = {
   holyRelic:      { n: '圣骸',  c: '加工', mx: 10, lock: 1, tip: ['它什么时候来到山谷的，没人记得；要把它送走，每只狐狸都说不行。'] },
   holyScripture:  { n: '圣典',  c: '知识', mx: 5,  lock: 1, tip: ['翻一页轻一两，翻到最后整本飘起来——读得到的人最先笑。'] },
   // ===== 神启副线 C-秘仪（v0.20 §八 5.3d） =====
-  divineInk:        { n: '神墨',   c: '研究', mx: 0,  lock: 1, tip: ['不是墨——是把神看你的眼神，凝成一滴。'] },
+  divineInk:        { n: '神墨',   c: '研究', mx: 0,  lock: 1, tip: ['像墨，但比墨重得多——是把神看你的眼神，凝成一滴。'] },
   apotheosisStone:  { n: '化神石', c: '加工', mx: 8,  lock: 1, tip: ['捏在掌心，听到自己变成另一只狐狸的声音。'] },
   forbiddenCodex:   { n: '禁典',   c: '知识', mx: 5,  lock: 1, tip: ['封面贴着三道封条。读到第二章的狐狸，回来时只记得自己叫什么。'] },
   // ===== 神启副线 B-秘仪 =====
@@ -352,7 +352,7 @@ const BD = {
     tip: ['今夜的歌属于月亮。']
   },
   memorial: {
-    n: '刻名碑', t: 'b', d: '刻满前狐名字的纪念碑，习俗激活越多越生光；同时镌刻新事，每座产出少量卷轴。',
+    n: '刻名碑', t: 'b', d: '刻满前狐名字的纪念碑，山谷立起的习俗越多越生光；同时镌刻新事，每座产出少量卷轴。',
     p: [{ r: 'stone', b: 50, k: 1.12 }, { r: 'iron', b: 5, k: 1.12 }],
     e: { customAllM: .002, scrollP: .04, inkMx: 3 },
     uq: { b: { storyTree: 1 }, u: { engraving: 1 } },
@@ -404,7 +404,7 @@ const BD = {
     uq: { u: { deepMining: 1 } },
   },
   blastFurnace: {
-    n: '高炉', t: 'b', d: '高温将铁与煤熔合为钢，解锁炼钢配方与炉匠职业。', br: 'I',
+    n: '高炉', t: 'b', d: '高温将铁与煤熔合为钢；炼钢配方自此可制，炉匠这门职业也可授业。', br: 'I',
     p: [{ r: 'brick', b: 15, k: 1.12 }, { r: 'iron', b: 10, k: 1.12 }, { r: 'coal', b: 20, k: 1.12 }],
     e: { steelP: .01, steelMx: 30, pollutionP: .02 },
     uq: { b: { mine: 2 }, u: { steelWork: 1 } },
@@ -568,7 +568,7 @@ const BD = {
     uq: { u: { elixirBrew: 1 } },
   },
   shapeHall: {
-    n: '化形殿', t: 'b', d: '灵流在此凝聚为形体——解锁化形系统，深耗灵脉。', br: 'M',
+    n: '化形殿', t: 'b', d: '灵流在此凝聚为形体——化形之道由此开启，深耗灵脉。', br: 'M',
     p: [{ r: 'fateSilk', b: 15, k: 1.15 }, { r: 'sigil', b: 8, k: 1.15 }, { r: 'spectrum', b: 3, k: 1.15 }],
     e: { leylineC: 2, unrestP: .03 },
     uq: { u: { shapeBasic: 1 } },
@@ -873,7 +873,7 @@ const JD = {
   woodcutter: { n: '伐木工', d: '砍伐圆木',   desc: '圆木 +0.12/s；授业可提升圆木产出', e: { woodP: .24 },    uq: { b: { lumberYard: 1 } }, tip: ['听得懂树倒的方向，就不会被砸到。'] },
   miner:      { n: '矿工',   d: '开采碎石',   desc: '碎石 +0.08/s；授业可提升碎石产出', e: { stoneP: .16 },   uq: { b: { quarry: 1 } }, tip: ['挖石头的狐狸不抬头看天，天塌了有石头顶着。'] },
 
-  hunter:     { n: '猎手',   d: '捕猎兽皮',   desc: '兽皮 +0.015/s；香草解锁后副产 +0.0025/s；授业可提升兽皮产出', e: { leatherP: .03, spiceP: .005 }, uq: { b: { tannery: 1 } }, tip: ['天没亮就进林子，轻着脚走，竖着耳朵听。'] },
+  hunter:     { n: '猎手',   d: '捕猎兽皮',   desc: '兽皮 +0.015/s；香草入账后副产 +0.0025/s；授业可提升兽皮产出', e: { leatherP: .03, spiceP: .005 }, uq: { b: { tannery: 1 } }, tip: ['天没亮就进林子，轻着脚走，竖着耳朵听。'] },
   scholar:    { n: '学者',   d: '积累学识',   desc: '学识 +0.04/s、卷轴 +0.0025/s、符咒 +0.001/s；授业可提升学识产出', e: { loreP: .08, scrollP: .005, charmP: .002 },    uq: { b: { library: 1 } }, tip: ['用爪子翻书不太方便，但慢有慢的好处——每一页都记得牢。', '尾巴尖蘸了墨，写出来的字比手写的还好看。'] },
   smith:      { n: '铁匠',   d: '锻造铁器',   desc: '矿铁 +0.01/s；授业可提升矿铁产出', e: { ironP: .02 },    uq: { b: { smithy: 1 } }, tip: ['锤子落下去是蛮力，提起来才是手艺。'] },
   merchant:   { n: '商贩',   d: '赚取铜钱',   desc: '铜钱 +0.01/s；授业可提升铜钱产出', e: { coinP: .02 },    uq: { b: { market: 1 } }, tip: ['三寸不烂之舌，换来三尺不烂之布。', '把东边的故事卖给西边，赚一点路费。'] },
@@ -941,14 +941,14 @@ const UD = {
 
 
   carpentry: {
-    n: '木工技艺', d: '解锁木板加工。',
+    n: '木工技艺', d: '学会木板加工。',
     p: [{ r: 'lore', a: 20 }, { r: 'wood', a: 30 }],
     e: { plankU: 1, woodM: .3 },
     uq: { b: { library: 1, lumberYard: 1 } },
     tip: ['当狐狸学会量尺寸，木头就紧张了。', '木头终于学会了配合你的想象力。']
   },
   masonry: {
-    n: '石砌术', d: '解锁砖块加工。',
+    n: '石砌术', d: '学会砖块加工。',
     p: [{ r: 'lore', a: 25 }, { r: 'stone', a: 35 }],
     e: { brickU: 1, stoneM: .3 },
     uq: { b: { library: 1, quarry: 1 } },
@@ -990,14 +990,14 @@ const UD = {
     tip: ['窝顶上蹲着先祖，碗里不敢剩东西。']
   },
   craftMastery: {
-    n: '工法精要', d: '（系统）解锁工坊自动制作。',
+    n: '工法精要', d: '工坊配方可自行制作。',
     p: [{ r: 'lore', a: 30 }, { r: 'plank', a: 3 }, { r: 'brick', a: 2 }],
     e: { autoCraft: 1 },
     uq: { u: { carpentry: 1, masonry: 1 } },
     tip: ['让手艺自己记住该怎么动，狐狸就可以去发呆了。', '重复一千遍的事情，第一千零一遍开始就不需要人了。']
   },
   beyondValley: {
-    n: '山外见闻', d: '解锁「山外」Tab 和驿道建筑。',
+    n: '山外见闻', d: '山外的去处与驿道由此可达。',
     p: [{ r: 'lore', a: 30 }, { r: 'coin', a: 10 }, { r: 'scroll', a: 2 }],
     e: { beyondTab: 1 },
     uq: { b: { market: 1, library: 1 } },
@@ -1013,28 +1013,28 @@ const UD = {
 
   // ===== v0.14 文化研究（占位名） =====
   folkLore: {
-    n: '树下初闻', d: '解锁树荫堂、彩络工艺与三个入门习俗。',
+    n: '树下初闻', d: '树荫堂可建起，彩络工艺通晓，三个入门习俗成形。',
     p: [{ r: 'lore', a: 80 }],
     e: { hapB: .03 },
     uq: { b: { shrine: 1 } },
     tip: ['有只幼狐的后爪，不自觉地抠进了土里。']
   },
   calendar: {
-    n: '月令新酿', d: '解锁月歌台、醴浆与两种新习俗。',
+    n: '月令新酿', d: '月歌台可建起，醴浆入账，两种新习俗成形。',
     p: [{ r: 'lore', a: 100 }, { r: 'scroll', a: 5 }],
     e: { hapB: .02, berryM: .05 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
     tip: ['等月亮，等果熟，等酒醒。', '把太阳的刻度，酿成狐狸喉间的灼热。']
   },
   engraving: {
-    n: '岁时有常', d: '解锁刻名碑、墨锭与四种新习俗。',
+    n: '岁时有常', d: '刻名碑可建起，墨锭入账，四种新习俗成形。',
     p: [{ r: 'lore', a: 120 }, { r: 'scroll', a: 10 }],
     e: { loreM: .1 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
     tip: ['大火流兮草虫鸣，繁霜降兮草木零。']
   },
   artistryLore: {
-    n: '百艺通觉', d: '解锁艺工坊；彩络/醴浆/墨锭总产 +20%。',
+    n: '百艺通觉', d: '艺工坊可建起；彩络/醴浆/墨锭总产 +20%。',
     p: [{ r: 'lore', a: 150 }, { r: 'dye', a: 5 }],
     e: {},
     uq: { u: { engraving: 1 } },
@@ -1048,7 +1048,7 @@ const UD = {
     tip: ['快乐太重了，得全村一起，才抛得起来。']
   },
   ancestry: {
-    n: '连枝溯本', d: '解锁祖龛与祖荫祭习俗。',
+    n: '连枝溯本', d: '祖龛可建起，祖荫祭这门习俗也立起来。',
     p: [{ r: 'lore', a: 130 }, { r: 'ink', a: 3 }],
     e: { charmM: .1 },
     uq: { u: { calendar: 1 }, b: { shrine: 3 } },
@@ -1056,21 +1056,21 @@ const UD = {
   },
   // ===== v0.16 政体研究 =====
   councilLore: {
-    n: '共谷议事', d: '解锁典制→治理分区与议事堂。',
+    n: '共谷议事', d: '议事堂建起，典制下「治理」一脉由此开启。',
     p: [{ r: 'lore', a: 300 }, { r: 'scroll', a: 20 }],
     e: {},
     uq: { u: { engraving: 1 }, custom: 5 },
     tip: ['坐下来说的第一句话，往往是"你先说"。']
   },
   polityLore: {
-    n: '法度通论', d: '解锁取向选择与治风堂。',
+    n: '法度通论', d: '治风堂可建起，山谷可在大势之间择道。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 40 }],
     e: {},
     uq: { u: { councilLore: 1 }, b: { councilHall: 2 } },
     tip: ['规矩是大家同意走的那条路，没人把它当笼子。']
   },
   policyLore: {
-    n: '集议传统', d: '解锁政策域面板。',
+    n: '集议传统', d: '山谷的政事可分域而议。',
     p: [{ r: 'lore', a: 350 }, { r: 'coin', a: 50 }, { r: 'scroll', a: 30 }],
     e: {},
     uq: { u: { polityLore: 1 }, polity: true },
@@ -1617,25 +1617,25 @@ const UD = {
 
   // ===== 神启副线 A阶段：初悟 =====
   divineLore: {
-    n: '神启之学', d: '开启神恩之道，解锁虔诚资源与宗教页签。',
+    n: '神启之学', d: '开启神恩之道；虔诚自此入账，宗教自此而立。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 25 }, { r: 'charm', a: 30 }, { r: 'remnant', a: 5 }],
     e: { subBranch: 'D', pietyU: 1 },
     uq: { u: { branchLore: 1 }, polity: true, b: { shrine: 3 } },
   },
   ritualBasic: {
-    n: '祭祀礼法', d: '制定祭仪规范，解锁祭坛。',
+    n: '祭祀礼法', d: '制定祭仪规范，祭坛可建起。',
     p: [{ r: 'lore', a: 300 }, { r: 'charm', a: 20 }, { r: 'piety', a: 5 }],
     e: {},
     uq: { u: { divineLore: 1 } }, sb: 'D',
   },
   scriptureLore: {
-    n: '经典研习', d: '研读古卷圣典，解锁经阁与祭司。',
+    n: '经典研习', d: '研读古卷圣典；经阁可建起，祭司这门职业也出现。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 20 }, { r: 'piety', a: 15 }],
     e: {},
     uq: { u: { ritualBasic: 1 }, b: { divineAltar: 2 } }, sb: 'D',
   },
   graceLore: {
-    n: '恩典感召', d: '感悟神恩之力，激活神恩系统，解锁祈愿池与圣油。',
+    n: '恩典感召', d: '感悟神恩之力——神恩由此而立，祈愿池可建起，圣油入账。',
     p: [{ r: 'lore', a: 500 }, { r: 'scroll', a: 30 }, { r: 'piety', a: 30 }],
     e: { holyOilU: 1 },
     uq: { u: { scriptureLore: 1 }, b: { divineAltar: 3 } }, sb: 'D',
@@ -1785,21 +1785,97 @@ const UD = {
     uq: { u: { forbiddenLore: 1 }, b: { apotheosisPool: 4 } }, sb: 'D', br: 'M',
   },
 
+  // ===== 神启副线 C-秘仪研究（v0.20 §八 5.3e, 12 项） =====
+  // Tier 1：六个建筑门控
+  pureMindLore: {
+    n: '净念论', d: '把心里多出来的那一片摘掉——剩下的，才装得下别的。',
+    p: [{ r: 'lore', a: 1000 }, { r: 'ambrosia', a: 15 }, { r: 'scroll', a: 40 }],
+    e: {},
+    uq: { u: { mysteryInit: 1 }, b: { mysteryHall: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  divineInkArt: {
+    n: '神墨术', d: '把神看你的眼神记下来，凝成一滴可以书写的东西。',
+    p: [{ r: 'lore', a: 1100 }, { r: 'gnosis', a: 50 }, { r: 'ambrosia', a: 10 }],
+    e: { divineInkU: 1 },
+    uq: { u: { apotheosisLore: 1 }, b: { apotheosisPool: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  prophecyArt: {
+    n: '预言术', d: '风穿过殿里的孔——孔的形状就是明日的形状。',
+    p: [{ r: 'lore', a: 1100 }, { r: 'gnosis', a: 60 }, { r: 'scroll', a: 30 }],
+    e: {},
+    uq: { u: { apotheosisLore: 1 }, b: { mysteryHall: 3 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  etherealLore: {
+    n: '灵界论', d: '门后没有路，但从门后回来的爪子，沾着别处的灰。',
+    p: [{ r: 'lore', a: 1200 }, { r: 'gnosis', a: 80 }, { r: 'ambrosia', a: 20 }],
+    e: { apotheosisStoneU: 1 },
+    uq: { u: { forbiddenLore: 1 }, b: { apotheosisPool: 3 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  apotheosisRite: {
+    n: '化神仪典', d: '上去的狐狸不一定下来；下来的不一定是同一只。仪式只是路。',
+    p: [{ r: 'lore', a: 1300 }, { r: 'ambrosia', a: 30 }, { r: 'gnosis', a: 100 }],
+    e: {},
+    uq: { u: { ascensionLore: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  forbiddenCompile: {
+    n: '禁典编纂', d: '把零散的禁忌装订成册——书脊裂开的那一刻，新的封条诞生了。',
+    p: [{ r: 'lore', a: 1400 }, { r: 'gnosis', a: 150 }, { r: 'ambrosia', a: 25 }],
+    e: { forbiddenCodexU: 1 },
+    uq: { u: { ascensionLore: 1 }, b: { forbiddenLib: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  // Tier 2：被动加成 / 配方解锁
+  divineInkRefining: {
+    n: '神墨精炼', d: '同样一滴墨，研开之后的墨色比研开之前深得多。',
+    p: [{ r: 'lore', a: 1200 }, { r: 'divineInk', a: 5 }, { r: 'gnosis', a: 80 }],
+    e: { divineInkM: 0.5 },
+    uq: { u: { divineInkArt: 1 }, b: { divinityForge: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  inkScripture: {
+    n: '墨经', d: '神墨写下的字不褪——这门学问就是怎么让它们不褪。',
+    p: [{ r: 'lore', a: 1100 }, { r: 'divineInk', a: 3 }, { r: 'scroll', a: 60 }],
+    e: {},
+    uq: { u: { divineInkArt: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  omenLore: {
+    n: '卜兆论', d: '兆头本身没有意义；意义在看见兆头的那只眼睛里。',
+    p: [{ r: 'lore', a: 1200 }, { r: 'gnosis', a: 80 }, { r: 'ambrosia', a: 20 }],
+    e: { gnosisM: 0.2 },
+    uq: { u: { prophecyArt: 1 }, b: { prophecyHall: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  futureSight: {
+    n: '远见', d: '远处看得见的不是更多的事，是同一件事更早的样子。',
+    p: [{ r: 'lore', a: 1300 }, { r: 'gnosis', a: 100 }, { r: 'ambrosia', a: 30 }],
+    e: { loreM: 0.15 },
+    uq: { u: { prophecyArt: 1 }, b: { prophecyHall: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  voidTouch: {
+    n: '触虚', d: '把爪子伸进门缝里——回来的爪子会觉得自己缺了一块。',
+    p: [{ r: 'lore', a: 1200 }, { r: 'apotheosisStone', a: 2 }, { r: 'gnosis', a: 80 }],
+    e: {},
+    uq: { u: { etherealLore: 1 }, b: { etherealGate: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  ascensionTransform: {
+    n: '形魄羽化', d: '走到这一步的狐狸，再回头看自己原来的形状，已经认不全了。',
+    p: [{ r: 'lore', a: 1400 }, { r: 'gnosis', a: 120 }, { r: 'ambrosia', a: 30 }],
+    e: { ambrosiaM: 0.3 },
+    uq: { u: { apotheosisRite: 1 }, b: { apotheosisAltar: 2 } }, sb: 'D', br: 'M', phase: 4,
+  },
+
   // ===== 通达副线 Phase A：初交（3 项研究） =====
   envoyBasic: {
-    n: '使节礼法', d: '远客来访不再只是做买卖，而是一门学问。解锁使馆与声誉资源。',
+    n: '使节礼法', d: '远客来访不再只是做买卖，而是一门学问。使馆可建起，声誉自此入账。',
     p: [{ r: 'lore', a: 350 }, { r: 'ancCoin', a: 5 }],
     e: { renownU: 1 },
     uq: { u: { beyondValley: 1 }, b: { tradePost: 2 } }, sb: 'T',
   },
   credentialLore: {
-    n: '信物制度', d: '持信为凭，远方始知你的名字。解锁迎宾堂、信驿与信物资源。',
+    n: '信物制度', d: '持信为凭，远方始知你的名字。迎宾堂、信驿可建起，信物自此入账。',
     p: [{ r: 'lore', a: 450 }, { r: 'renown', a: 20 }, { r: 'ancCoin', a: 8 }],
     e: { credentialU: 1 },
     uq: { u: { envoyBasic: 1 }, b: { embassy: 2 } }, sb: 'T',
   },
   reputeLore: {
-    n: '声望学', d: '声誉积厚之后，外交产出自然丰饶。激活声望公式与使者职业。',
+    n: '声望学', d: '声誉积厚之后，外交产出自然丰饶。声望由此而立，使者这门职业也出现。',
     p: [{ r: 'lore', a: 550 }, { r: 'renown', a: 50 }, { r: 'credential', a: 3 }],
     e: {},
     uq: { u: { credentialLore: 1 }, b: { embassy: 3 } }, sb: 'T',
@@ -1807,31 +1883,31 @@ const UD = {
 
   // ===== 通达副线 Phase B：结邦（5 项研究） =====
   allianceInit: {
-    n: '结邦之礼', d: '以信物为凭、声誉为基，正式与七族缔交。解锁邦交系统、邦书资源与邦交堂。',
+    n: '结邦之礼', d: '以信物为凭、声誉为基，正式与七族缔交。邦交由此而立，邦书入账，邦交堂可建起。',
     p: [{ r: 'lore', a: 500 }, { r: 'renown', a: 60 }, { r: 'credential', a: 5 }],
     e: { charterU: 1 },
     uq: { u: { reputeLore: 1 }, b: { embassy: 2 } }, sb: 'T',
   },
   exoticLore: {
-    n: '异珍鉴赏', d: '辨别远方奇物，令异珍不再是堆角落的摆设。解锁异珍资源、异珍阁与远交礼包配方。',
+    n: '异珍鉴赏', d: '辨别远方奇物，令异珍不再是堆角落的摆设。异珍入账，异珍阁可建起，远交礼包这门工艺也通晓。',
     p: [{ r: 'lore', a: 580 }, { r: 'credential', a: 5 }, { r: 'renown', a: 80 }],
     e: { exoticU: 1 },
     uq: { u: { allianceInit: 1 }, b: { charterHall: 2 } }, sb: 'T',
   },
   guestLore: {
-    n: '远客之道', d: '远客留下，不只是过路——需要一个像样的住处。解锁远客居与邦交官职业。',
+    n: '远客之道', d: '远客留下，不只是过路——需要一个像样的住处。远客居可建起，邦交官这门职业也出现。',
     p: [{ r: 'lore', a: 650 }, { r: 'exotic', a: 3 }, { r: 'charter', a: 10 }],
     e: {},
     uq: { u: { exoticLore: 1 }, b: { exoticVault: 2 } }, sb: 'T',
   },
   allianceLore: {
-    n: '会盟论', d: '从松散友邦到正式盟约，需要一座专门的台。解锁会盟台。',
+    n: '会盟论', d: '从松散友邦到正式盟约，需要一座专门的台。会盟台可建起。',
     p: [{ r: 'lore', a: 750 }, { r: 'charter', a: 25 }, { r: 'exotic', a: 5 }],
     e: {},
     uq: { u: { guestLore: 1 }, b: { guestQuarter: 2 } }, sb: 'T',
   },
   deepAlliancePrelude: {
-    n: '深盟序言', d: '盟约只是开始——序言写完，深盟的篇章才翻开。解锁 Phase C。',
+    n: '深盟序言', d: '盟约只是开始——序言写完，深盟的篇章才翻开，再深一层的来往由此可耕。',
     p: [{ r: 'lore', a: 900 }, { r: 'charter', a: 50 }, { r: 'exotic', a: 10 }],
     e: {},
     uq: { u: { allianceLore: 1 }, b: { alliancePlatform: 2 } }, sb: 'T',
@@ -2242,6 +2318,39 @@ const CD = {
     perm: true,
   },
 
+  // ===== 神启副线 C-秘仪配方（v0.20 §八 5.3e, 5 个） =====
+  divineInkSeal: {
+    n: '神墨凝魂', d: '秘知+卷轴 → 神墨',
+    inp: [{ r: 'gnosis', a: 40 }, { r: 'scroll', a: 30 }],
+    out: [{ r: 'divineInk', a: 1 }],
+    uq: { u: { inkScripture: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  apotheosisStoneCraft: {
+    n: '化神石锻', d: '秘知+神墨+晶丝 → 化神石',
+    inp: [{ r: 'gnosis', a: 80 }, { r: 'divineInk', a: 3 }, { r: 'crystalSilk', a: 10 }],
+    out: [{ r: 'apotheosisStone', a: 1 }],
+    uq: { u: { voidTouch: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  forbiddenCodexBind: {
+    n: '禁典装订', d: '秘知+神墨+卷轴 → 禁典',
+    inp: [{ r: 'gnosis', a: 100 }, { r: 'divineInk', a: 5 }, { r: 'scroll', a: 50 }],
+    out: [{ r: 'forbiddenCodex', a: 1 }],
+    uq: { u: { forbiddenCompile: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  gnosisAmplify: {
+    n: '秘知凝聚', d: '神露+神墨 → 秘知（高产）',
+    inp: [{ r: 'ambrosia', a: 8 }, { r: 'divineInk', a: 2 }],
+    out: [{ r: 'gnosis', a: 20 }],
+    uq: { u: { apotheosisRite: 1 } }, sb: 'D', br: 'M', phase: 4,
+  },
+  apotheosisDoor: {
+    n: '化神之门', d: '化神石+禁典+神露+秘知 → 下次开门秘知消耗 -50%',
+    inp: [{ r: 'apotheosisStone', a: 3 }, { r: 'forbiddenCodex', a: 1 }, { r: 'ambrosia', a: 40 }, { r: 'gnosis', a: 120 }],
+    out: [{ r: '_gateDiscount', a: 0.50 }],
+    uq: { u: { ascensionTransform: 1 } }, sb: 'D', br: 'M', phase: 4,
+    perm: true,
+  },
+
   // ===== 通达副线 Phase A =====
   makeCredential: {
     n: '信物（铸）', d: '以声誉与卷轴制成正式信物。',
@@ -2557,14 +2666,14 @@ const UPGD = {
   },
   // #42 自动锻压：钢板配方可自动制作
   autoForge: {
-    n: '自动锻压', d: '解锁钢板自动制作', br: 'I',
+    n: '自动锻压', d: '钢板可自行制作', br: 'I',
     p: [{ r: 'gear', a: 15 }, { r: 'plate', a: 8 }, { r: 'draft', a: 1 }],
     e: { _autoCraftEnable: 'plate' },
     uq: { u: { steamPower: 1 } },
   },
   // #43 自动混凝：混凝配方可自动制作
   autoConcrete: {
-    n: '自动混凝', d: '解锁混凝自动制作', br: 'I',
+    n: '自动混凝', d: '混凝可自行制作', br: 'I',
     p: [{ r: 'gear', a: 12 }, { r: 'concrete', a: 5 }, { r: 'draft', a: 1 }],
     e: { _autoCraftEnable: 'concrete' },
     uq: { u: { concreteTech: 1 } },
@@ -3620,7 +3729,7 @@ const UPGD = {
     uq: { u: { silenceResonance: 1 } },
   },
   codexDeep: {
-    n: '幽典精读', d: '幽读灵术效果加强（5.2f 灵术系统启用后激活）', br: 'M', phase: 4,
+    n: '幽典精读', d: '幽读灵术效果加强。', br: 'M', phase: 4,
     p: [{ r: 'voidCodex', a: 3 }, { r: 'mirrorSpirit', a: 3 }],
     e: {},
     uq: { u: { silenceResonance: 1 } },
@@ -3662,7 +3771,7 @@ const UPGD = {
     uq: { u: { deepLeyline: 1 } },
   },
   spiritDriveExp: {
-    n: '灵驱远行', d: '远行时间×0.75（永久，跨系统）', br: 'M', phase: 4,
+    n: '灵驱远行', d: '远行时间×0.75（永久）。', br: 'M', phase: 4,
     p: [{ r: 'spiritCore', a: 25 }, { r: 'silenceStone', a: 10 }],
     e: { _expTimeM: 0.75 },
     uq: { u: { spiritDrive: 1 } },
@@ -3680,7 +3789,7 @@ const UPGD = {
     uq: { u: { spiritDrive: 1 } },
   },
   mirrorDaisFocus: {
-    n: '镜灵台聚光', d: '镜灵台产出+50%（5.2f 镜灵台引入后激活）', br: 'M', phase: 4,
+    n: '镜灵台聚光', d: '镜灵台产出+50%。', br: 'M', phase: 4,
     p: [{ r: 'mirrorSpirit', a: 5 }, { r: 'primordial', a: 15 }],
     e: {},
     uq: { u: { mirrorSpiritFocus: 1 } },
@@ -3710,7 +3819,7 @@ const UPGD = {
     uq: { u: { voidCodexCompile: 1 } },
   },
   primordialForgeBoost: {
-    n: '元念炉增效', d: '元念炉乘法加成 ×1.5→×2（5.2f 元念炉建筑引入后激活）', br: 'M', phase: 4,
+    n: '元念炉增效', d: '元念炉乘法加成 ×1.5→×2。', br: 'M', phase: 4,
     p: [{ r: 'primordial', a: 20 }, { r: 'spiritCore', a: 15 }],
     e: {},
     uq: { u: { primordialForging: 1 } },
@@ -3722,7 +3831,7 @@ const UPGD = {
     uq: { u: { primordialForging: 1 } },
   },
   pactAltarReson: {
-    n: '灵契祭坛共鸣', d: '灵契祭坛产出加成升至 25%/座（5.2f 灵契系统）', br: 'M', phase: 4,
+    n: '灵契祭坛共鸣', d: '灵契祭坛产出加成升至 25%/座。', br: 'M', phase: 4,
     p: [{ r: 'spiritCore', a: 20 }, { r: 'voidCodex', a: 3 }],
     e: {},
     uq: { u: { spiritPactLore: 1 } },
@@ -3752,13 +3861,13 @@ const UPGD = {
     uq: { u: { deepLeyline: 1 } },
   },
   pureSilenceDeep: {
-    n: '净寂殿深静', d: '净寂殿躁念消除+50%（5.2f 净寂殿引入后激活）', br: 'M', phase: 4,
+    n: '净寂殿深静', d: '净寂殿躁念消除+50%。', br: 'M', phase: 4,
     p: [{ r: 'silenceStone', a: 10 }, { r: 'primordial', a: 15 }, { r: 'elixir', a: 8 }],
     e: {},
     uq: { u: { silentPurity: 1 } },
   },
   pactChannelerArt: {
-    n: '契灵使心法', d: '契灵使产出+40%（5.2f 灵契系统）', br: 'M', phase: 4,
+    n: '契灵使心法', d: '契灵使产出+40%。', br: 'M', phase: 4,
     p: [{ r: 'spiritCore', a: 15 }, { r: 'voidCodex', a: 3 }, { r: 'silenceStone', a: 10 }],
     e: { jobM: { pactChanneler: 0.4 } },
     uq: { u: { spiritPactLore: 1 } },
@@ -3900,7 +4009,7 @@ const UPGD = {
     uq: { u: { churchArchLore: 1 } }, sb: 'D', br: 'I',
   },
   edictSlot: {
-    n: '教令增席', d: '教令同时激活上限 +1。',
+    n: '教令增席', d: '教令同时在朝上限 +1。',
     p: [{ r: 'holyFlame', a: 20 }, { r: 'piety', a: 250 }],
     e: { _edictSlotBonus: 1 },
     uq: { b: { edictHall: 3 } }, sb: 'D', br: 'I',
@@ -4031,31 +4140,31 @@ const UPGD = {
   },
   // 教令强化 #44-48
   edictMastery: {
-    n: '教令宗师', d: '教令冷却 -1 季（教令系统启用时实装）。',
+    n: '教令宗师', d: '教令冷却 -1 季。',
     p: [{ r: 'hymn', a: 5 }, { r: 'holyFlame', a: 15 }],
     e: {},
     uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   edictPower: {
-    n: '教令强化', d: '基础教令效果 +10%（教令系统）。',
+    n: '教令强化', d: '基础教令效果 +10%。',
     p: [{ r: 'holyScripture', a: 3 }, { r: 'piety', a: 200 }],
     e: {},
     uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   crusadeEdictUp: {
-    n: '圣战令强化', d: '圣战令效果 +15%（教令系统）。',
+    n: '圣战令强化', d: '圣战令效果 +15%。',
     p: [{ r: 'holyFlame', a: 25 }, { r: 'holyIron', a: 12 }],
     e: {},
     uq: { u: { crusadeLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   edictSlotC: {
-    n: '教令增席·高', d: '教令同时激活上限 +1（教令系统）。',
+    n: '教令增席·高', d: '教令同时在朝上限 +1。',
     p: [{ r: 'hymn', a: 8 }, { r: 'holyScripture', a: 2 }],
     e: {},
     uq: { u: { grandEdictLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   pilgrimEdictUp: {
-    n: '朝圣令强化', d: '朝圣令效果 +15%（教令系统）。',
+    n: '朝圣令强化', d: '朝圣令效果 +15%。',
     p: [{ r: 'hymn', a: 5 }, { r: 'piety', a: 150 }],
     e: {},
     uq: { u: { pilgrimageLore: 1 } }, sb: 'D', br: 'I', phase: 4,
@@ -4755,7 +4864,7 @@ const SD = {
     uq: { u: { primordialDrive: 1 } },
   },
   mirrorViewSpell: {
-    n: '镜观', d: '在灵图水面上窥见远方未明之事。',
+    n: '镜观', d: '在灵图水面上窥见远方未明之事——立即获得学识 +1000。',
     cost: [{ r: 'mirrorSpirit', a: 1 }, { r: 'spiritChart', a: 50 }],
     cooldown: 1500, // 300s
     br: 'M', phase: 4,
@@ -4769,7 +4878,7 @@ const SD = {
     uq: { u: { voidCodexLore: 1 } },
   },
   silenceMeditation: {
-    n: '寂石冥想', d: '在寂石旁静坐一季，山谷的时间会比往常重一分。',
+    n: '寂石冥想', d: '在寂石旁静坐一季，本季山谷全产出 +40%。',
     cost: [{ r: 'silenceStone', a: 5 }, { r: 'primordial', a: 10 }],
     cooldown: 4500, // 900s
     br: 'M', phase: 4,
@@ -4786,13 +4895,12 @@ const SD = {
 
 // ===== 灵契系统定义（灵修 D 独占，v0.20 §八 5.2f） =====
 // 5 选 1，激活时通过 pactPrayerSpell 切换。每套灵契提供独占被动。
-// e 字段为占位（5 phase 整体验收时实装具体加成数值）。
 const PACT_DEF = {
-  earthPact: { n: '大地契', d: '土性灵契：基础资源产出加成。', e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
-  waterPact: { n: '流水契', d: '水性灵契：商队与远行加成。',   e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
-  woodPact:  { n: '林木契', d: '木性灵契：建筑造价折扣。',     e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
-  firePact:  { n: '烈焰契', d: '火性灵契：配方产出加成。',     e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
-  metalPact: { n: '玄金契', d: '金性灵契：研究与学识加成。',   e: {}, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  earthPact: { n: '大地契', d: '土性灵契：野莓/圆木/碎石产出 +20%。',       e: { _baseResM: 0.20 },                       br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  waterPact: { n: '流水契', d: '水性灵契：商队概率 +15%、远行奖励 +20%。', e: { _caravanProb: 0.15, _expRewardM: 0.20 }, br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  woodPact:  { n: '林木契', d: '木性灵契：建筑造价 -15%。',                 e: { buildCostM: -0.15 },                     br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  firePact:  { n: '烈焰契', d: '火性灵契：配方产出 +20%。',                 e: { _craftAllM: 0.20 },                      br: 'M', uq: { u: { spiritPactLore: 1 } } },
+  metalPact: { n: '玄金契', d: '金性灵契：学识产出 +15%、研究花费 -10%。', e: { loreM: 0.15, _researchCostM: -0.10 },    br: 'M', uq: { u: { spiritPactLore: 1 } } },
 };
 
 // ===== 教令系统定义（教团独占） =====
@@ -5835,8 +5943,8 @@ const ACHIEVEMENT_DATA = {
   firstCraft:     { n: '不是它们的东西', d: '手动制作第一件工艺品' },
   firstTrade:     { n: '第一笔便宜',     d: '与第一支商队完成交易' },
   firstExpedition:{ n: '走出谷口',       d: '完成第一次远行' },
-  firstCustom:    { n: '谁都记得的规矩', d: '激活第一个习俗' },
-  custom5:        { n: '默契成规',       d: '激活 5 个习俗' },
+  firstCustom:    { n: '谁都记得的规矩', d: '立起第一个习俗' },
+  custom5:        { n: '默契成规',       d: '立起 5 个习俗' },
   berryHoard:     { n: '三千颗甜',       d: '囤积 3000 野莓' },
   lore100:        { n: '记得比忘的多',   d: '当前 100 学识' },
   scroll50:       { n: '满架还在塞',     d: '拥有 50 卷轴' },
