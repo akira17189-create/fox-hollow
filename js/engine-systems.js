@@ -612,7 +612,7 @@ function activateSpec(bpIdx) {
   }
   var specData = SPEC_BD[bp.target][bp.spec];
   var bldName = BD[bp.target]?.n || bp.target;
-  log('激活专精：' + bldName + '「' + specData.n + '」。', 'important');
+  log('专精确立：' + bldName + '「' + specData.n + '」。', 'important');
   rAll();
 }
 
@@ -629,6 +629,6 @@ function activateJobTalent(bpIdx) {
   }
   var talentData = SPEC_JD[bp.target][bp.spec];
   var jobName = JD[bp.target]?.n || bp.target;
-  log('激活天赋：' + jobName + '「' + talentData.n + '」。', 'important');
+  log('天赋觉醒：' + jobName + '「' + talentData.n + '」。', 'important');
   rAll();
 }

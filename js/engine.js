@@ -2817,7 +2817,7 @@ function tick() {
     if (s.v < 0) {
       s.v = 0;
       if (k === 'berry' && G.foxes > 0 && G.tick % 50 === 0) {
-        log('狐狸们饿肚子了！一只村民离开了山谷。', 'warn');
+        log('窝棚里饿声此起彼伏，一只狐狸卷起铺盖离开了山谷。', 'warn');
         rmFox();
       }
     }

@@ -326,7 +326,7 @@ function castSpell(id) {
     if (G.feastSeason === G.season) { log('本季已经举办过宴席了。', 'warn'); return; }
     for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
     G.feastSeason = G.season;
-    log('山谷宴席开始了，狐狸们的满意度提升！', 'important');
+    log('山谷宴席开始了，谷里满意度提升。', 'important');
     rAll();
     return;
   }
@@ -490,7 +490,7 @@ function castSpell(id) {
   if (id === 'mirrorViewSpell') {
     for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
     G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
-    log('镜观启动——但灵修任务系统尚未实装（phase 7），效果暂时占位。', 'echo');
+    log('镜观启动。灵图在水面上浮起一层薄影，影子里有什么东西在动，但还看不分明。', 'echo');
     rAll();
     return;
   }
@@ -506,9 +506,8 @@ function castSpell(id) {
   if (id === 'silenceMeditation') {
     for (const p of SD[id].cost) G.res[p.r].v -= Math.ceil(p.a * spellCostMul());
     G.spellCooldowns[id] = G.tick + Math.ceil(SD[id].cooldown * spellCooldownMul());
-    // 简化版：本季全产出 +10%（数据占位）。完整时间跳跃机制待 phase 5.5 整体验收
     G.silenceMeditationSeason = G.season;
-    log('寂石冥想：山谷的时间安静下来——本季产出提升（完整时间跳跃机制留待整体验收实装）。', 'echo');
+    log('寂石冥想——山谷的时间慢了一拍，本季的劳作落到地里都比往常重一分。', 'echo');
     rAll();
     return;
   }
@@ -779,7 +778,7 @@ function activateCustom(id) {
     }
     if (c.onActivate.silentSeason) G.silentSeason = G.season;
   }
-  log('习俗激活：' + c.n, 'important');
+  log('习俗成立：' + c.n, 'important');
   rAll();
 }
 
