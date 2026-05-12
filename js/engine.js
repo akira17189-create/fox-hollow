@@ -3170,6 +3170,7 @@ function migrate() {
   G.lastSeasonRites = G.lastSeasonRites || { dye: true, wine: true, ink: true };
   G.pendingSeasonRites = G.pendingSeasonRites || { open: false };
   G.riteIntroSeen = G.riteIntroSeen ?? false;
+  G.faithIntroSeen = G.faithIntroSeen ?? false;
   G.offlineRiteLog = G.offlineRiteLog || [];
   G.lastRiteToast = G.lastRiteToast ?? -1;
   // 文化灵术

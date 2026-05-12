@@ -79,6 +79,7 @@ function research(id) {
     if (!G.subBranches[sbId]) {
       G.subBranches[sbId] = true;
       log('副线「' + (sbId === 'D' ? '神启' : sbId === 'T' ? '通达' : sbId) + '」已开启。', 'important');
+      if (sbId === 'D') log('祭司从旧墟带回一卷文书，纸页已经粘在一起了。它用水汽熏了两季，才把第一页揭开。上面的字是用爪尖刻的，笔画很浅，像写的人不敢用力。祭坛是用三块平石搭的，没有装饰。第一份供奉是一撮盐，一块磨刀石，一卷重新抄好的经文。', 'echo');
     }
   }
     // 神启：解锁虔诚资源
@@ -779,6 +780,11 @@ function markRiteIntroSeen() {
   rAll();
 }
 
+function markFaithIntroSeen() {
+  G.faithIntroSeen = true;
+  rAll();
+}
+
 function setRiteMode(mode) {
   if (mode !== 'auto' && mode !== 'manual') return;
   G.riteMode = mode;
@@ -962,12 +968,21 @@ function setPolicy(domain, option) {
   G.policies[domain] = option;
   // v0.17 §五 2.6: 选路时同步设置 G.mainLine
   if (domain === 'branch') {
-    if (option === 'I') G.mainLine = 'industry';
-    if (option === 'M') G.mainLine = 'mystic';
+    if (option === 'I') {
+      G.mainLine = 'industry';
+      log('一只老矿工站在炉边看着铁水，觉得它像一种被烧化的耐心。它想了想，山谷里所有东西都是从石头里砸出来的——刀、钉子、门轴——但炉子不一样，炉子用一种热去逼石头说出它藏着的那个形状。烟从炉口冒上来，带着一种矿石的脾气，像是刚睡醒。', 'echo');
+    }
+    if (option === 'M') {
+      G.mainLine = 'mystic';
+      log('一只感知者把手放在岩壁上，感到下面有什么东西在用一种比时间还慢的频率翻身。它试着回忆自己最初学会听这个词的时候具体是什么意思——但手下的震动越来越清晰，像山谷在回答一个它还没问出口的问题。它把手缩回来，发现自己的指纹里夹了一层细密的灰，灰是温的。', 'echo');
+    }
   }
   // v0.18 §六 3.6: 外交政策选通达时激活副线
   if (domain === 'diplomacy') {
-    if (option === 'open') G.subBranches.T = true;
+    if (option === 'open') {
+      G.subBranches.T = true;
+      log('一只斥候站在山谷口，把地图翻过来看了一会。地图是它自己画的，画得很丑——几条线代表河，一个圈代表家，剩下的地方全是空白。它想，空白其实才是地图里最准确的部分，因为它还不知道那些地方长什么样。它把地图折好，塞进皮草卷里，然后迈开步子走进那片它还没画过的区域。', 'echo');
+    }
     if (option === 'closed') G.subBranches.T = false;
   }
   var optName = pd.opts[option].n;

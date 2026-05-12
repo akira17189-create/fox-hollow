@@ -1969,6 +1969,15 @@ function rTC() {
 
   // ===== 神启副线 A阶段：宗教页签 =====
   else if (curTab === 'f') {
+    if (!G.faithIntroSeen) {
+      h += '<div class="rite-intro">';
+      h += '<div class="rite-intro-title">信仰</div>';
+      h += '<div class="rite-intro-body">';
+      h += '<p>旧经卷从神坛下方的暗格里取出时，边角已经脆得像深秋的落叶。祭司花了一个下午清理尘土，辨认那些用赭石和炭笔写下的符号。诵读开始了。声音不高，但每个音节都像水滴，缓慢地渗进山谷的岩层里。起初什么都没发生。然后，在第七次日落之后，神坛前供奉的那碗清水，表面无风，却自行荡开了极细的涟漪。</p>';
+      h += '<p>这便是虔诚的重量，是祭司俯身时投下的影子，经年累月，在石头上留下的一道看不见的刻痕。而神恩，是这刻痕够深之后，从石头内部反渗出来的一丝微凉——积累了足够久的重量，总会找到回路。它不祝福，它只是证明——你的重量，终于被地底之物感知到了。</p>';
+      h += '<button class="rite-intro-btn" onclick="markFaithIntroSeen()">明白了</button>';
+      h += '</div></div>';
+    } else {
     // 上区：神恩面板
     h += '<div class="section-label">神恩</div>';
     h += '<div class="divine-panel">';
@@ -2229,6 +2238,7 @@ function rTC() {
         h += '</div>';
       }
     }
+    } // faithIntroSeen else
   }
 
   document.getElementById('tc').innerHTML = toggle + h;
