@@ -50,12 +50,13 @@ function gmPanel() {
 
 function gmAddAllRes(amt) {
   for (var k in G.res) {
-    if (G.res[k].on) {
-      G.res[k].v = G.res[k].mx > 0 ? Math.min(G.res[k].v + amt, G.res[k].mx) : G.res[k].v + amt;
+    // 仅对 on=true 且 mx>0 的资源加值，避免未解锁/无存储上限的资源被错误累积
+    if (G.res[k].on && G.res[k].mx > 0) {
+      G.res[k].v = Math.min(G.res[k].v + amt, G.res[k].mx);
     }
   }
   rRes(); rTC();
-  log('[GM] +' + amt + ' 各已解锁资源', 'important');
+  log('[GM] +' + amt + ' 各已解锁资源（跳过 mx=0 的）', 'important');
 }
 
 function gmFillAllRes() {

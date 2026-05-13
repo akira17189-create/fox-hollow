@@ -1188,17 +1188,20 @@ function renderCraftRow(id, hasAuto) {
   if (!d || !chk(d.uq) || anyBranchLocked(d)) return '';
   var ok = canC(id);
   var cost = d.inp.map(function(p) {
-    var have = G.res[p.r].v;
+    var rec = G.res[p.r];
+    var have = rec ? rec.v : 0;
+    var resName = (RD[p.r] && RD[p.r].n) || p.r;
     return (have < p.a ? '<span class="short">' : '') +
-      RD[p.r].n + ' ' + p.a + (have < p.a ? '</span>' : '');
+      resName + ' ' + p.a + (have < p.a ? '</span>' : '');
   }).join(', ');
   var out = d.out.map(function(p) {
     if (p.r.charAt(0) === '_') {
       // 永久配方：内部字段，显示描述文本而非资源名
-      var permNames = { _pietyMxPerm: '虔诚上限', _edictCDReduce: '教令冷却', _holyGearBonus: '工业配方加成', _gateDiscount: '开门折扣' };
+      var permNames = { _pietyMxPerm: '虔诚上限', _edictCDReduce: '教令冷却', _holyGearBonus: '工业配方加成', _gateDiscount: '开门折扣', _expRewardBonus: '远行奖励', _holyBldDiscount: '神圣建筑折扣', _forgeSteelReduce: '圣工坊钢消耗' };
       return (permNames[p.r] || p.r) + ' +' + (p.a < 1 ? Math.round(p.a * 100) + '%' : p.a);
     }
-    return RD[p.r].n + ' ' + p.a;
+    var resName = (RD[p.r] && RD[p.r].n) || p.r;
+    return resName + ' ' + p.a;
   }).join(', ');
   var sec = { desc: d.d, tip: pickTip('craft_' + id, d.tip) };
   if (hasAuto && G.autoCraft[id]) {
@@ -1551,9 +1554,11 @@ function rTC() {
       var ud = UPGD[uid];
       var ok = canUpgd(uid);
       var cost = ud.p.map(function(p) {
-        var have = G.res[p.r].v;
+        var rec = G.res[p.r];
+        var have = rec ? rec.v : 0;
+        var resName = (RD[p.r] && RD[p.r].n) || p.r;
         return (have < p.a ? '<span class="short">' : '') +
-          RD[p.r].n + ' ' + p.a + (have < p.a ? '</span>' : '');
+          resName + ' ' + p.a + (have < p.a ? '</span>' : '');
       }).join(', ');
       var sec = { desc: ud.d, effects: upgdEffects(ud.e), tip: ud.tip ? pickTip('upgd_' + uid, ud.tip) : '' };
       var nameHtml = hpWrap('<span class="cr-name">' + ud.n + '</span>', sec);

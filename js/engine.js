@@ -243,7 +243,7 @@ function canC(id) {
     var inpMul = 1;
     if (ucm && ucm.inpM && ucm.inpM[p.r]) inpMul = Math.max(0, 1 + ucm.inpM[p.r]);
     if (_crReduce > 0) inpMul *= Math.max(0, 1 - _crReduce);
-    if (G.res[p.r].v < Math.ceil(p.a * inpMul)) return false;
+    if (!G.res[p.r] || G.res[p.r].v < Math.ceil(p.a * inpMul)) return false;
   }
   return true;
 }
