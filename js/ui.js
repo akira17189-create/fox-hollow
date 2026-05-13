@@ -790,8 +790,8 @@ function rEnergy() {
   var ratio = G.energyRatio;
   var cls = net >= 0 ? 'energy-ok' : 'energy-low';
   var pct = G.energyCons > 0 ? Math.min(100, Math.round(ratio * 100)) : 100;
-  var h = '<div class="energy-label">能量 <span class="' + cls + '">' +
-    fmt(G.energyProd) + ' / ' + fmt(G.energyCons) + '</span>';
+  var h = '<div class="energy-label">能量 <span class="' + cls + '">产 ' +
+    fmt(G.energyProd) + ' / 耗 ' + fmt(G.energyCons) + '</span>';
   if (net < 0) h += ' <span class="energy-warn">（缺口 ' + fmt(-net) + '，产出 ×' + pct + '%）</span>';
   h += '</div>';
   h += '<div class="energy-track"><div class="energy-fill ' + cls + '" style="width:' + pct + '%"></div></div>';
@@ -875,8 +875,8 @@ function rLeyline() {
   var ratio = G.leylineRatio;
   var cls = net >= 0 ? 'leyline-ok' : 'leyline-low';
   var pct = G.leylineCons > 0 ? Math.min(100, Math.round(ratio * 100)) : 100;
-  var h = '<div class="leyline-label">灵脉 <span class="' + cls + '">' +
-    fmt(G.leylineProd) + ' / ' + fmt(G.leylineCons) + '</span>';
+  var h = '<div class="leyline-label">灵脉 <span class="' + cls + '">产 ' +
+    fmt(G.leylineProd) + ' / 耗 ' + fmt(G.leylineCons) + '</span>';
   if (net < 0) h += ' <span class="leyline-warn">（缺口 ' + fmt(-net) + '，产出 ×' + pct + '%）</span>';
   // 灵脉紊乱提示
   if (G.leylineDebuff && G.tick < G.leylineDebuff) {
