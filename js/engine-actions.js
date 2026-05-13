@@ -5,6 +5,125 @@
  * 依赖：engine.js（G、工具函数 bp/canB/canU/canC/chk/specCostMul/researchCostMul、calcMx/calcR/calcH、log、rAll/rRes/rTC、tryRewardEvent、tryRemnant、trySpawnCaravan）
  */
 
+// ===== GM / 测试面板（session-only，不持久化）=====
+function gmTry() {
+  if (window._gmActive) { gmPanel(); return; }
+  var pw = prompt('');
+  if (pw === '5174') {
+    window._gmActive = true;
+    log('[GM] 测试模式已开启。', 'important');
+    gmPanel();
+  }
+}
+
+function gmPanel() {
+  var h = '';
+  h += '<div style="margin-bottom:8px;">资源</div>';
+  h += '<button class="gbtn" onclick="gmAddAllRes(1000)">+1000 已解锁资源</button> ';
+  h += '<button class="gbtn" onclick="gmAddAllRes(10000)">+10000 已解锁资源</button> ';
+  h += '<button class="gbtn" onclick="gmFillAllRes()">填满所有资源</button>';
+  h += '<hr/>';
+  h += '<div style="margin-bottom:8px;">狐狸</div>';
+  h += '<button class="gbtn" onclick="gmAddFox(5)">+5 狐狸</button> ';
+  h += '<button class="gbtn" onclick="gmAddFox(20)">+20 狐狸</button>';
+  h += '<hr/>';
+  h += '<div style="margin-bottom:8px;">速度 (当前 ×' + (window._gmSpeedMul || 1) + ')</div>';
+  h += '<button class="gbtn" onclick="gmSpeed(1)">1×</button> ';
+  h += '<button class="gbtn" onclick="gmSpeed(2)">2×</button> ';
+  h += '<button class="gbtn" onclick="gmSpeed(5)">5×</button> ';
+  h += '<button class="gbtn" onclick="gmSpeed(10)">10×</button> ';
+  h += '<button class="gbtn" onclick="gmSpeed(50)">50×</button>';
+  h += '<hr/>';
+  h += '<div style="margin-bottom:8px;">研究</div>';
+  h += '<button class="gbtn" onclick="gmUnlockAllUpg()">解锁所有研究</button> ';
+  h += '<button class="gbtn" onclick="gmUnlockAllUpgd()">解锁所有进阶升级</button>';
+  h += '<hr/>';
+  h += '<div style="margin-bottom:8px;">系统</div>';
+  h += '<button class="gbtn" onclick="gmJumpDay(30)">跳 +30 天</button> ';
+  h += '<button class="gbtn" onclick="gmJumpDay(100)">跳 +100 天（一季）</button> ';
+  h += '<button class="gbtn" onclick="gmClearCD()">清所有冷却</button>';
+  h += '<div style="margin-top:10px;font-size:11px;color:#999;">本次会话有效，刷新页面后需重新输入密码。</div>';
+  document.getElementById('modal-title').textContent = 'GM 测试面板';
+  document.getElementById('modal-body').innerHTML = h;
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+
+function gmAddAllRes(amt) {
+  for (var k in G.res) {
+    if (G.res[k].on) {
+      G.res[k].v = G.res[k].mx > 0 ? Math.min(G.res[k].v + amt, G.res[k].mx) : G.res[k].v + amt;
+    }
+  }
+  rRes(); rTC();
+  log('[GM] +' + amt + ' 各已解锁资源', 'important');
+}
+
+function gmFillAllRes() {
+  for (var k in G.res) {
+    if (G.res[k].on && G.res[k].mx > 0) G.res[k].v = G.res[k].mx;
+  }
+  rRes(); rTC();
+  log('[GM] 已填满所有资源', 'important');
+}
+
+function gmAddFox(n) {
+  G.foxes += n;
+  G.maxFox = Math.max(G.maxFox, G.foxes);
+  G.freeFox = (G.freeFox || 0) + n;
+  rAll();
+  log('[GM] +' + n + ' 狐狸', 'important');
+}
+
+function gmSpeed(mult) {
+  window._gmSpeedMul = mult;
+  if (window._tickIntervalId) clearInterval(window._tickIntervalId);
+  window._tickIntervalId = setInterval(window._tickFn, Math.max(20, Math.floor(TMS / mult)));
+  log('[GM] 游戏速度 ×' + mult, 'important');
+  // 刷新面板显示当前倍率
+  if (document.getElementById('modal-overlay').style.display !== 'none') gmPanel();
+}
+
+function gmUnlockAllUpg() {
+  for (var k in UD) {
+    if (G.upg[k]) { G.upg[k].done = 1; G.upg[k].on = 1; }
+    // 触发解锁副作用（资源解锁、子分支等）
+    var e = UD[k].e || {};
+    for (var ek in e) {
+      if (ek.endsWith('U')) {
+        var rk = ek.slice(0, -1);
+        if (G.res[rk]) G.res[rk].on = 1;
+      }
+    }
+  }
+  calcMx(); calcR(); rAll();
+  log('[GM] 所有研究已完成', 'important');
+}
+
+function gmUnlockAllUpgd() {
+  for (var k in UPGD) {
+    if (G.upgd[k]) { G.upgd[k].done = 1; G.upgd[k].on = 1; }
+  }
+  calcMx(); calcR(); rAll();
+  log('[GM] 所有进阶升级已完成', 'important');
+}
+
+function gmJumpDay(days) {
+  for (var i = 0; i < days * TPD; i++) tick();
+  rAll();
+  log('[GM] 跳过 ' + days + ' 天', 'important');
+}
+
+function gmClearCD() {
+  G.spellCooldowns = {};
+  G._ritualCD = {};
+  G._edictCD = {};
+  G._deityRitualCD = {};
+  G.deityCD = 0;
+  G.policyCooldowns = {};
+  rAll();
+  log('[GM] 所有冷却已清零', 'important');
+}
+
 // ===== 玩家操作 =====
 // 手动祈祷：宗教 tab 的"虔诚"采集——每次 +1 虔诚（上限内）
 function pray() {
