@@ -67,7 +67,7 @@ const RD = {
   ancCoin: { n: '古币', c: '贸易', mx: 0, lock: 1, tip: ['它见过一座城的最后一夜。'] },
 
   // v0.14 文化中间品（占位名）
-  dye:  { n: '彩络', c: '加工', mx: 0, lock: 1, unlockBy: { u: 'folkLore' }, tip: ['颜色是偷来的，花还不知道。'] },
+  dye:  { n: '彩络', c: '加工', mx: 0, lock: 1, unlockBy: { u: 'engraving' }, tip: ['颜色是偷来的，花还不知道。'] },
   wine: { n: '醴浆', c: '加工', mx: 0, lock: 1, unlockBy: { u: 'calendar' }, tip: ['时间对野莓做的事，说出来不太体面。'] },
   ink:  { n: '墨锭', c: '加工', mx: 0, lock: 1, unlockBy: { u: 'engraving' }, tip: ['除了黑什么都不会。'] },
 
@@ -417,7 +417,7 @@ const BD = {
   },
   purifier: {
     n: '净化池', t: 'b', d: '用水与沉淀的力量缓缓消解工业污渍。', br: 'I',
-    p: [{ r: 'steel', b: 5, k: 1.12 }, { r: 'brick', b: 15, k: 1.12 }, { r: 'iron', b: 8, k: 1.12 }],
+    p: [{ r: 'brick', b: 25, k: 1.12 }, { r: 'iron', b: 15, k: 1.12 }, { r: 'wood', b: 40, k: 1.12 }],
     e: { pollutionP: -.04 },
     uq: { u: { pollControl: 1 } },
   },
@@ -1119,7 +1119,7 @@ const UD = {
     n: '清浊工事', d: '工业的代价需要偿还——净化池由此可建起，慢慢消解谷里的浊气。', br: 'I',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 20 }],
     e: {},
-    uq: { u: { steelWork: 1 }, b: { blastFurnace: 2 } },
+    uq: { u: { deepMining: 1 } },
   },
 
   // ===== 工业分支 B阶段：油火时代（10 个研究） =====
