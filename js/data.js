@@ -3750,7 +3750,7 @@ const UPGD = {
     n: '灵匣双层', d: '灵匣存储贡献+100%（与扩展叠加）', br: 'M', phase: 4,
     p: [{ r: 'silenceStone', a: 12 }, { r: 'primordial', a: 20 }],
     e: { bldMxM: { spiritVault: 1.0 } },
-    uq: { u: { deepLeyline: 1, vaultExpand: 1 } },
+    uq: { u: { deepLeyline: 1 }, ud: { vaultExpand: 1 } },
   },
   hologramChart: {
     n: '全息灵图', d: '灵图阁产出+100%', br: 'M', phase: 4,
