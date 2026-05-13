@@ -170,7 +170,7 @@ function resolveExpedition(idx, silent) {
   }
   // 叙事碎片
   if (d.narrative && NARR[exp.dest]) {
-    if (!G.narratives) G.narratives = { oldRuin: [], cloudRidge: [] };
+    if (!G.narratives) G.narratives = { oldRuin: [], cloudRidge: [], nearHill: [], forest: [] };
     var narrList = G.narratives[exp.dest] || [];
     var nextIdx = narrList.length;
     if (nextIdx < NARR[exp.dest].length) {

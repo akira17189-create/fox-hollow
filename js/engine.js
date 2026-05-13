@@ -38,7 +38,7 @@ const G = {
   expDone: {},
   expeditions: [],
   pendingNarr: [],
-  narratives: { oldRuin: [], cloudRidge: [] },
+  narratives: { oldRuin: [], cloudRidge: [], nearHill: [], forest: [] },
   feastSeason: -1,
   tradeWindYear: -1,
   caravan: null,
@@ -3079,7 +3079,7 @@ function resetG() {
   G.unrest = 0; G.unrestRate = 0; G.demonDisabled = [];
   G.train = {}; G.autoCraft = {}; G.acOn = {};
   G.foxAway = 0; G.expDone = {}; G.expeditions = [];
-  G.pendingNarr = []; G.narratives = { oldRuin: [], cloudRidge: [] };
+  G.pendingNarr = []; G.narratives = { oldRuin: [], cloudRidge: [], nearHill: [], forest: [] };
   G.feastSeason = -1; G.tradeWindYear = -1;
   G.caravan = null; G.caravanTimer = 0;
   G.pendingChoice = null; G.choicesDone = []; G.choiceBuffs = {};
@@ -3236,7 +3236,11 @@ function migrate() {
   G.expDone = G.expDone || {};
   G.expeditions = G.expeditions || [];
   G.pendingNarr = G.pendingNarr || [];
-  G.narratives = G.narratives || { oldRuin: [], cloudRidge: [] };
+  G.narratives = G.narratives || {};
+  if (!G.narratives.oldRuin) G.narratives.oldRuin = [];
+  if (!G.narratives.cloudRidge) G.narratives.cloudRidge = [];
+  if (!G.narratives.nearHill) G.narratives.nearHill = [];
+  if (!G.narratives.forest) G.narratives.forest = [];
   G.feastSeason = G.feastSeason ?? -1;
   G.tradeWindYear = G.tradeWindYear ?? -1;
   G.caravan = G.caravan || null;
