@@ -2086,6 +2086,8 @@ function calcMx() {
     if (k === 'berry' && G.season === 3 && G.customs && G.customs.rainFeast) mx = Math.floor(mx * 1.3);
     // v0.19 §七 4.3 永久虔诚上限加成（圣水配方）
     if (k === 'piety' && G._pietyMxPerm) mx += G._pietyMxPerm;
+    // 神启 A：pietyU 解锁后虔诚上限底线 30（否则 calcMx 每 tick 把 mx 算回 0，祈祷无效）
+    if (k === 'piety' && G.res.piety?.on && mx < 30) mx = 30;
     // 进阶升级：资源上限乘数 mxM（如钢制储架 煤/钢上限+50%）
     if (_mxM[k] && mx > 0) mx = Math.floor(mx * (1 + _mxM[k]));
     // C阶段进阶升级：全资源上限百分比加成（_allMxPct，如钛制储罐 +20%）

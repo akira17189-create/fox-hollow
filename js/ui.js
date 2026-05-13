@@ -2002,7 +2002,7 @@ function rTC() {
       var prayDisabled = G.res.piety.v >= G.res.piety.mx;
       h += '<div class="res-status">虔诚: ' + fmt(G.res.piety.v) + ' / ' + fmt(G.res.piety.mx) +
         ' <button class="gbtn" style="margin-left:8px;" onclick="pray()"' +
-        (prayDisabled ? ' disabled' : '') + '>祈祷 +1</button></div>';
+        (prayDisabled ? ' disabled' : '') + '>祈祷</button></div>';
     }
     if (G.res.holyOil?.on) {
       h += '<div class="res-status">圣油: ' + fmt(G.res.holyOil.v) + ' / ' + fmt(G.res.holyOil.mx) + '</div>';
