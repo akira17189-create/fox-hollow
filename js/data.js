@@ -955,7 +955,7 @@ const UD = {
     tip: ['不是所有石头都愿意叠在一起，得看缘分和灰浆。', '教一群碎石表演叠罗汉，并要求它们坚持一百年。']
   },
   forestLore: {
-    n: '熟谙林木', d: '（被动）大幅提升伐木效率。',
+    n: '林间密语', d: '（被动）大幅提升伐木效率。',
     p: [{ r: 'lore', a: 35 }, { r: 'wood', a: 20 }],
     e: { woodM: .5 },
     uq: { u: { stoneTools: 1 } },
@@ -969,21 +969,21 @@ const UD = {
     tip: ['火候差一分，铁就只是块有脾气的石头。']
   },
   foxFolklore: {
-    n: '狐灵旧闻', d: '提升符咒之力与满意度。',
+    n: '狐灵传说', d: '提升符咒之力与满意度。',
     p: [{ r: 'lore', a: 50 }, { r: 'charm', a: 3 }],
     e: { charmM: .5, hapB: .1 },
     uq: { b: { shrine: 1 } },
     tip: ['先祖说的话，一半在风里，一半在梦里。']
   },
   spiritShelter: {
-    n: '灵荫御寒', d: '（被动）减轻寒冬对野莓产量的影响。',
+    n: '灵狐庇护', d: '（被动）减轻寒冬对野莓产量的影响。',
     p: [{ r: 'lore', a: 45 }, { r: 'charm', a: 8 }, { r: 'scroll', a: 3 }],
     e: { winterBuff: 1 },
     uq: { u: { foxFolklore: 1 } },
     tip: ['爪子搭在你肩上，暖烘烘的，但别回头。']
   },
   ancestorEye: {
-    n: '先祖训俭', d: '（被动）减少狐狸的野莓消耗。',
+    n: '先祖之眼', d: '（被动）减少狐狸的野莓消耗。',
     p: [{ r: 'lore', a: 35 }, { r: 'charm', a: 5 }, { r: 'scroll', a: 2 }],
     e: { foxEat: 1 },
     uq: { u: { foxFolklore: 1 } },
@@ -1020,7 +1020,7 @@ const UD = {
     tip: ['有只幼狐的后爪，不自觉地抠进了土里。']
   },
   calendar: {
-    n: '月令酿歌', d: '月歌台可建起，醴浆入账，两种新习俗成形。',
+    n: '月令新酿', d: '月歌台可建起，醴浆入账，两种新习俗成形。',
     p: [{ r: 'lore', a: 100 }, { r: 'scroll', a: 5 }],
     e: { hapB: .02, berryM: .05 },
     uq: { u: { folkLore: 1 }, b: { storyTree: 1 } },
