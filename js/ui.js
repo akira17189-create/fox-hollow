@@ -51,6 +51,16 @@ const CRAFT_GROUPS = [
   { n: '教团工艺', ids: ['holyFlameCraft','holyIronCraft','holyWater','edictScroll','holyGear'], sb: 'D', br: 'I' },
   { n: '秘仪工艺', ids: ['ambrosiaDistill','gnosisFragment','apotheosisElixir'], sb: 'D', br: 'M' },
 ];
+// §五 2.4 研究分组定义（研究页签）— 组只做视觉分组，可见性靠 G.upg[id].on
+const RESEARCH_GROUPS = [
+  { n: '启蒙习俗治理', ids: ['stoneTools','carpentry','masonry','forestLore','ironWorking','foxFolklore','spiritShelter','ancestorEye','craftMastery','beyondValley','longJourney','folkLore','calendar','engraving','artistryLore','customsDeep','ancestry','councilLore','polityLore','policyLore','branchLore'] },
+  { n: '工业', ids: ['deepMining','steelWork','fineCraft','forging','concreteTech','pollControl','oilExtract','oilStorage','steamPower','combustion','blueprintLore','assemblyLine','transmission','roadwork','cleanWind','oilGas','calcination','stargazing','refining','precFab','heavyBuild','systematics','rotaryKiln','fluidMech','alloyScience','modularEng','automation','telescopeAdv','fission','radiantPower','particle','shielding','proliferation','thoriumConv','superCond','mirrorForge','voidPrinciple','radiation','autoMech','powerNet','deepRadiance'] },
+  { n: '灵修', ids: ['spiritSense','leylineLore','silkWeave','inscription','pureMind','beadCraft','resonArt','specAnalysis','elixirBrew','shapeBasic','sageWay','oracleArt','calmMind','leyExpand','crystalize','radiant','coreCraft','formStudy','chartDraw','spiritGrid','deepReson','cosmicSpec','pureRadiance','coreFusion','radiantVision','starSense','primordialism','silenceCryst','mirrorArt','hyperSense','spiritWeb','voidLore','primordialDrive','silenceResonance','deepLeyline','mirrorForging','voidCodexLore','spiritDrive','silenceField','spiritPactLore','silentPurity','primordialForging','mirrorSpiritFocus','voidCodexCompile'] },
+  { n: '神启·初悟', ids: ['divineLore','ritualBasic','scriptureLore','graceLore'] },
+  { n: '神启·教团', ids: ['holyFlameLore','edictLore','holyWorkLore','judgmentLore','holyIronLore','churchArchLore','hymnArt','templeStudy','pilgrimageLore','crusadeLore','relicLore','relicTreatise','scriptureCompile','doctrineSystem','grandEdictLore','crusadePrep','expeditionTheology','holyLandReclaim'] },
+  { n: '神启·秘仪', ids: ['mysteryInit','groveLore','apotheosisLore','forbiddenLore','ascensionLore','pureMindLore','divineInkArt','prophecyArt','etherealLore','apotheosisRite','forbiddenCompile','divineInkRefining','inkScripture','omenLore','futureSight','voidTouch','ascensionTransform'] },
+  { n: '通达', ids: ['envoyBasic','credentialLore','reputeLore','allianceInit','exoticLore','guestLore','allianceLore','deepAlliancePrelude'] },
+];
 
 function toggleCollapse(key) {
   collapsed[key] = !collapsed[key];
@@ -1246,6 +1256,27 @@ function renderCraftRow(id, hasAuto) {
     autoBtn + '</div></div>';
 }
 
+// §五 2.4: 单个研究行渲染（从 rTC 提取，供分组复用）
+function renderResearchRow(id) {
+  var d = UD[id];
+  if (!d || G.upg[id].done || !G.upg[id].on) return '';
+  var ok = canU(id);
+  var rMul = researchCostMul();
+  var cost = d.p.map(function(p) {
+    var need = Math.ceil(p.a * rMul);
+    var have = G.res[p.r].v;
+    return (have < need ? '<span class="short">' : '') +
+      RD[p.r].n + ' ' + need + (have < need ? '</span>' : '');
+  }).join(', ');
+  var sec = { desc: d.d, effects: upgEffects(d.e), tip: pickTip('upg_' + id, d.tip) };
+  var nameHtml = hpWrap('<span class="cr-name">' + d.n + '</span>', sec);
+  return '<div class="cr-row"><div class="cr-top">' +
+    nameHtml +
+    '<span class="cr-cost">' + cost + '</span>' +
+    '<button class="cr-btn" onclick="research(\'' + id + '\')" ' +
+    (ok ? '' : 'disabled') + '>研究</button></div></div>';
+}
+
 // ===== 渲染：Tab内容 =====
 function rTC() {
   document.getElementById('center-panel').classList.toggle('collapsed', collapsed.tc);
@@ -1586,24 +1617,28 @@ function rTC() {
 
   else if (curTab === 'r') {
     var any = 0;
+    var grouped = {};
+    for (var rgi = 0; rgi < RESEARCH_GROUPS.length; rgi++) {
+      var rgrp = RESEARCH_GROUPS[rgi];
+      var rrows = '';
+      for (var ri = 0; ri < rgrp.ids.length; ri++) {
+        var rid = rgrp.ids[ri];
+        grouped[rid] = 1;
+        rrows += renderResearchRow(rid);
+      }
+      if (!rrows) continue;
+      any = 1;
+      var rgKey = 'res_' + rgrp.n;
+      var rgCol = groupCollapsed[rgKey];
+      h += '<div class="grp-hdr" onclick="toggleGroup(\'' + rgKey + '\')">'
+        + (rgCol ? '▶ ' : '▼ ') + rgrp.n + '</div>';
+      if (!rgCol) h += rrows;
+    }
+    // 兜底：未归组的研究仍然显示（防遗漏）
     for (var id in UD) {
-      var d = UD[id];
-      if (G.upg[id].done || !G.upg[id].on) continue; any = 1;
-      var ok = canU(id);
-      var rMul = researchCostMul();
-      var cost = d.p.map(function(p) {
-        var need = Math.ceil(p.a * rMul);
-        var have = G.res[p.r].v;
-        return (have < need ? '<span class="short">' : '') +
-          RD[p.r].n + ' ' + need + (have < need ? '</span>' : '');
-      }).join(', ');
-      var sec = { desc: d.d, effects: upgEffects(d.e), tip: pickTip('upg_' + id, d.tip) };
-      var nameHtml = hpWrap('<span class="cr-name">' + d.n + '</span>', sec);
-      h += '<div class="cr-row"><div class="cr-top">' +
-        nameHtml +
-        '<span class="cr-cost">' + cost + '</span>' +
-        '<button class="cr-btn" onclick="research(\'' + id + '\')" ' +
-        (ok ? '' : 'disabled') + '>研究</button></div></div>';
+      if (grouped[id]) continue;
+      var row = renderResearchRow(id);
+      if (row) { any = 1; h += row; }
     }
     var done = Object.entries(G.upg).filter(function(e) { return e[1].done; });
     if (done.length) {
