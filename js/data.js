@@ -31,23 +31,23 @@ const RD = {
   iron:    { n: '矿铁', c: '加工', mx: 0, lock: 1, tip: ['石头里藏着的秘密，只有高温能撬开。'] },
 
   // ===== 工业分支 A阶段：煤钢时代 =====
-  coal:     { n: '煤', c: '加工', mx: 0, lock: 1 },
-  steel:    { n: '钢', c: '加工', mx: 0, lock: 1 },
-  plate:    { n: '钢板', c: '加工', mx: 100, lock: 1 },
-  concrete: { n: '混凝', c: '加工', mx: 100, lock: 1 },
-  gear:     { n: '齿轮', c: '加工', mx: 50, lock: 1 },
+  coal:     { n: '煤', c: '加工', mx: 0, lock: 1 , tip: ['铲下去，黑烟直往鼻孔里钻。']},
+  steel:    { n: '钢', c: '加工', mx: 0, lock: 1 , tip: ['锤声落定，它才亮出冷白的本色。']},
+  plate:    { n: '钢板', c: '加工', mx: 100, lock: 1 , tip: ['薄薄一片，能替狐狸挡风。']},
+  concrete: { n: '混凝', c: '加工', mx: 100, lock: 1 , tip: ['等它干，等它硬，等它忘了流过。']},
+  gear:     { n: '齿轮', c: '加工', mx: 50, lock: 1 , tip: ['每一枚都严丝合缝，狐狸的爪子比尺准。']},
 
   // ===== 工业分支 B阶段：油火时代 =====
   oil:      { n: '火油', c: '加工', mx: 0, lock: 1, tip: ['黑色的血从地底涌上来，烫手，但好用。', '闻着危险，烧着更危险，不用最危险。'] },
   barrel:   { n: '油桶', c: '加工', mx: 50, lock: 1, tip: ['把火油的家搬大一圈——桶匠的全部哲学。'] },
 
   // ===== 工业分支 C阶段：精金时代 =====
-  titan:     { n: '寒钛', c: '加工', mx: 0, lock: 1 },
-  alloy:     { n: '合金', c: '加工', mx: 0, lock: 1 },
-  outline:   { n: '纲要', c: '知识', mx: 25, lock: 1 },
-  titanPart: { n: '钛构件', c: '加工', mx: 25, lock: 1 },
-  pillar:    { n: '混凝柱', c: '加工', mx: 25, lock: 1 },
-  starchart: { n: '星图', c: '知识', mx: 0, lock: 1 },
+  titan:     { n: '寒钛', c: '加工', mx: 0, lock: 1 , tip: ['摸上去像冬天的溪水。']},
+  alloy:     { n: '合金', c: '加工', mx: 0, lock: 1 , tip: ['几种金属混在一起，谁也不认得谁了。']},
+  outline:   { n: '纲要', c: '知识', mx: 25, lock: 1 , tip: ['先在纸上盖好的房子。']},
+  titanPart: { n: '钛构件', c: '加工', mx: 25, lock: 1 , tip: ['它太凉，搬它的爪子都麻了。']},
+  pillar:    { n: '混凝柱', c: '加工', mx: 25, lock: 1 , tip: ['谷里的天被撑高了。']},
+  starchart: { n: '星图', c: '知识', mx: 0, lock: 1 , tip: ['它数过的星星，比尾巴尖的毛还多。']},
 
   // ===== 工业分支 D阶段：辉能时代（v0.20 §八 5.1a） =====
   uranium:     { n: '辉石', c: '加工', mx: 0, lock: 1, unlockBy: { u: 'fission' }, unlockMx: 30, tip: ['一块温热的、会自己唱歌的金属，凑得太近耳朵会嗡。'] },
@@ -87,11 +87,11 @@ const RD = {
   insight:   { n: '悟片', c: '研究', mx: 25, lock: 1, tip: ['薄薄一片，但里面写满了还没想到的事。'] },
 
   // ===== 灵修分支 C阶段：化形 =====
-  crystalSilk: { n: '晶丝', c: '加工', mx: 0, lock: 1 },
-  radiance:    { n: '辉芒', c: '加工', mx: 0, lock: 1 },
-  spiritCore:  { n: '灵核', c: '加工', mx: 0, lock: 1 },
-  formSoul:    { n: '形魄', c: '加工', mx: 25, lock: 1 },
-  spiritChart: { n: '灵图', c: '知识', mx: 0, lock: 1 },
+  crystalSilk: { n: '晶丝', c: '加工', mx: 0, lock: 1 , tip: ['像穿过一阵很薄的雾。']},
+  radiance:    { n: '辉芒', c: '加工', mx: 0, lock: 1 , tip: ['聚在一起，影子就被收走了。']},
+  spiritCore:  { n: '灵核', c: '加工', mx: 0, lock: 1 , tip: ['石壳剥开，露出里面微微搏动的光。']},
+  formSoul:    { n: '形魄', c: '加工', mx: 25, lock: 1 , tip: ['魂魄在它爪下，像捏泥。']},
+  spiritChart: { n: '灵图', c: '知识', mx: 0, lock: 1 , tip: ['线条在牛皮上游走，没有尽头。']},
 
   // ===== 灵修分支 D阶段：深寂（v0.20 §八 5.2a） =====
   primordial:    { n: '元念',  c: '加工', mx: 0,  lock: 1, unlockBy: { u: 'primordialism' }, unlockMx: 30, tip: ['想着想着，连想本身也消失了——只剩想之前的那个东西。'] },
@@ -100,11 +100,11 @@ const RD = {
   voidCodex:     { n: '幽典',  c: '知识', mx: 5,  lock: 1, tip: ['翻第一页是空的。翻第二页还是空的。但翻完合上，已经记住了所有事。'] },
 
   // ===== 神启副线 A阶段：初悟 =====
-  piety:   { n: '虔诚', c: '研究', mx: 0, lock: 1 },
-  holyOil: { n: '圣油', c: '研究', mx: 25, lock: 1 },
+  piety:   { n: '虔诚', c: '研究', mx: 0, lock: 1 , tip: ['数到自己已经不在数。']},
+  holyOil: { n: '圣油', c: '研究', mx: 25, lock: 1 , tip: ['灯熄三日，瓶里还热。']},
   // ===== 神启副线 B-教团 =====
-  holyFlame: { n: '圣火', c: '加工', mx: 0, lock: 1 },
-  holyIron:  { n: '圣铁', c: '加工', mx: 0, lock: 1 },
+  holyFlame: { n: '圣火', c: '加工', mx: 0, lock: 1 , tip: ['它守着火，火也守着它。']},
+  holyIron:  { n: '圣铁', c: '加工', mx: 0, lock: 1 , tip: ['在火里待过四十天。']},
   // ===== 神启副线 C-教团（v0.20 §八 5.3a） =====
   hymn:           { n: '颂咏',  c: '研究', mx: 0,  lock: 1, unlockBy: { u: 'hymnArt' }, unlockMx: 30, tip: ['唱到第三遍的时候，你会发现合唱里多了一个不像狐狸的声音。'] },
   holyRelic:      { n: '圣骸',  c: '加工', mx: 10, lock: 1, tip: ['它什么时候来到山谷的，没人记得；要把它送走，每只狐狸都说不行。'] },
@@ -114,14 +114,14 @@ const RD = {
   apotheosisStone:  { n: '化神石', c: '加工', mx: 8,  lock: 1, tip: ['捏在掌心，听到自己变成另一只狐狸的声音。'] },
   forbiddenCodex:   { n: '禁典',   c: '知识', mx: 5,  lock: 1, tip: ['封面贴着三道封条。读到第二章的狐狸，回来时只记得自己叫什么。'] },
   // ===== 神启副线 B-秘仪 =====
-  ambrosia: { n: '神露', c: '研究', mx: 15, lock: 1 },
-  gnosis:   { n: '秘知', c: '研究', mx: 0, lock: 1 },
+  ambrosia: { n: '神露', c: '研究', mx: 15, lock: 1 , tip: ['浑身轻灵。']},
+  gnosis:   { n: '秘知', c: '研究', mx: 0, lock: 1 , tip: ['我与我，周旋久。']},
   // ===== 通达副线 Phase A：初交 =====
-  renown:     { n: '声誉', c: '外交', mx: 0, lock: 1 },
-  credential: { n: '信物', c: '外交', mx: 25, lock: 1 },
+  renown:     { n: '声誉', c: '外交', mx: 0, lock: 1 , tip: ['远处的狐狸听过，但说不出哪听过。']},
+  credential: { n: '信物', c: '外交', mx: 25, lock: 1 , tip: ['陌生的路也肯让一让。']},
   // ===== 通达副线 Phase B：结邦 =====
-  charter: { n: '邦书', c: '外交', mx: 0, lock: 1 },
-  exotic:  { n: '异珍', c: '外交', mx: 15, lock: 1 },
+  charter: { n: '邦书', c: '外交', mx: 0, lock: 1 , tip: ['字没几个，夜倒长了。']},
+  exotic:  { n: '异珍', c: '外交', mx: 15, lock: 1 , tip: ['从没见过的东西，嗅嗅它，有陌生的味道。']},
 };
 
 // ===== v0.15.1 猎手林间采风日志 =====
@@ -889,10 +889,10 @@ const JD = {
   engineer:   { n: '工程师', d: '设计与优化',  desc: '每人使所有配方产出+3%（加法叠入）；被动产出蓝本 +0.001/s', e: { draftP: .002 }, br: 'I', uq: { u: { assemblyLine: 1 }, b: { factory: 2 } }, tip: ['图纸上的线条看着简单，背后是三十次失败。', '让机器替狐狸干活——这才是真正的偷懒艺术。'] },
 
   // ===== 工业分支 C阶段职业 =====
-  refiner:    { n: '精炼师', d: '精炼寒钛', desc: '全局被动：寒钛产出+0.002/s（需至少2座煅烧炉存在）', e: { titanP: .004 }, br: 'I', uq: { b: { calcFurnace: 2 } } },
+  refiner:    { n: '精炼师', d: '精炼寒钛', desc: '全局被动：寒钛产出+0.002/s（需至少2座煅烧炉存在）', e: { titanP: .004 }, br: 'I', uq: { b: { calcFurnace: 2 } } , tip: ['守着炉子，眼睛被火光映得发亮。']},
 
   // ===== 工业分支 D阶段职业（v0.20 §八 5.1d） =====
-  radianceExpert: { n: '辉能士', d: '辉石增产 + 熔炉效率', desc: '辉石产出+0.005/s（需至少1座熔炉存在）', e: { uraniumP: .005 }, br: 'I', phase: 4, uq: { b: { furnace: 1 } } },
+  radianceExpert: { n: '辉能士', d: '辉石增产 + 熔炉效率', desc: '辉石产出+0.005/s（需至少1座熔炉存在）', e: { uraniumP: .005 }, br: 'I', phase: 4, uq: { b: { furnace: 1 } } , tip: ['它吹熄炉火，眼中有余烬。']},
 
   // ===== 灵修分支 A阶段职业 =====
   spiritSenser: { n: '感应者', d: '引导灵流', e: { spiritP: .02 }, br: 'M', uq: { b: { spiritWell: 1 } }, tip: ['闭着眼比睁着眼看得清——至少灵流是这样的。', '它们说灵流有方向，但每只狐狸感应到的方向都不一样。'] },
@@ -903,30 +903,30 @@ const JD = {
   elixirBrewer:    { n: '酿灵师', d: '酿灵液',   desc: '每60tick自动消耗灵能×15+野莓×50酿出灵液×1；授业可提升酿灵频率', e: {}, br: 'M', uq: { b: { elixirBrewery: 3 } }, tip: ['灵液是等出来的——锅煮不出来；火候这个词，其实是耐心的别名。'] },
 
   // ===== 灵修分支 C阶段职业 =====
-  shapeMaster:     { n: '化形师', d: '化形守护', desc: '全局被动：灵图产出+10%，灵术冷却-5%', e: {}, br: 'M', uq: { b: { shapeHall: 2 } } },
+  shapeMaster:     { n: '化形师', d: '化形守护', desc: '全局被动：灵图产出+10%，灵术冷却-5%', e: {}, br: 'M', uq: { b: { shapeHall: 2 } } , tip: ['指爪在空中勾画轮廓。']},
 
   // ===== 灵修分支 D阶段职业（v0.20 §八 5.2d） =====
-  silenceAdept:    { n: '深寂士', d: '元念专精', desc: '元念产出+0.002/s（需至少1座寂石窟存在）', e: { primordialP: .004 }, br: 'M', phase: 4, uq: { b: { silenceCave: 1 } } },
-  pactChanneler:   { n: '契灵使', d: '灵契沟通', desc: '当前活跃灵契产出+5%/人，灵契祭坛效果+3%/人', e: {}, br: 'M', phase: 4, uq: { u: { spiritPactLore: 1 } } },
+  silenceAdept:    { n: '深寂士', d: '元念专精', desc: '元念产出+0.002/s（需至少1座寂石窟存在）', e: { primordialP: .004 }, br: 'M', phase: 4, uq: { b: { silenceCave: 1 } } , tip: ['起身时，苔藓从肩上簌簌地落。']},
+  pactChanneler:   { n: '契灵使', d: '灵契沟通', desc: '当前活跃灵契产出+5%/人，灵契祭坛效果+3%/人', e: {}, br: 'M', phase: 4, uq: { u: { spiritPactLore: 1 } } , tip: ['空房间里，它对着空气点头。']},
 
   // ===== 神启副线 A阶段 =====
-  priest: { n: '祭司', d: '诵经积虔', desc: '虔诚+0.04/s（需经阁）', e: { pietyP: .04 }, uq: { b: { scriptureHall: 1 } }, sb: 'D' },
+  priest: { n: '祭司', d: '诵经积虔', desc: '虔诚+0.04/s（需经阁）', e: { pietyP: .04 }, uq: { b: { scriptureHall: 1 } }, sb: 'D' , tip: ['它的祷词，比它先到了天上。']},
 
   // ===== 神启副线 B-教团 =====
-  fanatic:   { n: '狂信者', d: '狂热信徒', desc: '虔诚+0.03/s，每多1名狂信者所有狂信者产出+5%', e: { pietyP: .03 }, uq: { b: { edictHall: 1 } }, sb: 'D', br: 'I' },
-  holySmith: { n: '圣工匠', d: '锻造圣铁', desc: '圣铁+0.02/s（需圣工坊）', e: { holyIronP: .02 }, uq: { u: { holyIronLore: 1 }, b: { holyForge: 2 } }, sb: 'D', br: 'I' },
+  fanatic:   { n: '狂信者', d: '狂热信徒', desc: '虔诚+0.03/s，每多1名狂信者所有狂信者产出+5%', e: { pietyP: .03 }, uq: { b: { edictHall: 1 } }, sb: 'D', br: 'I' , tip: ['嘴里念叨着，眼睛盯着前方。']},
+  holySmith: { n: '圣工匠', d: '锻造圣铁', desc: '圣铁+0.02/s（需圣工坊）', e: { holyIronP: .02 }, uq: { u: { holyIronLore: 1 }, b: { holyForge: 2 } }, sb: 'D', br: 'I' , tip: ['第四十天，火里有了心跳。']},
 
   // ===== 神启副线 C-教团（v0.20 §八 5.3b） =====
-  cantor:   { n: '颂咏师', d: '颂咏产出', desc: '颂咏+0.005/s（需颂咏堂×1）', e: { hymnP: .005 }, uq: { b: { hymnHall: 1 } }, sb: 'D', br: 'I', phase: 4 },
-  crusader: { n: '十字军', d: '远行+虔诚双产', desc: '虔诚+0.02/s（需圣战营×1）；远行加成留 5.3c 升级实装', e: { pietyP: .02 }, uq: { b: { crusadeCamp: 1 } }, sb: 'D', br: 'I', phase: 4 },
+  cantor:   { n: '颂咏师', d: '颂咏产出', desc: '颂咏+0.005/s（需颂咏堂×1）', e: { hymnP: .005 }, uq: { b: { hymnHall: 1 } }, sb: 'D', br: 'I', phase: 4 , tip: ['调子起高了，星星都听得见。']},
+  crusader: { n: '十字军', d: '远行+虔诚双产', desc: '虔诚+0.02/s（需圣战营×1）；远行加成留 5.3c 升级实装', e: { pietyP: .02 }, uq: { b: { crusadeCamp: 1 } }, sb: 'D', br: 'I', phase: 4 , tip: ['脚步成了它的经文。']},
 
   // ===== 神启副线 B-秘仪 =====
-  mysticAdept: { n: '秘仪师', d: '研习秘知', desc: '秘知+0.02/s（仅在秘仪殿工作时生效）；效率递减', e: { gnosisP: .02 }, uq: { b: { mysteryHall: 1 } }, sb: 'D', br: 'M' },
+  mysticAdept: { n: '秘仪师', d: '研习秘知', desc: '秘知+0.02/s（仅在秘仪殿工作时生效）；效率递减', e: { gnosisP: .02 }, uq: { b: { mysteryHall: 1 } }, sb: 'D', br: 'M' , tip: ['它读了一夜，天亮时只剩封面。']},
 
   // ===== 通达副线 Phase A =====
-  envoy: { n: '使者', d: '招待远客', desc: '声望+0.04/s（需迎宾堂）', e: { renownP: .04 }, uq: { b: { receptionHall: 1 } }, sb: 'T' },
+  envoy: { n: '使者', d: '招待远客', desc: '声望+0.04/s（需迎宾堂）', e: { renownP: .04 }, uq: { b: { receptionHall: 1 } }, sb: 'T' , tip: ['它的茶还没凉，客人已是旧友。']},
   // ===== 通达副线 Phase B =====
-  diplomat: { n: '邦交官', d: '签发邦书', desc: '邦书+0.015/s（需邦交堂）', e: { charterP: .015 }, uq: { b: { charterHall: 1 } }, sb: 'T' },
+  diplomat: { n: '邦交官', d: '签发邦书', desc: '邦书+0.015/s（需邦交堂）', e: { charterP: .015 }, uq: { b: { charterHall: 1 } }, sb: 'T' , tip: ['邦书很薄，压在上面的是两国的鼾声。']},
 };
 
 // ===== 研究定义 =====
