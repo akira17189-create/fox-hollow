@@ -4812,28 +4812,28 @@ const SD = {
     cooldown: 450, // 90s = 450 tick
     br: 'M',
     uq: { u: { resonArt: 1 } },
-  },
+   tip: ['嗡——整片谷地唱起来了']},
   shapeFox: {
     n: '化形·灵狐', d: '所有职业效率 ×1.5，持续本季',
     cost: [{ r: 'elixir', a: 1 }, { r: 'spirit', a: 15 }],
     cooldown: 600, // 120s = 600 tick
     br: 'M',
     uq: { u: { shapeBasic: 1 } },
-  },
+   tip: ['皮毛下藏着谁的爪子？']},
   sageUtter: {
     n: '悟语', d: '下一个研究花费 -40%',
     cost: [{ r: 'insight', a: 2 }],
     cooldown: 450, // 90s
     br: 'M',
     uq: { u: { sageWay: 1 } },
-  },
+   tip: ['嗯？忽然懂了。']},
   calmFlow: {
     n: '净流', d: '立即躁念 -30',
     cost: [{ r: 'elixir', a: 1 }, { r: 'charm', a: 5 }],
     cooldown: 225, // 45s
     br: 'M',
     uq: { u: { calmMind: 1 } },
-  },
+   tip: ['烦。烦。烦。……哦，不烦了。']},
 
   // ===== 灵修 C 阶段灵术 =====
   spiritWeave: {
@@ -4842,21 +4842,21 @@ const SD = {
     cooldown: 600, // 120s
     br: 'M',
     uq: { u: { spiritGrid: 1 } },
-  },
+   tip: ['影子，替我干活。']},
   voidWalk: {
     n: '虚行', d: '立即完成当前一次远行',
     cost: [{ r: 'radiance', a: 3 }, { r: 'spiritChart', a: 5 }],
     cooldown: 900, // 180s
     br: 'M',
     uq: { u: { radiantVision: 1 } },
-  },
+   tip: ['一步迈出去，十里路没了。']},
   starSenseSpell: {
     n: '星感', d: '本季灵图产出×3',
     cost: [{ r: 'formSoul', a: 1 }, { r: 'spirit', a: 20 }],
     cooldown: 450, // 90s
     br: 'M',
     uq: { u: { starSense: 1 } },
-  },
+   tip: ['星星是碎糖，往下掉！']},
 
   // ===== 灵修 D 阶段灵术（v0.20 §八 5.2f, 5 个） =====
   primordialDriveSpell: {
@@ -4865,35 +4865,35 @@ const SD = {
     cooldown: 750, // 150s
     br: 'M', phase: 4,
     uq: { u: { primordialDrive: 1 } },
-  },
+   tip: ['屋脊全在冒火光！']},
   mirrorViewSpell: {
     n: '镜观', d: '在灵图水面上窥见远方未明之事——立即获得学识 +1000。',
     cost: [{ r: 'mirrorSpirit', a: 1 }, { r: 'spiritChart', a: 50 }],
     cooldown: 1500, // 300s
     br: 'M', phase: 4,
     uq: { u: { mirrorArt: 1 } },
-  },
+   tip: ['水面另一头，有谁在偷看。']},
   voidReadSpell: {
     n: '幽读', d: '永久：下一个升级花费-30%',
     cost: [{ r: 'voidCodex', a: 1 }],
     cooldown: 3000, // 600s
     br: 'M', phase: 4,
     uq: { u: { voidCodexLore: 1 } },
-  },
+   tip: ['翻！书页自己动了。']},
   silenceMeditation: {
     n: '寂石冥想', d: '在寂石旁静坐一季，本季山谷全产出 +40%。',
     cost: [{ r: 'silenceStone', a: 5 }, { r: 'primordial', a: 10 }],
     cooldown: 4500, // 900s
     br: 'M', phase: 4,
     uq: { u: { silenceField: 1 } },
-  },
+   tip: ['呼吸与石同步。']},
   pactPrayerSpell: {
     n: '灵契祈愿', d: '在五位灵契之间转换祈愿对象。',
     cost: [{ r: 'spiritCore', a: 5 }, { r: 'voidCodex', a: 1 }],
     cooldown: 1500, // 300s
     br: 'M', phase: 4,
     uq: { u: { spiritPactLore: 1 } },
-  },
+   tip: ['五位灵契，今天拜哪个呢？']},
 };
 
 // ===== 灵契系统定义（灵修 D 独占，v0.20 §八 5.2f） =====
