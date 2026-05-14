@@ -1092,7 +1092,7 @@ const UD = {
     uq: { b: { smithy: 2 } },
   },
   steelWork: {
-    n: '铁煤冶炼', d: '以煤熔铁，锻出远比矿铁坚硬的合金。', br: 'I',
+    n: '煤铁炼钢', d: '以煤熔铁，锻出远比矿铁坚硬的合金。', br: 'I',
     p: [{ r: 'lore', a: 600 }, { r: 'scroll', a: 40 }, { r: 'coal', a: 30 }],
     e: { steelU: 1 },
     uq: { u: { deepMining: 1 }, b: { mine: 2 } },
@@ -1110,13 +1110,13 @@ const UD = {
     uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   concreteTech: {
-    n: '凝石配方', d: '石与煤在高温下融合，冷却后坚如磐石。', br: 'I', phase: 3,
+    n: '凝石工艺', d: '石与煤在高温下融合，冷却后坚如磐石。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 400 }, { r: 'coal', a: 20 }, { r: 'brick', a: 30 }],
     e: { concreteU: 1 },
     uq: { u: { steelWork: 1 }, b: { blastFurnace: 1 } },
   },
   pollControl: {
-    n: '清浊工事', d: '工业的代价需要偿还——净化池由此可建起，慢慢消解谷里的浊气。', br: 'I',
+    n: '净污工程', d: '工业的代价需要偿还——净化池由此可建起，慢慢消解谷里的浊气。', br: 'I',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 20 }],
     e: {},
     uq: { u: { deepMining: 1 } },
@@ -1124,31 +1124,31 @@ const UD = {
 
   // ===== 工业分支 B阶段：油火时代（10 个研究） =====
   oilExtract: {
-    n: '汲液工法', d: '地底深处有一种黑色的液体，比水稠，比火急。', br: 'I', phase: 3,
+    n: '火油开采', d: '地底深处有一种黑色的液体，比水稠，比火急。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 950 }, { r: 'scroll', a: 70 }, { r: 'steel', a: 15 }],
     e: { oilU: 1 },
     uq: { u: { fineCraft: 1 }, b: { blastFurnace: 3 } },
   },
   oilStorage: {
-    n: '油储学', d: '火油易燃、易挥、易怒——学会驯服它的第一步是给它找个好容器。', br: 'I', phase: 3,
+    n: '火油储运', d: '火油易燃、易挥、易怒——学会驯服它的第一步是给它找个好容器。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 680 }, { r: 'plate', a: 10 }],
     e: { barrelU: 1 },
     uq: { u: { oilExtract: 1 } },
   },
   steamPower: {
-    n: '蒸汽原理', d: '水被火逼急了会跑，跑得够快就能推动齿轮。', br: 'I', phase: 3,
+    n: '蒸汽动力', d: '水被火逼急了会跑，跑得够快就能推动齿轮。', br: 'I', phase: 3,
     p: [{ r: 'lore', a: 1100 }, { r: 'scroll', a: 80 }, { r: 'steel', a: 20 }, { r: 'oil', a: 12 }],
     e: {},
     uq: { u: { oilExtract: 1 } },
   },
   combustion: {
-    n: '内燃机理', d: '不再烧水推轮子——直接让火油在铁肚子里炸开。', br: 'I', phase: 4,
+    n: '内燃动力', d: '不再烧水推轮子——直接让火油在铁肚子里炸开。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1200 }, { r: 'steel', a: 25 }, { r: 'oil', a: 20 }],
     e: {},
     uq: { u: { steamPower: 1 } },
   },
   blueprintLore: {
-    n: '蓝本学', d: '从"想到哪做到哪"到"画好了再动手"——工程的起点。', br: 'I',
+    n: '工程制图', d: '从"想到哪做到哪"到"画好了再动手"——工程的起点。', br: 'I',
     p: [{ r: 'lore', a: 950 }, { r: 'scroll', a: 50 }, { r: 'gear', a: 5 }],
     e: { draftU: 1 },
     uq: { u: { combustion: 1 } },
@@ -1160,25 +1160,25 @@ const UD = {
     uq: { u: { blueprintLore: 1, combustion: 1 }, b: { steamEngine: 4 } },
   },
   transmission: {
-    n: '传动学', d: '齿轮咬着齿轮，力量从一端传到看不见的另一端。', br: 'I',
+    n: '机械传动', d: '齿轮咬着齿轮，力量从一端传到看不见的另一端。', br: 'I',
     p: [{ r: 'lore', a: 850 }, { r: 'gear', a: 18 }],
     e: {},
     uq: { u: { fineCraft: 1 }, b: { steamEngine: 3 } },
   },
   roadwork: {
-    n: '通途', d: '铁轨比泥路快，比驿道稳——商队的脚步从此有了节拍。', br: 'I', phase: 4,
+    n: '铁路工程', d: '铁轨比泥路快，比驿道稳——商队的脚步从此有了节拍。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 950 }, { r: 'steel', a: 25 }, { r: 'concrete', a: 12 }, { r: 'coin', a: 80 }],
     e: {},
     uq: { u: { transmission: 1 } },
   },
   cleanWind: {
-    n: '清风', d: '让风做清洁工——风力塔由此可建起，既净污气，又收一点微弱的风能。', br: 'I',
+    n: '风力净化', d: '让风做清洁工——风力塔由此可建起，既净污气，又收一点微弱的风能。', br: 'I',
     p: [{ r: 'lore', a: 700 }, { r: 'scroll', a: 45 }, { r: 'steel', a: 10 }],
     e: {},
     uq: { u: { pollControl: 1 }, b: { purifier: 3 } },
   },
   oilGas: {
-    n: '油气学', d: '深井里冒出的不只有油，还有看不见的气——学会收集它。', br: 'I',
+    n: '油气采集', d: '深井里冒出的不只有油，还有看不见的气——学会收集它。', br: 'I',
     p: [{ r: 'lore', a: 850 }, { r: 'oil', a: 22 }, { r: 'draft', a: 2 }],
     e: {},
     uq: { u: { oilExtract: 1 }, b: { oilWell: 4 } },
@@ -1186,43 +1186,43 @@ const UD = {
 
   // ===== 工业分支 C阶段：精金时代（12 个研究） =====
   calcination: {
-    n: '煅烧', d: '高温下矿石会释放出一种比铁更倔的金属——寒钛。', br: 'I', phase: 4,
+    n: '寒钛煅炼', d: '高温下矿石会释放出一种比铁更倔的金属——寒钛。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1200 }, { r: 'steel', a: 25 }, { r: 'oil', a: 15 }, { r: 'draft', a: 3 }],
     e: { titanU: 1 },
     uq: { u: { assemblyLine: 1 }, b: { factory: 2 } },
   },
   stargazing: {
-    n: '观星', d: '抬头看天的狐狸不一定在发呆——有些在画星图。', br: 'I', phase: 4,
+    n: '星图测绘', d: '抬头看天的狐狸不一定在发呆——有些在画星图。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 800 }, { r: 'titan', a: 5 }, { r: 'scroll', a: 30 }],
     e: { starchartU: 1 },
     uq: { u: { calcination: 1 } },
   },
   refining: {
-    n: '精炼', d: '寒钛加上钢，在高温中融为一体——合金比两者都强。', br: 'I', phase: 4,
+    n: '合金熔炼', d: '寒钛加上钢，在高温中融为一体——合金比两者都强。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1400 }, { r: 'titan', a: 15 }, { r: 'draft', a: 5 }],
     e: { alloyU: 1 },
     uq: { u: { calcination: 1 }, b: { calcFurnace: 2 } },
   },
   precFab: {
-    n: '精构', d: '用合金铸出精密构件——每一颗螺栓都有它该在的位置。', br: 'I', phase: 4,
+    n: '精密铸造', d: '用合金铸出精密构件——每一颗螺栓都有它该在的位置。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1000 }, { r: 'titan', a: 10 }, { r: 'alloy', a: 3 }],
     e: { titanPartU: 1 },
     uq: { u: { refining: 1 } },
   },
   heavyBuild: {
-    n: '重筑', d: '混凝不够用了——加上寒钛，柱子就能撑住更高的屋顶。', br: 'I', phase: 4,
+    n: '重型结构', d: '混凝不够用了——加上寒钛，柱子就能撑住更高的屋顶。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 900 }, { r: 'concrete', a: 10 }, { r: 'titan', a: 5 }],
     e: { pillarU: 1 },
     uq: { u: { concreteTech: 1, refining: 1 } },
   },
   systematics: {
-    n: '系统论', d: '把零碎的蓝本编成纲要——从此设计不再是拍脑袋。', br: 'I', phase: 4,
+    n: '系统集成', d: '把零碎的蓝本编成纲要——从此设计不再是拍脑袋。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1100 }, { r: 'draft', a: 5 }, { r: 'scroll', a: 50 }],
     e: { outlineU: 1 },
     uq: { u: { assemblyLine: 1 }, b: { factory: 3 } },
   },
   rotaryKiln: {
-    n: '回转', d: '窑炉转起来了——连续进料，不再等一炉烧完才开下一炉。', br: 'I', phase: 4,
+    n: '回转窑炉', d: '窑炉转起来了——连续进料，不再等一炉烧完才开下一炉。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1300 }, { r: 'titan', a: 20 }, { r: 'oil', a: 20 }],
     e: {},
     uq: { u: { calcination: 1 }, b: { calcFurnace: 3 } },
@@ -1252,7 +1252,7 @@ const UD = {
     uq: { u: { modularEng: 1 }, b: { factory: 3 } },
   },
   telescopeAdv: {
-    n: '望远精修', d: '磨镜片是一门需要耐心的手艺——比磨脾气还难。', br: 'I', phase: 4,
+    n: '镜片精磨', d: '磨镜片是一门需要耐心的手艺——比磨脾气还难。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 900 }, { r: 'titan', a: 8 }, { r: 'alloy', a: 3 }],
     e: {},
     uq: { u: { stargazing: 1 }, b: { observatory: 3 } },
@@ -1260,13 +1260,13 @@ const UD = {
 
   // ===== 工业分支 D阶段：辉能时代研究链（5.1c, 13 项） =====
   fission: {
-    n: '裂变', d: '把寒钛压进合金笼里——它会慢慢碎成会发光的灰。', br: 'I', phase: 4,
+    n: '寒钛裂变', d: '把寒钛压进合金笼里——它会慢慢碎成会发光的灰。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1800 }, { r: 'titan', a: 50 }, { r: 'alloy', a: 10 }, { r: 'draft', a: 10 }],
     e: { uraniumU: 1 },
     uq: { u: { refining: 1 }, b: { refinery: 2 } },
   },
   radiantPower: {
-    n: '辉能', d: '辉石不只是会发光——把光收起来，能煮饭，也能熔金。', br: 'I', phase: 4,
+    n: '辉能转化', d: '辉石不只是会发光——把光收起来，能煮饭，也能熔金。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 2000 }, { r: 'uranium', a: 10 }, { r: 'alloy', a: 15 }],
     e: {},
     uq: { u: { fission: 1 }, b: { accelerator: 1 } },
@@ -1278,13 +1278,13 @@ const UD = {
     uq: { u: { fission: 1 } },
   },
   shielding: {
-    n: '屏蔽术', d: '辉石的脾气不能放任——一层混凝、一层钛、再一层混凝，它就老实了。', br: 'I', phase: 4,
+    n: '辐射屏蔽', d: '辉石的脾气不能放任——一层混凝、一层钛、再一层混凝，它就老实了。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1500 }, { r: 'uranium', a: 20 }, { r: 'pillar', a: 5 }],
     e: {},
     uq: { u: { radiantPower: 1 } },
   },
   proliferation: {
-    n: '增殖论', d: '一颗辉石点燃，能引出第二颗——只要环境对。', br: 'I', phase: 4,
+    n: '链式增殖', d: '一颗辉石点燃，能引出第二颗——只要环境对。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1700 }, { r: 'uranium', a: 30 }, { r: 'draft', a: 10 }],
     e: {},
     uq: { u: { radiantPower: 1 }, b: { furnace: 2 } },
@@ -1296,25 +1296,25 @@ const UD = {
     uq: { u: { radiantPower: 1 } },
   },
   superCond: {
-    n: '超导', d: '冷到一定程度，电就不再损耗——辉能从此走得更远。', br: 'I', phase: 4,
+    n: '超导技术', d: '冷到一定程度，电就不再损耗——辉能从此走得更远。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1800 }, { r: 'alloy', a: 15 }, { r: 'uranium', a: 10 }],
     e: {},
     uq: { u: { particle: 1 } },
   },
   mirrorForge: {
-    n: '镜锻', d: '合金磨成镜，照得见辉光的形状——也能把它折回去。', br: 'I', phase: 4,
+    n: '辉镜锻造', d: '合金磨成镜，照得见辉光的形状——也能把它折回去。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1600 }, { r: 'alloy', a: 10 }, { r: 'uranium', a: 8 }],
     e: { mirrorAlloyU: 1 },
     uq: { u: { refining: 1, radiantPower: 1 } },
   },
   voidPrinciple: {
-    n: '幽理', d: '把所有图纸压成一本书——书里没字，但翻一页就懂一件事。', br: 'I', phase: 4,
+    n: '工程汇编', d: '把所有图纸压成一本书——书里没字，但翻一页就懂一件事。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 2000 }, { r: 'outline', a: 5 }, { r: 'uranium', a: 15 }],
     e: { codexU: 1 },
     uq: { u: { systematics: 1, radiantPower: 1 } },
   },
   radiation: {
-    n: '辐射学', d: '辉光会渗——隔着墙、隔着皮毛。学会防它，先学会看见它。', br: 'I', phase: 4,
+    n: '辐射防护', d: '辉光会渗——隔着墙、隔着皮毛。学会防它，先学会看见它。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1500 }, { r: 'uranium', a: 20 }, { r: 'alloy', a: 10 }],
     e: {},
     uq: { u: { radiantPower: 1 } },
@@ -1326,7 +1326,7 @@ const UD = {
     uq: { u: { automation: 1, radiantPower: 1 } },
   },
   powerNet: {
-    n: '能网', d: '把每座熔炉串起来——一处过载，全网分担。', br: 'I', phase: 4,
+    n: '辉能并网', d: '把每座熔炉串起来——一处过载，全网分担。', br: 'I', phase: 4,
     p: [{ r: 'lore', a: 1900 }, { r: 'uranium', a: 15 }, { r: 'alloy', a: 12 }, { r: 'pillar', a: 5 }],
     e: {},
     uq: { u: { superCond: 1 }, b: { furnace: 2 } },
