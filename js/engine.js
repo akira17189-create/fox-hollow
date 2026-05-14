@@ -2240,7 +2240,7 @@ function councilYearlyHook(silent) {
 function divinationYearlyHook(silent) {
   if (G.season !== 0) return; // 仅年初（春季第一天）
   if (!G.subBranches?.D) return; // 需要神启副线
-  if (!G.upg.divineLore?.done) return; // 需要神启之学
+  if (!G.upg.divineLore?.done) return; // 需要神启
 
   // 清除上一年的签
   G._divination = null;

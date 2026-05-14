@@ -1617,7 +1617,7 @@ const UD = {
 
   // ===== 神启副线 A阶段：初悟 =====
   divineLore: {
-    n: '神启之学', d: '开启神恩之道；虔诚自此入账，宗教自此而立。',
+    n: '神启', d: '开启神恩之道；虔诚自此入账，宗教自此而立。',
     p: [{ r: 'lore', a: 400 }, { r: 'scroll', a: 25 }, { r: 'charm', a: 30 }, { r: 'remnant', a: 5 }],
     e: { subBranch: 'D', pietyU: 1 },
     uq: { u: { branchLore: 1 }, polity: true, b: { shrine: 3 } },
@@ -1643,25 +1643,25 @@ const UD = {
 
   // ===== 神启副线 B-教团（工业+神启） =====
   holyFlameLore: {
-    n: '圣火术', d: '从烈炉中提炼信仰——圣火不灭。',
+    n: '圣火长明', d: '从烈炉中提炼信仰——圣火不灭。',
     p: [{ r: 'lore', a: 500 }, { r: 'piety', a: 50 }, { r: 'holyOil', a: 5 }],
     e: { holyFlameU: 1 },
     uq: { u: { graceLore: 1 }, mainLine: 'industry' }, sb: 'D', br: 'I',
   },
   edictLore: {
-    n: '教令学', d: '教令——从此你的话就是律法。',
+    n: '教令', d: '教令——从此你的话就是律法。',
     p: [{ r: 'lore', a: 600 }, { r: 'holyFlame', a: 5 }, { r: 'piety', a: 80 }],
     e: { edictU: 1 },
     uq: { u: { holyFlameLore: 1 }, b: { holyKiln: 2 } }, sb: 'D', br: 'I',
   },
   holyWorkLore: {
-    n: '圣工论', d: '劳动即祈祷——工具是最好的圣物。',
+    n: '劳作即祷', d: '劳动即祈祷——工具是最好的圣物。',
     p: [{ r: 'lore', a: 600 }, { r: 'holyFlame', a: 8 }, { r: 'piety', a: 60 }],
     e: {},
     uq: { u: { holyFlameLore: 1 }, b: { holyForge: 2 } }, sb: 'D', br: 'I',
   },
   judgmentLore: {
-    n: '审判论', d: '正义需要仪式——审判庭不判罪，判污。',
+    n: '圣裁', d: '正义需要仪式——审判庭不判罪，判污。',
     p: [{ r: 'lore', a: 700 }, { r: 'holyFlame', a: 10 }, { r: 'piety', a: 120 }],
     e: {},
     uq: { u: { edictLore: 1 }, b: { edictHall: 2 } }, sb: 'D', br: 'I',
@@ -1673,7 +1673,7 @@ const UD = {
     uq: { u: { holyFlameLore: 1 }, b: { blastFurnace: 3 } }, sb: 'D', br: 'I',
   },
   churchArchLore: {
-    n: '教会建筑学', d: '为神建造的东西，不能用凡间的图纸。',
+    n: '神圣营造', d: '为神建造的东西，不能用凡间的图纸。',
     p: [{ r: 'lore', a: 700 }, { r: 'holyIron', a: 5 }, { r: 'holyOil', a: 8 }],
     e: {},
     uq: { u: { holyIronLore: 1, judgmentLore: 1 } }, sb: 'D', br: 'I',
@@ -1681,37 +1681,37 @@ const UD = {
 
   // ===== 神启副线 C-教团：圣堂与圣战（v0.20 §八 5.3b, 12 项） =====
   hymnArt: {
-    n: '颂咏术', d: '把祷词谱成调——唱出来的字比写下来的更难磨灭。',
+    n: '颂咏', d: '把祷词谱成调——唱出来的字比写下来的更难磨灭。',
     p: [{ r: 'lore', a: 900 }, { r: 'piety', a: 150 }, { r: 'holyOil', a: 8 }],
     e: { hymnU: 1 },
     uq: { u: { churchArchLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   templeStudy: {
-    n: '圣堂学', d: '一座大教堂的图纸——几代狐狸用诵经声念出来的。',
+    n: '圣堂', d: '一座大教堂的图纸——几代狐狸用诵经声念出来的。',
     p: [{ r: 'lore', a: 1000 }, { r: 'hymn', a: 5 }, { r: 'concrete', a: 10 }],
     e: {},
     uq: { u: { hymnArt: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   pilgrimageLore: {
-    n: '朝圣论', d: '一条路走的次数够多，路本身就成了圣物。',
+    n: '朝圣', d: '一条路走的次数够多，路本身就成了圣物。',
     p: [{ r: 'lore', a: 1100 }, { r: 'hymn', a: 8 }, { r: 'holyOil', a: 10 }],
     e: {},
     uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   crusadeLore: {
-    n: '圣战论', d: '不是为夺取——是为夺还。词序不同，结局不同。',
+    n: '圣战', d: '不是为夺取——是为夺还。词序不同，结局不同。',
     p: [{ r: 'lore', a: 1200 }, { r: 'piety', a: 200 }, { r: 'holyIron', a: 8 }],
     e: {},
     uq: { u: { pilgrimageLore: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   relicLore: {
-    n: '圣骸学', d: '研究遗留下来的东西——它们记得的比活着的狐狸更多。',
+    n: '圣骸', d: '研究遗留下来的东西——它们记得的比活着的狐狸更多。',
     p: [{ r: 'lore', a: 1100 }, { r: 'hymn', a: 5 }, { r: 'piety', a: 180 }],
     e: { holyRelicU: 1 },
     uq: { u: { hymnArt: 1 }, b: { tribunalHall: 3 } }, sb: 'D', br: 'I', phase: 4,
   },
   relicTreatise: {
-    n: '遗物论', d: '每一块圣骸背后都有一个名字——这门学问就是记住那些名字。',
+    n: '遗名录', d: '每一块圣骸背后都有一个名字——这门学问就是记住那些名字。',
     p: [{ r: 'lore', a: 1300 }, { r: 'holyRelic', a: 2 }, { r: 'scroll', a: 30 }],
     e: {},
     uq: { u: { relicLore: 1 } }, sb: 'D', br: 'I', phase: 4,
@@ -1723,13 +1723,13 @@ const UD = {
     uq: { u: { hymnArt: 1 }, b: { scriptureHall: 5 } }, sb: 'D', br: 'I', phase: 4,
   },
   doctrineSystem: {
-    n: '教义系统化', d: '所有的"应该"被排进表格——一行行读下去，连呼吸都有节奏。',
+    n: '教纲', d: '所有的"应该"被排进表格——一行行读下去，连呼吸都有节奏。',
     p: [{ r: 'lore', a: 1500 }, { r: 'holyScripture', a: 2 }, { r: 'piety', a: 200 }],
     e: {},
     uq: { u: { scriptureCompile: 1 } }, sb: 'D', br: 'I', phase: 4,
   },
   grandEdictLore: {
-    n: '大教令论', d: '一道教令能让一整季的农事改道——研究的就是这个力量从哪来。',
+    n: '大教令', d: '一道教令能让一整季的农事改道——研究的就是这个力量从哪来。',
     p: [{ r: 'lore', a: 1700 }, { r: 'holyScripture', a: 3 }, { r: 'holyFlame', a: 20 }],
     e: {},
     uq: { u: { doctrineSystem: 1 } }, sb: 'D', br: 'I', phase: 4,
@@ -1761,13 +1761,13 @@ const UD = {
     uq: { u: { graceLore: 1 }, mainLine: 'mystic' }, sb: 'D', br: 'M',
   },
   groveLore: {
-    n: '圣林学', d: '树根比学者更懂得什么是神圣。',
+    n: '圣林', d: '树根比学者更懂得什么是神圣。',
     p: [{ r: 'lore', a: 600 }, { r: 'ambrosia', a: 3 }, { r: 'piety', a: 80 }],
     e: {},
     uq: { u: { mysteryInit: 1 }, b: { mysteryHall: 2 } }, sb: 'D', br: 'M',
   },
   apotheosisLore: {
-    n: '化神论', d: '如果神曾是凡物——那凡物也可以变成神。',
+    n: '化神', d: '如果神曾是凡物——那凡物也可以变成神。',
     p: [{ r: 'lore', a: 700 }, { r: 'gnosis', a: 20 }, { r: 'ambrosia', a: 8 }],
     e: {},
     uq: { u: { groveLore: 1 }, b: { sacredGrove: 2 } }, sb: 'D', br: 'M',
@@ -1779,7 +1779,7 @@ const UD = {
     uq: { u: { apotheosisLore: 1 }, b: { apotheosisPool: 2 } }, sb: 'D', br: 'M',
   },
   ascensionLore: {
-    n: '飞升论', d: '最后一页是空白的——因为飞升者自己就是书。',
+    n: '飞升', d: '最后一页是空白的——因为飞升者自己就是书。',
     p: [{ r: 'lore', a: 1000 }, { r: 'gnosis', a: 100 }, { r: 'ambrosia', a: 30 }],
     e: {},
     uq: { u: { forbiddenLore: 1 }, b: { apotheosisPool: 4 } }, sb: 'D', br: 'M',
@@ -1788,25 +1788,25 @@ const UD = {
   // ===== 神启副线 C-秘仪研究（v0.20 §八 5.3e, 12 项） =====
   // Tier 1：六个建筑门控
   pureMindLore: {
-    n: '净念论', d: '把心里多出来的那一片摘掉——剩下的，才装得下别的。',
+    n: '摘念', d: '把心里多出来的那一片摘掉——剩下的，才装得下别的。',
     p: [{ r: 'lore', a: 1000 }, { r: 'ambrosia', a: 15 }, { r: 'scroll', a: 40 }],
     e: {},
     uq: { u: { mysteryInit: 1 }, b: { mysteryHall: 2 } }, sb: 'D', br: 'M', phase: 4,
   },
   divineInkArt: {
-    n: '神墨术', d: '把神看你的眼神记下来，凝成一滴可以书写的东西。',
+    n: '神墨', d: '把神看你的眼神记下来，凝成一滴可以书写的东西。',
     p: [{ r: 'lore', a: 1100 }, { r: 'gnosis', a: 50 }, { r: 'ambrosia', a: 10 }],
     e: { divineInkU: 1 },
     uq: { u: { apotheosisLore: 1 }, b: { apotheosisPool: 2 } }, sb: 'D', br: 'M', phase: 4,
   },
   prophecyArt: {
-    n: '预言术', d: '风穿过殿里的孔——孔的形状就是明日的形状。',
+    n: '预言', d: '风穿过殿里的孔——孔的形状就是明日的形状。',
     p: [{ r: 'lore', a: 1100 }, { r: 'gnosis', a: 60 }, { r: 'scroll', a: 30 }],
     e: {},
     uq: { u: { apotheosisLore: 1 }, b: { mysteryHall: 3 } }, sb: 'D', br: 'M', phase: 4,
   },
   etherealLore: {
-    n: '灵界论', d: '门后没有路，但从门后回来的爪子，沾着别处的灰。',
+    n: '灵界', d: '门后没有路，但从门后回来的爪子，沾着别处的灰。',
     p: [{ r: 'lore', a: 1200 }, { r: 'gnosis', a: 80 }, { r: 'ambrosia', a: 20 }],
     e: { apotheosisStoneU: 1 },
     uq: { u: { forbiddenLore: 1 }, b: { apotheosisPool: 3 } }, sb: 'D', br: 'M', phase: 4,
@@ -1837,7 +1837,7 @@ const UD = {
     uq: { u: { divineInkArt: 1 } }, sb: 'D', br: 'M', phase: 4,
   },
   omenLore: {
-    n: '卜兆论', d: '兆头本身没有意义；意义在看见兆头的那只眼睛里。',
+    n: '卜兆', d: '兆头本身没有意义；意义在看见兆头的那只眼睛里。',
     p: [{ r: 'lore', a: 1200 }, { r: 'gnosis', a: 80 }, { r: 'ambrosia', a: 20 }],
     e: { gnosisM: 0.2 },
     uq: { u: { prophecyArt: 1 }, b: { prophecyHall: 1 } }, sb: 'D', br: 'M', phase: 4,
@@ -1855,7 +1855,7 @@ const UD = {
     uq: { u: { etherealLore: 1 }, b: { etherealGate: 1 } }, sb: 'D', br: 'M', phase: 4,
   },
   ascensionTransform: {
-    n: '形魄羽化', d: '走到这一步的狐狸，再回头看自己原来的形状，已经认不全了。',
+    n: '羽化', d: '走到这一步的狐狸，再回头看自己原来的形状，已经认不全了。',
     p: [{ r: 'lore', a: 1400 }, { r: 'gnosis', a: 120 }, { r: 'ambrosia', a: 30 }],
     e: { ambrosiaM: 0.3 },
     uq: { u: { apotheosisRite: 1 }, b: { apotheosisAltar: 2 } }, sb: 'D', br: 'M', phase: 4,
