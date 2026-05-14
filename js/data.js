@@ -656,7 +656,7 @@ const BD = {
     p: [{ r: 'stone', b: 50, k: 1.15 }, { r: 'charm', b: 20, k: 1.15 }, { r: 'piety', b: 10, k: 1.15 }],
     e: { pietyP: .015, pietyMx: 20, _hapFlat: .02 },
     uq: { u: { graceLore: 1 } }, sb: 'D', t: 'f',
-  },
+   tip: ['喂，水！记住我的愿啊！']},
 
   // ===== 神启副线 B-教团（工业+神启） =====
   holyForge: {
@@ -664,37 +664,37 @@ const BD = {
     p: [{ r: 'steel', b: 30, k: 1.15 }, { r: 'charm', b: 40, k: 1.15 }, { r: 'holyOil', b: 3, k: 1.15 }],
     e: { pietyP: .03, steelP: -.5 },
     uq: { u: { holyFlameLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['锤落火星，变出狐狸形状。']},
   holyKiln: {
     n: '圣火窑', d: '砖窑里烧着的看着是柴，里头其实是信仰在续着火。',
     p: [{ r: 'brick', b: 40, k: 1.12 }, { r: 'charm', b: 30, k: 1.12 }, { r: 'holyOil', b: 2, k: 1.12 }],
     e: { holyFlameP: .01, holyFlameMx: 25 },
     uq: { u: { holyFlameLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['火舌卷走了影子。']},
   edictHall: {
     n: '教令堂', d: '教令从此处颁布——每多一堂，可多一令。',
     p: [{ r: 'holyFlame', b: 8, k: 1.18 }, { r: 'scroll', b: 30, k: 1.18 }, { r: 'piety', b: 50, k: 1.18 }],
     e: { _edictSlot: 1, _edictDur: 1 },
     uq: { u: { edictLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['它俯身，接令如接雨。']},
   tribunalHall: {
     n: '审判庭', d: '审判不是惩罚——是净化。',
     p: [{ r: 'holyFlame', b: 12, k: 1.20 }, { r: 'brick', b: 60, k: 1.20 }, { r: 'piety', b: 80, k: 1.20 }],
     e: { pollutionM: -.05, pietyP: .01, _hapFlat: .01 },
     uq: { u: { judgmentLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['审镜子！镜子不说话。']},
   holyIronVault: {
     n: '圣铁库', d: '圣铁不朽，信仰亦然。',
     p: [{ r: 'holyIron', b: 5, k: 1.12 }, { r: 'brick', b: 40, k: 1.12 }, { r: 'steel', b: 15, k: 1.12 }],
     e: { holyIronMx: 30, holyFlameMx: 15 },
     uq: { u: { churchArchLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['锁了一百年，铁还是新的。']},
   oilPress: {
     n: '圣油坊', d: '多一分圣油，多一分恩典。',
     p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'charm', b: 20, k: 1.12 }, { r: 'piety', b: 20, k: 1.12 }],
     e: { _oilCraftBonus: .05 },
     uq: { u: { holyWorkLore: 1 } }, sb: 'D', br: 'I', t: 'f',
-  },
+   tip: ['油出来了！它差点给油跪下。']},
 
   // ===== 神启副线 C-教团（工业+神启）（v0.20 §八 5.3a, 8 个建筑） =====
   cathedral: {
@@ -702,49 +702,49 @@ const BD = {
     p: [{ r: 'hymn', b: 8, k: 1.25 }, { r: 'holyFlame', b: 15, k: 1.25 }, { r: 'piety', b: 200, k: 1.25 }, { r: 'concrete', b: 30, k: 1.25 }],
     e: { allM: .05, pietyP: .05, _hapFlat: .03 },
     uq: { u: { hymnArt: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['嗡——山谷抖了三下。']},
   hymnHall: {
     n: '颂咏堂', d: '颂歌一遍遍唱起来——唱到第十遍时，连墙都开始嗡嗡共鸣。',
     p: [{ r: 'holyFlame', b: 8, k: 1.18 }, { r: 'scroll', b: 25, k: 1.18 }, { r: 'piety', b: 60, k: 1.18 }],
     e: { hymnP: .005, hymnMx: 20 },
     uq: { u: { hymnArt: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['唱完了。梁上还在嗡。它有点小得意。']},
   pilgrimage: {
     n: '朝圣道', d: '一条铺到山外的路——走在上面的狐狸，回来时眼神都亮一些。',
     p: [{ r: 'concrete', b: 50, k: 1.20 }, { r: 'piety', b: 80, k: 1.20 }, { r: 'holyOil', b: 5, k: 1.20 }],
     e: { _hapFlat: .02, _caravanBonusFlat: .05 },
     uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['它眼神亮着，带回一路陌生的鸟。']},
   relicShrine: {
     n: '圣骸堂', d: '保存圣骸的地方——它本身不会动，但靠近的狐狸都会下意识踮起脚走路。',
     p: [{ r: 'holyRelic', b: 2, k: 1.18 }, { r: 'brick', b: 80, k: 1.18 }, { r: 'piety', b: 100, k: 1.18 }],
     e: { holyRelicMx: 20, pietyP: .02 },
     uq: { u: { relicLore: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['它想打喷嚏。憋住了。它真伟大。']},
   crusadeCamp: {
     n: '圣战营', d: '不是练兵——是练心。出营的狐狸知道自己回不回得来。',
     p: [{ r: 'holyIron', b: 10, k: 1.22 }, { r: 'holyFlame', b: 20, k: 1.22 }, { r: 'piety', b: 150, k: 1.22 }],
     e: { _expRewardBonus: .15, _edictDurBonus: 1 },
     uq: { u: { crusadeLore: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['每只靴里藏颗糖。']},
   scriptureSpire: {
     n: '圣典塔', d: '塔身刻满字，从下往上读是教义，从上往下读是预言。',
     p: [{ r: 'holyScripture', b: 3, k: 1.20 }, { r: 'concrete', b: 40, k: 1.20 }, { r: 'scroll', b: 80, k: 1.20 }],
     e: { holyScriptureMx: 10, _researchDiscount: .05, loreM: .15 },
     uq: { u: { scriptureCompile: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['顺着读是经，倒着读是命。']},
   atonementPool: {
     n: '净罪池', d: '把不安的念头沉进水里——浮起来的就不再是念头。',
     p: [{ r: 'holyOil', b: 8, k: 1.18 }, { r: 'concrete', b: 30, k: 1.18 }, { r: 'piety', b: 80, k: 1.18 }],
     e: { pollutionM: -.10, _hapFlat: .02 },
     uq: { u: { templeStudy: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['把昨天扔进水里。咕咚。轻松了！']},
   holyAltar: {
     n: '圣火祭坛', d: '圣火不灭——只要还有狐狸记得，火就不熄。',
     p: [{ r: 'holyFlame', b: 30, k: 1.22 }, { r: 'holyIron', b: 8, k: 1.22 }, { r: 'piety', b: 120, k: 1.22 }],
     e: { holyFlameP: .03, holyFlameMx: 30 },
     uq: { u: { crusadeLore: 1 } }, sb: 'D', br: 'I', t: 'f', phase: 4,
-  },
+   tip: ['那我自己烧会儿。']},
 
   // ===== 神启副线 B-秘仪（灵修+神启） =====
   mysteryHall: {
@@ -752,25 +752,25 @@ const BD = {
     p: [{ r: 'charm', b: 40, k: 1.15 }, { r: 'holyOil', b: 3, k: 1.15 }, { r: 'scroll', b: 20, k: 1.15 }],
     e: { gnosisP: .005, gnosisMx: 40 },
     uq: { u: { mysteryInit: 1 } }, sb: 'D', br: 'M', t: 'f',
-  },
+   tip: ['想偷听秘密，先学会闭嘴。']},
   sacredGrove: {
     n: '圣林', d: '树根间渗出的不是水——是被遗忘的祈祷。',
     p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'charm', b: 25, k: 1.12 }, { r: 'piety', b: 30, k: 1.12 }],
     e: { ambrosiaP: .008, pietyP: .01 },
     uq: { u: { groveLore: 1 } }, sb: 'D', br: 'M', t: 'f',
-  },
+   tip: ['树洞里摸到纸条，写着去年今日。']},
   apotheosisPool: {
     n: '化神池', d: '每一池水，都是一扇门的钥匙。',
     p: [{ r: 'ambrosia', b: 10, k: 1.25 }, { r: 'gnosis', b: 15, k: 1.25 }, { r: 'charm', b: 50, k: 1.25 }],
     e: { gnosisMx: 20 },
     uq: { u: { apotheosisLore: 1 } }, sb: 'D', br: 'M', t: 'f',
-  },
+   tip: ['俯身。水面伸出一排钥匙。']},
   forbiddenLib: {
     n: '禁典阁', d: '有些书不该被读——但你已经翻开了。',
     p: [{ r: 'ambrosia', b: 8, k: 1.18 }, { r: 'scroll', b: 30, k: 1.18 }, { r: 'gnosis', b: 10, k: 1.18 }],
     e: { gnosisMx: 80, loreP: .015 },
     uq: { u: { forbiddenLore: 1 } }, sb: 'D', br: 'M', t: 'f',
-  },
+   tip: ['这书不能看！……它看了。']},
 
   // ===== 神启副线 C-秘仪（灵修+神启）（v0.20 §八 5.3d, 8 个建筑） =====
   divinityForge: {
@@ -778,49 +778,49 @@ const BD = {
     p: [{ r: 'gnosis', b: 12, k: 1.20 }, { r: 'ambrosia', b: 5, k: 1.20 }, { r: 'crystalSilk', b: 10, k: 1.20 }],
     e: { divineInkP: .003, divineInkMx: 20, unrestP: .03 },
     uq: { u: { divineInkArt: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['器物睁开狐狸的眼睛。']},
   prophecyHall: {
     n: '预言殿', d: '殿里没椅子——预言一来，听的都站直了。',
     p: [{ r: 'gnosis', b: 15, k: 1.20 }, { r: 'fateSilk', b: 10, k: 1.20 }, { r: 'concrete', b: 25, k: 1.20 }],
     e: { gnosisP: .03, _expRewardBonus: .10 },
     uq: { u: { prophecyArt: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['预言在梁上发芽。']},
   etherealGate: {
     n: '灵界通道', d: '门后没有路。但从门后回来的狐狸，眼神变了。',
     p: [{ r: 'apotheosisStone', b: 2, k: 1.22 }, { r: 'gnosis', b: 20, k: 1.22 }, { r: 'spirit', b: 100, k: 1.22 }],
     e: { apotheosisStoneP: .001, leylineC: 2, unrestP: .04 },
     uq: { u: { etherealLore: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['它穿过门，影子留在了那边。']},
   secretCellar: {
     n: '秘知窖', d: '地窖里堆着的不是粮食——是别处没人记得的事。',
     p: [{ r: 'gnosis', b: 15, k: 1.15 }, { r: 'stone', b: 100, k: 1.15 }, { r: 'scroll', b: 40, k: 1.15 }],
     e: { gnosisMx: 60, loreP: .02 },
     uq: { u: { etherealLore: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['翻到底层。摸到寂静。']},
   ambrosiaSpring: {
     n: '神露泉', d: '泉水尝过一次，就再也不知道渴是什么。',
     p: [{ r: 'gnosis', b: 10, k: 1.18 }, { r: 'spirit', b: 50, k: 1.18 }, { r: 'stone', b: 80, k: 1.18 }],
     e: { ambrosiaP: .02, ambrosiaMx: 25 },
     uq: { u: { divineInkArt: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['再举杯。']},
   apotheosisAltar: {
     n: '化神祭坛', d: '上去的狐狸不一定下来，下来的不一定是同一只。',
     p: [{ r: 'apotheosisStone', b: 3, k: 1.25 }, { r: 'gnosis', b: 30, k: 1.25 }, { r: 'ambrosia', b: 15, k: 1.25 }],
     e: { gnosisP: .04, _hapFlat: .02 },
     uq: { u: { apotheosisRite: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['上去的是它。下来的……也说自己是它。']},
   pureMindHall: {
     n: '净念殿', d: '把心里多出来的那一片摘掉——剩下的，是真正能装东西的地方。',
     p: [{ r: 'gnosis', b: 10, k: 1.18 }, { r: 'ambrosia', b: 8, k: 1.18 }, { r: 'spirit', b: 60, k: 1.18 }],
     e: { unrestP: -.08, _hapFlat: .01 },
     uq: { u: { pureMindLore: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['摘掉一片心事。咦，我来干嘛？']},
   forbiddenSpire: {
     n: '禁典塔', d: '塔顶常年雾——爬上去过的狐狸不愿再说自己看见过什么。',
     p: [{ r: 'forbiddenCodex', b: 2, k: 1.22 }, { r: 'gnosis', b: 25, k: 1.22 }, { r: 'concrete', b: 30, k: 1.22 }],
     e: { forbiddenCodexMx: 10, _researchDiscount: .05, loreM: .15 },
     uq: { u: { forbiddenCompile: 1 } }, sb: 'D', br: 'M', t: 'f', phase: 4,
-  },
+   tip: ['登顶，然后遗忘来路。']},
 
   // ===== 通达副线 Phase A：初交（3 个建筑） =====
   embassy: {
@@ -828,19 +828,19 @@ const BD = {
     p: [{ r: 'charm', b: 20, k: 1.12 }, { r: 'plank', b: 35, k: 1.12 }, { r: 'scroll', b: 6, k: 1.12 }],
     e: { renownP: .02, renownMx: 30 },
     uq: { u: { envoyBasic: 1 } }, sb: 'T',
-  },
+   tip: ['使馆门口，两国狐狸互嗅气息。']},
   receptionHall: {
     n: '迎宾堂', d: '以礼相待，广纳远客。', t: 'w',
     p: [{ r: 'plank', b: 25, k: 1.12 }, { r: 'scroll', b: 12, k: 1.12 }, { r: 'charm', b: 12, k: 1.12 }],
     e: { renownMx: 50, hapB: .015 },
     uq: { u: { credentialLore: 1 } }, sb: 'T',
-  },
+   tip: ['门常开着，茶常温着。']},
   courierPost: {
     n: '信驿', d: '信使往来不绝，信物积少成多。', t: 'w',
     p: [{ r: 'stone', b: 45, k: 1.15 }, { r: 'scroll', b: 10, k: 1.15 }, { r: 'charm', b: 15, k: 1.15 }],
     e: { credentialP: .005, renownP: .01 },
     uq: { u: { credentialLore: 1 } }, sb: 'T',
-  },
+   tip: ['狐狸学会了鸟叫来报时。']},
 
   // ===== 通达副线 Phase B：结邦（4 个建筑） =====
   charterHall: {
@@ -848,25 +848,25 @@ const BD = {
     p: [{ r: 'charm', b: 35, k: 1.15 }, { r: 'credential', b: 3, k: 1.15 }, { r: 'scroll', b: 18, k: 1.15 }],
     e: { charterP: .005, charterMx: 30 },
     uq: { u: { allianceInit: 1 } }, sb: 'T',
-  },
+   tip: ['它盖了个章。歪了。它假装那是风格。']},
   exoticVault: {
     n: '异珍阁', d: '存放来自远方的稀奇物件。', t: 'w',
     p: [{ r: 'plank', b: 30, k: 1.12 }, { r: 'credential', b: 4, k: 1.12 }, { r: 'ancCoin', b: 8, k: 1.12 }],
     e: { exoticMx: 20 },
     uq: { u: { exoticLore: 1 } }, sb: 'T',
-  },
+   tip: ['架上的东西一半叫不出名字。']},
   guestQuarter: {
     n: '远客居', d: '远方来客需要一个能安心喝茶的地方。', t: 'w',
     p: [{ r: 'plank', b: 25, k: 1.12 }, { r: 'brick', b: 15, k: 1.12 }, { r: 'charm', b: 10, k: 1.12 }],
     e: { renownP: .015, hapB: .01 },
     uq: { u: { guestLore: 1 } }, sb: 'T',
-  },
+   tip: ['没客人。它还是烧了水。万一呢？']},
   alliancePlatform: {
     n: '会盟台', d: '盟约在此缔结——每多一台，可深化一族。', t: 'w',
     p: [{ r: 'credential', b: 8, k: 1.22 }, { r: 'charter', b: 12, k: 1.22 }, { r: 'charm', b: 40, k: 1.22 }],
     e: {},
     uq: { u: { allianceLore: 1 } }, sb: 'T',
-  },
+   tip: ['击掌。']},
 };
 const JD = {
   gatherer:   { n: '采集者', d: '采集野莓',   desc: '野莓 +0.5/s；授业可提升野莓产出', e: { berryP: 1 },     on: 1, tip: ['走走走，去看看山谷今天给我们留了什么。'] },
