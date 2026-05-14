@@ -1659,7 +1659,7 @@ function rTC() {
 
     // --- 通达副线：声望面板 + 外交建筑 ---
     if (G.subBranches && G.subBranches.T) {
-      // 声望面板（声望学研究后显示）
+      // 声望面板（声誉之道研究后显示）
       if (G.upg.reputeLore?.done) {
         var reputePct = ((G._reputeBonus || 0) * 100).toFixed(1);
         var reputeCapPct = ((G._reputeCap || 0.40) * 100).toFixed(0);

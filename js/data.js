@@ -1875,7 +1875,7 @@ const UD = {
     uq: { u: { envoyBasic: 1 }, b: { embassy: 2 } }, sb: 'T',
   },
   reputeLore: {
-    n: '声望学', d: '声誉积厚之后，外交产出自然丰饶。声望由此而立，使者这门职业也出现。',
+    n: '声誉之道', d: '声誉积厚之后，外交产出自然丰饶。声望由此而立，使者这门职业也出现。',
     p: [{ r: 'lore', a: 550 }, { r: 'renown', a: 50 }, { r: 'credential', a: 3 }],
     e: {},
     uq: { u: { credentialLore: 1 }, b: { embassy: 3 } }, sb: 'T',
@@ -1901,7 +1901,7 @@ const UD = {
     uq: { u: { exoticLore: 1 }, b: { exoticVault: 2 } }, sb: 'T',
   },
   allianceLore: {
-    n: '会盟论', d: '从松散友邦到正式盟约，需要一座专门的台。会盟台可建起。',
+    n: '会盟之礼', d: '从松散友邦到正式盟约，需要一座专门的台。会盟台可建起。',
     p: [{ r: 'lore', a: 750 }, { r: 'charter', a: 25 }, { r: 'exotic', a: 5 }],
     e: {},
     uq: { u: { guestLore: 1 }, b: { guestQuarter: 2 } }, sb: 'T',
