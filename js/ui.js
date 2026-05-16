@@ -51,7 +51,7 @@ const CRAFT_GROUPS = [
   { n: '秘仪工艺', ids: ['ambrosiaDistill','gnosisFragment','apotheosisElixir'], sb: 'D', br: 'M' }];
 // §五 2.4 研究分组定义（研究页签）— 组只做视觉分组，可见性靠 G.upg[id].on
 const RESEARCH_GROUPS = [
-  { n: '启蒙习俗治理', ids: ['stoneTools','carpentry','masonry','forestLore','ironWorking','foxFolklore','spiritShelter','ancestorEye','craftMastery','beyondValley','longJourney','folkLore','calendar','engraving','artistryLore','customsDeep','ancestry','councilLore','polityLore','policyLore','branchLore'] },
+  { n: '启蒙习俗治理', ids: ['carpentry','masonry','ironWorking','foxFolklore','spiritShelter','ancestorEye','craftMastery','beyondValley','longJourney','folkLore','calendar','engraving','artistryLore','customsDeep','councilLore','polityLore','policyLore','branchLore'] },
   { n: '工业', ids: ['deepMining','steelWork','fineCraft','oilExtract','oilStorage','steamPower','combustion','assemblyLine','transmission','cleanWind','calcination','stargazing','refining','precFab','heavyBuild','systematics','rotaryKiln','alloyScience','modularEng','fission','radiantPower','shielding','superCond','mirrorForge','voidPrinciple','autoMech'] },
   { n: '灵修', ids: ['spiritSense','leylineLore','inscription','beadCraft','resonArt','specAnalysis','elixirBrew','sageWay','oracleArt','crystalize','radiant','coreCraft','formStudy','chartDraw','cosmicSpec','coreFusion','radiantVision','primordialism','silenceCryst','mirrorArt','hyperSense','spiritWeb','silenceResonance','deepLeyline','mirrorForging','voidCodexLore','spiritDrive','primordialForging'] },
   { n: '神启·初悟', ids: ['divineLore','ritualBasic','scriptureLore','graceLore'] },

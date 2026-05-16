@@ -376,7 +376,7 @@ const BD = {
     n: '祖龛', t: 'b', d: '专司祭祖的小祠堂。',
     p: [{ r: 'stone', b: 30, k: 1.12 }, { r: 'iron', b: 3, k: 1.12 }, { r: 'charm', b: 8, k: 1.12 }],
     e: { charmP: .016 },
-    uq: { b: { shrine: 3 }, u: { ancestry: 1 } },
+    uq: { b: { shrine: 3 }, u: { customsDeep: 1 } },
     tip: ['供果被看不见的牙齿细细地啃着。']
   },
 
@@ -931,13 +931,6 @@ const JD = {
 
 // ===== 研究定义 =====
 const UD = {
-  stoneTools: {
-    n: '石器之始', d: '提高采集与伐木效率。',
-    p: [{ r: 'lore', a: 8 }, { r: 'stone', a: 15 }],
-    e: { berryM: .5, woodM: .3 },
-    uq: { b: { library: 1 } },
-    tip: ['手里捏着一块石头，脑子里开始制造杠杆。']
-  },
 
 
   carpentry: {
@@ -954,19 +947,11 @@ const UD = {
     uq: { b: { library: 1, quarry: 1 } },
     tip: ['不是所有石头都愿意叠在一起，得看缘分和灰浆。', '教一群碎石表演叠罗汉，并要求它们坚持一百年。']
   },
-  forestLore: {
-    n: '林间密语', d: '（被动）大幅提升伐木效率。',
-    p: [{ r: 'lore', a: 35 }, { r: 'wood', a: 20 }],
-    e: { woodM: .5 },
-    uq: { u: { stoneTools: 1 } },
-    tip: ['老树根底下压着的，是只有狐狸听得懂的话。']
-  },
   ironWorking: {
-    n: '百炼成铁', d: '提高矿铁产出。',
-    p: [{ r: 'lore', a: 40 }, { r: 'iron', a: 5 }],
-    e: { ironM: .5 },
-    uq: { b: { smithy: 1 } },
-    tip: ['火候差一分，铁就只是块有脾气的石头。']
+    n: '百炼成铁', d: '打石为器，识木为材，再以煤火百炼——基础技艺的集成。',
+    p: [{ r: 'lore', a: 95 }, { r: 'iron', a: 5 }, { r: 'stone', a: 15 }, { r: 'wood', a: 20 }],
+    e: { berryM: .5, woodM: .8, ironM: .5 },
+    uq: { b: { library: 1, smithy: 1 } },
   },
   foxFolklore: {
     n: '狐灵传说', d: '提升符咒之力与满意度。',
@@ -1041,18 +1026,10 @@ const UD = {
     tip: ['手上活太多，终于串味了。']
   },
   customsDeep: {
-    n: '俗成共庆', d: '建起共聚堂——让山谷更会聚在一起。',
-    p: [{ r: 'lore', a: 200 }],
-    e: { hapB: .05 },
-    uq: { u: { engraving: 1 }, custom: 5 },
-    tip: ['快乐太重了，得全村一起，才抛得起来。']
-  },
-  ancestry: {
-    n: '连枝溯本', d: '祖龛可建起，祖荫祭这门习俗也立起来。',
-    p: [{ r: 'lore', a: 130 }, { r: 'ink', a: 3 }],
-    e: { charmM: .1 },
-    uq: { u: { calendar: 1 }, b: { shrine: 3 } },
-    tip: ['发现自己是无数个"过去"终于长出的"现在"。']
+    n: '俗成共庆', d: '共聚堂建起，宗脉溯源——山谷在习俗与血脉中聚拢。',
+    p: [{ r: 'lore', a: 330 }, { r: 'ink', a: 3 }],
+    e: { hapB: .05, charmM: .1 },
+    uq: { u: { engraving: 1, calendar: 1 }, b: { shrine: 1 } },
   },
   // ===== v0.16 政体研究 =====
   councilLore: {
@@ -5719,7 +5696,7 @@ const CUSTD = [
     tip: ['这团火比所有活着的狐狸年纪都大。']
   },
   { id: 'ancestorRite', n: '祖荫祭',
-    unlock: { u: ['ancestry'], b: { ancestor: 1 } },
+    unlock: { u: ['customsDeep'], b: { ancestor: 1 } },
     cost: [{ r: 'ink', a: 2 }, { r: 'ancCoin', a: 30 }],
     desc: '灵狐祠符咒额外 +5%（与守夜传统叠加）。',
     tip: ['先祖未必在听，但念名字的时候最好假装它们在。']
