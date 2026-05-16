@@ -38,8 +38,7 @@ const BLD_GROUPS = [
   { n: '治理设施', ids: ['councilHall','polityHall'] },
   { n: '工业设施', ids: ['mine','blastFurnace','chimney','purifier','steelVault','oilWell','oilTank','steamEngine','combustEngine','factory','railroad','windTower','calcFurnace','refinery','observatory','cleanForest','titanVault'], br: 'I' },
   { n: '灵修设施', ids: ['spiritWell','spiritTower','quietRoom','leyArray','resonTower','elixirBrewery','shapeHall','oracleHall','calmGrove'], br: 'M' },
-  { n: '外交设施', ids: ['embassy','receptionHall','courierPost','charterHall','exoticVault','guestQuarter','alliancePlatform'], sb: 'T' },
-];
+  { n: '外交设施', ids: ['embassy','receptionHall','courierPost','charterHall','exoticVault','guestQuarter','alliancePlatform'], sb: 'T' }];
 const BLD_GROUPS_V = [];
 // §五 2.4 工坊分组定义
 const CRAFT_GROUPS = [
@@ -49,18 +48,16 @@ const CRAFT_GROUPS = [
   { n: '灵修工艺', ids: ['fateSilk','bead','spiritInk','sigil','resonance','elixir','spectrum','insight'], br: 'M' },
   { n: '外交工艺', ids: ['makeCredential','makeCharter','makeExotic','charterToCredential'], sb: 'T' },
   { n: '教团工艺', ids: ['holyFlameCraft','holyIronCraft','holyWater','edictScroll','holyGear'], sb: 'D', br: 'I' },
-  { n: '秘仪工艺', ids: ['ambrosiaDistill','gnosisFragment','apotheosisElixir'], sb: 'D', br: 'M' },
-];
+  { n: '秘仪工艺', ids: ['ambrosiaDistill','gnosisFragment','apotheosisElixir'], sb: 'D', br: 'M' }];
 // §五 2.4 研究分组定义（研究页签）— 组只做视觉分组，可见性靠 G.upg[id].on
 const RESEARCH_GROUPS = [
   { n: '启蒙习俗治理', ids: ['stoneTools','carpentry','masonry','forestLore','ironWorking','foxFolklore','spiritShelter','ancestorEye','craftMastery','beyondValley','longJourney','folkLore','calendar','engraving','artistryLore','customsDeep','ancestry','councilLore','polityLore','policyLore','branchLore'] },
   { n: '工业', ids: ['deepMining','steelWork','fineCraft','forging','concreteTech','pollControl','oilExtract','oilStorage','steamPower','combustion','blueprintLore','assemblyLine','transmission','roadwork','cleanWind','oilGas','calcination','stargazing','refining','precFab','heavyBuild','systematics','rotaryKiln','fluidMech','alloyScience','modularEng','automation','telescopeAdv','fission','radiantPower','particle','shielding','proliferation','thoriumConv','superCond','mirrorForge','voidPrinciple','radiation','autoMech','powerNet','deepRadiance'] },
-  { n: '灵修', ids: ['spiritSense','leylineLore','silkWeave','inscription','pureMind','beadCraft','resonArt','specAnalysis','elixirBrew','shapeBasic','sageWay','oracleArt','calmMind','leyExpand','crystalize','radiant','coreCraft','formStudy','chartDraw','spiritGrid','deepReson','cosmicSpec','pureRadiance','coreFusion','radiantVision','starSense','primordialism','silenceCryst','mirrorArt','hyperSense','spiritWeb','voidLore','primordialDrive','silenceResonance','deepLeyline','mirrorForging','voidCodexLore','spiritDrive','silenceField','spiritPactLore','silentPurity','primordialForging','mirrorSpiritFocus','voidCodexCompile'] },
+  { n: '灵修', ids: ['spiritSense','leylineLore','inscription','beadCraft','resonArt','specAnalysis','elixirBrew','sageWay','oracleArt','crystalize','radiant','coreCraft','formStudy','chartDraw','spiritGrid','deepReson','cosmicSpec','pureRadiance','coreFusion','radiantVision','starSense','primordialism','silenceCryst','mirrorArt','hyperSense','spiritWeb','voidLore','primordialDrive','silenceResonance','deepLeyline','mirrorForging','voidCodexLore','spiritDrive','silenceField','spiritPactLore','silentPurity','primordialForging','mirrorSpiritFocus','voidCodexCompile'] },
   { n: '神启·初悟', ids: ['divineLore','ritualBasic','scriptureLore','graceLore'] },
   { n: '神启·教团', ids: ['holyFlameLore','edictLore','holyWorkLore','judgmentLore','holyIronLore','churchArchLore','hymnArt','templeStudy','crusadeLore','relicLore','scriptureCompile','doctrineSystem','holyLandReclaim'] },
   { n: '神启·秘仪', ids: ['mysteryInit','groveLore','apotheosisLore','forbiddenLore','ascensionLore','pureMindLore','divineInkArt','prophecyArt','etherealLore','apotheosisRite','forbiddenCompile','divineInkRefining','futureSight','ascensionTransform'] },
-  { n: '通达', ids: ['envoyBasic','credentialLore','reputeLore','allianceInit','exoticLore','guestLore','allianceLore','deepAlliancePrelude'] },
-];
+  { n: '通达', ids: ['envoyBasic','credentialLore','reputeLore','allianceInit','exoticLore','guestLore','allianceLore','deepAlliancePrelude'] }];
 
 function toggleCollapse(key) {
   collapsed[key] = !collapsed[key];
@@ -1137,8 +1134,7 @@ function renderBldList(tab) {
     var chipDef = [
       { k: 'all', n: '全部' },
       { k: 'buildable', n: '可建造' },
-      { k: 'built', n: '已建' },
-    ];
+      { k: 'built', n: '已建' }];
     h += '<div class="bld-filter">';
     for (var ci = 0; ci < chipDef.length; ci++) {
       var c = chipDef[ci];
@@ -1296,8 +1292,7 @@ function rTC() {
     var gatherBtns = [
       { key: 'berry', label: '采集野莓', onclick: "gather('berry')" },
       { key: 'wood',  label: '拾取圆木', onclick: "gather('wood')" },
-      { key: 'stone', label: '捡拾碎石', onclick: "gather('stone')" },
-    ];
+      { key: 'stone', label: '捡拾碎石', onclick: "gather('stone')" }];
     for (var gi = 0; gi < gatherBtns.length; gi++) {
       var gb = gatherBtns[gi];
       var sec = { tip: pickTip('gather_' + gb.key, GATHER_TIP[gb.key]) };

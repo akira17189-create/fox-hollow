@@ -544,7 +544,7 @@ const BD = {
     n: '静室', t: 'b', d: '用沉默对抗躁动——每座静室将躁念惩罚的起点推远一些。', br: 'M',
     p: [{ r: 'plank', b: 20, k: 1.12 }, { r: 'leather', b: 15, k: 1.12 }, { r: 'charm', b: 30, k: 1.12 }],
     e: { unrestThresh: 50 },
-    uq: { u: { pureMind: 1 } },
+    uq: { u: { beadCraft: 1 } },
     tip: ['门关上之后，安静本身就开始工作了。']
   },
   leyArray: {
@@ -571,7 +571,7 @@ const BD = {
     n: '化形殿', t: 'b', d: '灵流在此凝聚为形体——化形之道由此开启，深耗灵脉。', br: 'M',
     p: [{ r: 'fateSilk', b: 15, k: 1.15 }, { r: 'sigil', b: 8, k: 1.15 }, { r: 'spectrum', b: 3, k: 1.15 }],
     e: { leylineC: 2, unrestP: .03 },
-    uq: { u: { shapeBasic: 1 } },
+    uq: { u: { oracleArt: 1 } },
    tip: ['灵流聚成人形，站了一息，又散开。']},
   oracleHall: {
     n: '通灵阁', t: 'b', d: '在沉静中聆听灵脉的低语——持续产出悟片。', br: 'M',
@@ -583,7 +583,7 @@ const BD = {
     n: '净念林', t: 'b', d: '古树与灵泉共鸣——消解躁念，回归安宁。', br: 'M',
     p: [{ r: 'wood', b: 100, k: 1.12 }, { r: 'spiritInk', b: 8, k: 1.12 }, { r: 'sigil', b: 3, k: 1.12 }],
     e: { unrestP: -.04 },
-    uq: { u: { calmMind: 1 } },
+    uq: { u: { oracleArt: 1 } },
    tip: ['落叶堆得很厚，踩上去没有声音。']},
 
   // ===== 灵修分支 C阶段建筑（5 个） =====
@@ -1353,13 +1353,6 @@ const UD = {
     uq: { u: { spiritSense: 1 }, b: { spiritWell: 2 } },
     tip: ['脚下的路不止一条，有些只有蹲下来才看得见。']
   },
-  silkWeave: {
-    n: '丝织', d: '命丝可以纺成墨——能写下灵脉记忆的墨。', br: 'M',
-    p: [{ r: 'lore', a: 300 }, { r: 'spirit', a: 20 }],
-    e: {},
-    uq: { u: { leylineLore: 1 } },
-    tip: ['织出的第一滴墨会自己爬上纸——这很正常，不用怕。']
-  },
   inscription: {
     n: '铭刻', d: '将灵脉的纹路刻进石头——石头会记住。', br: 'M',
     p: [{ r: 'lore', a: 500 }, { r: 'spirit', a: 8 }, { r: 'fateSilk', a: 3 }],
@@ -1367,44 +1360,30 @@ const UD = {
     uq: { u: { leylineLore: 1 } },
     tip: ['命丝织入石刻，符纹才能活——石头说它从来都记得，只是没人问过它。']
   },
-  pureMind: {
-    n: '净心', d: '灵修之路的代价——学会平息内心的躁念。', br: 'M',
-    p: [{ r: 'lore', a: 280 }, { r: 'charm', a: 50 }],
-    e: {},
-    uq: { u: { leylineLore: 1 } },
-    tip: ['安静是一门手艺，需要比喧嚣更大的力气。']
-  },
   beadCraft: {
-    n: '念珠', d: '把灵能凝成珠子，一颗装一个念头——刚好够用。', br: 'M',
-    p: [{ r: 'lore', a: 250 }, { r: 'spirit', a: 15 }],
+    n: '念珠', d: '把灵能凝成珠子，一颗装一个念头。',
+    p: [{ r: 'lore', a: 830 }, { r: 'spirit', a: 35 }, { r: 'charm', a: 50 }],
     e: { beadU: 1 },
-    uq: { u: { leylineLore: 1 } },
-    tip: ['拨到第七颗的时候，第一颗开始回忆。']
+    uq: { u: { leylineLore: 1 } }, br: 'M',
   },
   // ===== 灵修分支 B阶段研究 =====
   resonArt: {
     n: '共鸣', d: '让灵脉的节律与自身共振——共振子诞生的起点。', br: 'M', phase: 3,
     p: [{ r: 'lore', a: 400 }, { r: 'spirit', a: 50 }, { r: 'fateSilk', a: 10 }],
     e: { resonanceU: 1 },
-    uq: { u: { silkWeave: 1 }, b: { spiritTower: 2 } },
+    uq: { u: { beadCraft: 1 }, b: { spiritTower: 2 } },
   },
   specAnalysis: {
-    n: '谱析', d: '将共振子的振动分解为可见的谱——谱石诞生。', br: 'M', phase: 3,
-    p: [{ r: 'lore', a: 450 }, { r: 'resonance', a: 5 }, { r: 'fateSilk', a: 15 }],
+    n: '谱析', d: '将共振子的振动分解为可见的谱——谱石诞生。',
+    p: [{ r: 'lore', a: 950 }, { r: 'resonance', a: 13 }, { r: 'fateSilk', a: 15 }, { r: 'sigil', a: 10 }],
     e: { spectrumU: 1 },
-    uq: { u: { resonArt: 1 } },
+    uq: { u: { resonArt: 1 }, b: { resonTower: 1 } }, br: 'M', phase: 3,
   },
   elixirBrew: {
     n: '灵酿', d: '灵能与野莓在沉默中融合——第一滴灵液诞生。', br: 'M', phase: 3,
     p: [{ r: 'lore', a: 400 }, { r: 'spirit', a: 40 }, { r: 'fateSilk', a: 8 }],
     e: { elixirU: 1 },
     uq: { u: { resonArt: 1 } },
-  },
-  shapeBasic: {
-    n: '塑形', d: '灵流不只是力量，也是形状——学会用灵流塑形。', br: 'M', phase: 3,
-    p: [{ r: 'lore', a: 500 }, { r: 'resonance', a: 10 }, { r: 'spectrum', a: 3 }],
-    e: {},
-    uq: { u: { elixirBrew: 1 }, b: { elixirBrewery: 2 } },
   },
   sageWay: {
     n: '聆灵', d: '在安静中听到灵脉说话——那是悟道的第一步。', br: 'M', phase: 3,
@@ -1413,22 +1392,10 @@ const UD = {
     uq: { u: { resonArt: 1 }, b: { resonTower: 2 } },
   },
   oracleArt: {
-    n: '通灵', d: '悟片是灵脉留下的碎语——学会收集与解读。', br: 'M', phase: 3,
-    p: [{ r: 'lore', a: 500 }, { r: 'insight', a: 5 }, { r: 'fateSilk', a: 20 }],
+    n: '通灵', d: '悟片是灵脉留下的碎语——学会收集与解读。',
+    p: [{ r: 'lore', a: 1350 }, { r: 'insight', a: 5 }, { r: 'fateSilk', a: 20 }, { r: 'resonance', a: 10 }, { r: 'spectrum', a: 3 }, { r: 'charm', a: 60 }, { r: 'spirit', a: 30 }],
     e: {},
-    uq: { u: { sageWay: 1 } },
-  },
-  calmMind: {
-    n: '净念', d: '躁念不是敌人——它只是灵流太急时溢出的声音。', br: 'M', phase: 3,
-    p: [{ r: 'lore', a: 350 }, { r: 'charm', a: 60 }, { r: 'spirit', a: 30 }],
-    e: {},
-    uq: { u: { pureMind: 1 }, b: { quietRoom: 2 } },
-  },
-  leyExpand: {
-    n: '拓脉', d: '灵脉不是固定的管道——它可以被拓宽。', br: 'M', phase: 3,
-    p: [{ r: 'lore', a: 500 }, { r: 'resonance', a: 8 }, { r: 'sigil', a: 10 }],
-    e: {},
-    uq: { u: { resonArt: 1 }, b: { resonTower: 3 } },
+    uq: { u: { sageWay: 1, elixirBrew: 1, beadCraft: 1 }, b: { elixirBrewery: 1, quietRoom: 1 } }, br: 'M', phase: 3,
   },
 
   // ===== 灵修分支 C阶段研究（12 个） =====
@@ -2039,7 +2006,7 @@ const CD = {
     n: '命丝', d: '符咒+灵能 → 命丝',
     inp: [{ r: 'charm', a: 8 }, { r: 'spirit', a: 3 }],
     out: [{ r: 'fateSilk', a: 1 }],
-    uq: { u: { silkWeave: 1 } },
+    uq: { u: { beadCraft: 1 } },
     br: 'M',
     tip: ['命丝是哄出来的——纺机做不到这件事，你得让灵能相信自己想变成线。']
   },
@@ -3068,7 +3035,7 @@ const UPGD = {
     n: '感应凝聚', d: '感应者产出+30%', br: 'M',
     p: [{ r: 'spirit', a: 40 }, { r: 'fateSilk', a: 5 }],
     e: { jobM: { spiritSenser: 0.3 } },
-    uq: { u: { silkWeave: 1 } },
+    uq: { u: { beadCraft: 1 } },
     tip: ['闭眼之前深呼吸，灵流就知道该往哪走了。']
   },
   // #6 灵泉涌流：灵泉产出 +30%（与#1加法叠加）
@@ -3084,7 +3051,7 @@ const UPGD = {
     n: '丝韧化', d: '命丝配方产出+1', br: 'M',
     p: [{ r: 'fateSilk', a: 15 }, { r: 'spirit', a: 50 }],
     e: { craftM: { fateSilk: { outMul: 1.0 } } },
-    uq: { u: { silkWeave: 1 } },
+    uq: { u: { beadCraft: 1 } },
     tip: ['拉到断之前松手——命丝就学会了韧性。']
   },
   // #8 脉稳：聚灵阵灵脉 +0.5/座（特殊效果，引擎 calcLeyline 读取）
@@ -3140,7 +3107,7 @@ const UPGD = {
     n: '灵泉引流', d: '灵泉躁念-50%', br: 'M',
     p: [{ r: 'spirit', a: 50 }, { r: 'charm', a: 30 }],
     e: { _unrestReduce: { spiritWell: -0.5 } },
-    uq: { u: { pureMind: 1 } },
+    uq: { u: { beadCraft: 1 } },
     tip: ['把泉水引到静室旁边，躁动就被安静吸走了一半。']
   },
   // #15 感应远距：感应者产出受满意度额外×1.2（特殊效果，引擎 calcR 读取）
@@ -3148,7 +3115,7 @@ const UPGD = {
     n: '感应远距', d: '感应者产出×满意度×1.2', br: 'M',
     p: [{ r: 'spirit', a: 60 }, { r: 'fateSilk', a: 8 }],
     e: { _happyJobBonus: { spiritSenser: 0.2 } },
-    uq: { u: { silkWeave: 1 }, b: { spiritWell: 3 } },
+    uq: { u: { beadCraft: 1 }, b: { spiritWell: 3 } },
     tip: ['距离不是障碍——闭上眼，灵流自己会过来。']
   },
   // #16 聚灵阵联：每3座聚灵阵额外灵脉+1（特殊效果，引擎 calcLeyline 读取）
@@ -3239,7 +3206,7 @@ const UPGD = {
     n: '化形延时', d: '化形·灵狐持续+1季', br: 'M',
     p: [{ r: 'elixir', a: 3 }, { r: 'resonance', a: 20 }],
     e: { _shapeExtend: 1 },
-    uq: { u: { shapeBasic: 1 } },
+    uq: { u: { oracleArt: 1 } },
   },
   // #28 悟语深解：悟语效果 40%→55%
   sageDeep: {
@@ -3267,7 +3234,7 @@ const UPGD = {
     n: '净念林深根', d: '净念林躁念消除+50%', br: 'M',
     p: [{ r: 'elixir', a: 2 }, { r: 'fateSilk', a: 20 }],
     e: { _unrestReduce: { calmGrove: -0.5 } },
-    uq: { u: { calmMind: 1 } },
+    uq: { u: { oracleArt: 1 } },
   },
   // #32 悟者远思：悟者产出 +40%
   sageDistant: {
@@ -3309,35 +3276,35 @@ const UPGD = {
     n: '灵脉扩流', d: '聚灵阵灵脉+1/座', br: 'M',
     p: [{ r: 'resonance', a: 15 }, { r: 'sigil', a: 12 }],
     e: { _leyBonus: { leyArray: 1 } },
-    uq: { u: { leyExpand: 1 } },
+    uq: { u: { specAnalysis: 1 } },
   },
   // #38 共振塔减耗：共振塔灵能消耗 -30%
   resonEfficiency: {
     n: '共振塔减耗', d: '共振塔灵能消耗-30%', br: 'M',
     p: [{ r: 'resonance', a: 12 }, { r: 'spectrum', a: 5 }],
     e: { _spiritConsReduce: { resonTower: 0.3 } },
-    uq: { u: { leyExpand: 1 } },
+    uq: { u: { specAnalysis: 1 } },
   },
   // #39 化形殿减负：化形殿灵脉消耗 -1（2→1）
   shapeBurden: {
     n: '化形殿减负', d: '化形殿灵脉消耗-1', br: 'M',
     p: [{ r: 'elixir', a: 3 }, { r: 'resonance', a: 15 }],
     e: { _leyCostReduce: { shapeHall: 1 } },
-    uq: { u: { shapeBasic: 1 } },
+    uq: { u: { oracleArt: 1 } },
   },
   // #40 通灵阁宁：通灵阁躁念 -50%
   oracleCalm: {
     n: '通灵阁宁', d: '通灵阁躁念-50%', br: 'M',
     p: [{ r: 'insight', a: 8 }, { r: 'elixir', a: 2 }],
     e: { _unrestReduce: { oracleHall: -0.5 } },
-    uq: { u: { calmMind: 1 } },
+    uq: { u: { oracleArt: 1 } },
   },
   // #41 灵织延续：灵织灵术持续 +1季（预支C阶段）
   spiritWeaveExt: {
     n: '灵织延续', d: '灵织灵术持续+1季', br: 'M',
     p: [{ r: 'resonance', a: 20 }],
     e: { _spellDuration: { spiritWeave: 1 } },
-    uq: { u: { leyExpand: 1 } },
+    uq: { u: { specAnalysis: 1 } },
   },
   // #42 自酿循环：灵液配方受灵酿坊加成 ×2
   selfBrew: {
@@ -3351,7 +3318,7 @@ const UPGD = {
     n: '灵能集中', d: '灵脉充足时灵能建筑+10%', br: 'M',
     p: [{ r: 'resonance', a: 15 }, { r: 'spirit', a: 120 }],
     e: { _leyFullBonus: 0.1 },
-    uq: { u: { leyExpand: 1 } },
+    uq: { u: { specAnalysis: 1 } },
   },
   // #44 织丝远行：织丝人产出影响远行奖励 +15%（跨系统）
   silkAdventure: {
@@ -3386,7 +3353,7 @@ const UPGD = {
     n: '化形路途', d: '化形期间远行时间-30%', br: 'M',
     p: [{ r: 'elixir', a: 4 }, { r: 'fateSilk', a: 30 }],
     e: { _shapeExpTime: -0.3 },
-    uq: { u: { shapeBasic: 1 } },
+    uq: { u: { oracleArt: 1 } },
   },
 
   // ===== 灵修分支 C阶段升级 #49-78 =====
@@ -4753,7 +4720,7 @@ const SD = {
     cost: [{ r: 'fateSilk', a: 2 }],
     cooldown: 300, // 60s = 300 tick
     br: 'M',
-    uq: { u: { silkWeave: 1 } },
+    uq: { u: { beadCraft: 1 } },
     tip: ['命丝搅进染缸里，出来的东西连配方都没见过。']
   },
 
@@ -4770,7 +4737,7 @@ const SD = {
     cost: [{ r: 'elixir', a: 1 }, { r: 'spirit', a: 15 }],
     cooldown: 600, // 120s = 600 tick
     br: 'M',
-    uq: { u: { shapeBasic: 1 } },
+    uq: { u: { oracleArt: 1 } },
    tip: ['皮毛下藏着谁的爪子？']},
   sageUtter: {
     n: '悟语', d: '下一个研究花费 -40%',
@@ -4784,7 +4751,7 @@ const SD = {
     cost: [{ r: 'elixir', a: 1 }, { r: 'charm', a: 5 }],
     cooldown: 225, // 45s
     br: 'M',
-    uq: { u: { calmMind: 1 } },
+    uq: { u: { oracleArt: 1 } },
    tip: ['烦。烦。烦。……哦，不烦了。']},
 
   // ===== 灵修 C 阶段灵术 =====
